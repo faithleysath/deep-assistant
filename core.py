@@ -17,6 +17,7 @@ class EventManager:
             for event_type, handler, priority in sorted(cls.handlers, key=lambda x: x[2]):
                 if isinstance(event, event_type):
                     loop.create_task(handler(event))
+                    print(f'[EventManager] Dispatched event: {event} to {handler}')
 
     @classmethod
     def register(cls, event_type: Type[Event], priority: int = 0):
