@@ -6,6 +6,7 @@ class Condition:
     pass
 
 class Event:
+    """Event is a base class for all events"""
     def __init__(self, **raw_data):
         self.raw_data = raw_data
         self.time = raw_data.get('time', time.time())
