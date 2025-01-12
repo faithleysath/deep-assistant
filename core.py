@@ -14,4 +14,8 @@ class EventManager:
             print(f'Got event: {event}')
 
     @classmethod
-    def register(cls, event_type: Type
+    def register(cls, event_type: Type[Event]):
+        def decorator(handler):
+            cls.handlers.append((event_type, handler))
+            return handler
+        return decorator
