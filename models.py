@@ -11,3 +11,4 @@ class Event:
         self.raw_data = raw_data
         self.time = raw_data.get('time', time.time())
         self.id = raw_data.get('id', uuid.uuid4())
+        self.status = raw_data.get('status', 'pending')
