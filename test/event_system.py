@@ -1,5 +1,5 @@
-from core import EventManager
-from models import DownloadEvent
+from ..core import EventManager
+from ..models import DownloadEvent
 import asyncio
 
 @EventManager.register()
