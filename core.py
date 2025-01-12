@@ -16,6 +16,6 @@ class EventManager:
     @classmethod
     def register(cls, event_type: Type[Event], priority: int = 0):
         def decorator(handler):
-            cls.handlers.append((event_type, handler))
+            cls.handlers.append((event_type, handler, priority))
             return handler
         return decorator
