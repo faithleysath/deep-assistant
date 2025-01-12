@@ -21,6 +21,13 @@ class EventManager:
         while True:
             event = await cls.immediate_events.get()
             await cls.execute_event(event)
+    
+    @classmethod
+    async def run_delayed(cls):
+        while True:
+            event = await cls.delayed_events.get()
+            await cls.execute_event(event)
+            await asyncio.sleep(1)
 
     @classmethod
     async def execute_event(cls, event: Event):
