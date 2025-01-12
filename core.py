@@ -14,10 +14,14 @@ class EventManager:
         while True:
             event = await cls.events.get()
             print(f'[EventManager] Got event: {event}')
-            for event_type, handler, priority in sorted(cls.handlers, key=lambda x: x[2]):
-                if isinstance(event, event_type):
-                    loop.create_task(handler(event))
-                    print(f'[EventManager] Dispatched event: {event} to {handler}')
+            loop.create_task(cls.execute_event(event))
+
+    @classmethod
+    async def execute_event(cls, event: Event):
+        for event_type, handler, priority in sorted(cls.handlers, key=lambda x: x[2]):
+            if isinstance(event, event_type):
+                loop.create_task(handler(event))
+                print(f'[EventManager] Dispatched event: {event} to {handler}')
 
     @classmethod
     def register(cls, event_type: Type[Event], priority: int = 0):
