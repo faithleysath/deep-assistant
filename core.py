@@ -1,4 +1,6 @@
 import asyncio
+from typing import Type
+from .models import Event
 
 class EventManager:
     
@@ -10,3 +12,6 @@ class EventManager:
         while True:
             event = await cls.events.get()
             print(f'Got event: {event}')
+
+    @classmethod
+    def register(cls, event_type: Type
