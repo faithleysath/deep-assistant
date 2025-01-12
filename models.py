@@ -1,6 +1,10 @@
 import time
 import uuid
 
+class Condition:
+    """Condition is a base class for all conditions"""
+    pass
+
 class Event:
     def __init__(self, **raw_data):
         self.raw_data = raw_data
