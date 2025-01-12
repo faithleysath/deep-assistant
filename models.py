@@ -1,5 +1,6 @@
 import time
 import uuid
+import datetime
 
 class Condition:
     """Condition is a base class for all conditions"""
@@ -14,3 +15,6 @@ class Event:
         self.status = raw_data.get('status', 'pending')
         self.name = raw_data.get('name', 'untitled')
         self.summary = raw_data.get('summary', 'no summary')
+
+    def __str__(self):
+        return f'{}
