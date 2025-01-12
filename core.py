@@ -25,3 +25,11 @@ class EventManager:
             cls.handlers.append((event_type, handler, priority))
             return handler
         return decorator
+    
+    @classmethod
+    def register(cls, priority: int = 0):
+        def decorator(handler):
+            # read the event type from the handler annotation
+            event_type = handler.__annotations__['event']
+            cls.handlers.append((event_type, handler, priority))
+        return decorator
