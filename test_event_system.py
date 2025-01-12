@@ -8,11 +8,15 @@ async def handle_download(event: DownloadEvent):
     await asyncio.sleep(10)
     print(f'[handle_download] Downloaded {event.url} to {event.path}')
 
+async def get_user_input(prompt: str) -> str:
+    # 在单独的线程中运行 input() 以避免阻塞事件循环
+    return await asyncio.to_thread(input, prompt)
+
 async def main():
     while True:
         # read from user input
-        url = input('Enter URL: ')
-        path = input('Enter path: ')
+        url = await get_user_input('Enter URL: ')
+        path = await get_user_input('Enter path: ')
         event = DownloadEvent(url=url, path=path)
         await EventManager.events.put(event)
 
