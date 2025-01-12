@@ -2,6 +2,8 @@ import asyncio
 from typing import Type
 from .models import Event
 
+loop = asyncio.get_event_loop()
+
 class EventManager:
     
     events = asyncio.Queue()
@@ -11,7 +13,10 @@ class EventManager:
     async def run(cls):
         while True:
             event = await cls.events.get()
-            print(f'Got event: {event}')
+            print(f'[EventManager] Got event: {event}')
+            for event_type, handler, priority in sorted(cls.handlers, key=lambda x: x[2]):
+                if isinstance(event, event_type):
+                    await handler(event)
 
     @classmethod
     def register(cls, event_type: Type[Event], priority: int = 0):
