@@ -37,5 +37,3 @@ class DownloadEvent(Event):
         self.url = raw_data.get('url', 'unknown')
         if self.path == 'unknown' or self.url == 'unknown':
             self.status = EventStatus.DEPRECATED
-
-    

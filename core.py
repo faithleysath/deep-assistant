@@ -1,6 +1,6 @@
 import asyncio
 from typing import Type
-from .models import Event
+from models import Event
 
 loop = asyncio.get_event_loop()
 
