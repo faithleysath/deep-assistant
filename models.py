@@ -18,7 +18,7 @@ class Event:
         self.raw_data = raw_data
         self.time = raw_data.get('time', time.time())
         self.id = raw_data.get('id', uuid.uuid4())
-        self.status = raw_data.get('status', 'pending')
+        self.status = EventStatus(raw_data.get('status', 'pending'))
         self.name = raw_data.get('name', 'untitled')
         self.summary = raw_data.get('summary', 'no summary')
         self.creator = raw_data.get('creator', 'unknown')
