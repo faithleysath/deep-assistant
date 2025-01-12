@@ -1,9 +1,8 @@
 import asyncio
 
 class EventManager:
-    def __init__(self):
-        self.events = asyncio.Queue()
-        self.handlers = []
+    events = asyncio.Queue()
+    handlers = []
 
     async def run(self):
         while True:
