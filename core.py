@@ -1,6 +1,7 @@
 import asyncio
 
 class EventManager:
+    
     events = asyncio.Queue()
     handlers = []
 
