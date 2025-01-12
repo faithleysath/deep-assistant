@@ -1,3 +1,4 @@
+from enum import Enum
 import time
 import uuid
 import datetime
@@ -5,6 +6,11 @@ import datetime
 class Condition:
     """Condition is a base class for all conditions"""
     pass
+
+class EventStatus(Enum):
+    PENDING = 'pending'
+    COMPLETE = 'complete'
+    DEPRECATED = 'deprecated'
 
 class Event:
     """Event is a base class for all events"""
@@ -31,3 +37,4 @@ class DownloadEvent(Event):
         self.url = raw_data.get('url', 'unknown')
         if self.path == 'unknown' or self.url == 'unknown':
             self.status = 'deprecated'
+    
