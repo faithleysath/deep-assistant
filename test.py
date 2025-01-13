@@ -274,7 +274,7 @@ User: "My favorite genres are sci-fi and action, do you like it?"
 - after store, you can answer the user's question.
 
 User: "I have a cat named Whiskers, do you like it?"
-- Store this as `user.pets: {"cat": "Whiskers"}`.
+- Store this as `user.pets: "cat": "Whiskers"`.
 - after store, you can answer the user's question.
 
 You must force yourself to remember as much user information as possible. This includes their past actions, current actions, future plans, preferences, experiences, etc.  
