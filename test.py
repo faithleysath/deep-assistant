@@ -268,9 +268,8 @@ def chat():
 
         # 更新 messages[0] 为当前记忆概览
         memory_summary = memory_manager.get_summary()
-        print(f"Memory Summary: {json.dumps(memory_summary, indent=4, ensure_ascii=False)}")
         current_time = datetime.now().isoformat()
-        messages[0] = {"role": "system", "content": prompt.format(current_time=current_time, memory_summary=json.dumps(memory_summary, indent=4, ensure_ascii=False))}
+        messages[0] = {"role": "system", "content": prompt.format(current_time=current_time, current_time=json.dumps(memory_summary, indent=4, ensure_ascii=False))}
 
         # 添加用户输入到消息历史
         messages.append({"role": "user", "content": user_input})
