@@ -1,9 +1,8 @@
-import asyncio
 import websockets
 import json
 
 # WebSocket 客户端逻辑
-async def listen():
+async def listen_message():
     # 连接到 WebSocket 服务器
     async with websockets.connect("ws://192.168.137.199:3001/") as websocket:
         print("已连接到 WebSocket 服务器 ws://192.168.137.199:3001/")
@@ -18,9 +17,3 @@ async def listen():
                     print(data['message']) 
         except websockets.ConnectionClosed:
             print("连接已关闭")
-
-
-# 运行客户端
-loop = asyncio.new_event_loop()
-loop.run_until_complete(listen())
-print("客户端已关闭")
