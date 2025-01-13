@@ -17,7 +17,6 @@ def send_messages(messages, tools={}):
         messages=messages,
         tools=tools
     )
-    print(response)
     return response.choices[0].message
 
 
