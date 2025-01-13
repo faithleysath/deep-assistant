@@ -22,5 +22,11 @@
         "value": "不要温和地走进那个良夜",
         "created_at": "2025-01-13T22:24:39.545035",
         "modified_at": "2025-01-13T22:24:39.545035"
+    },
+    "user.favorite_composers": {
+        "key": "user.favorite_composers",
+        "value": "汉斯·季默",
+        "created_at": "2025-01-13T22:25:12.266700",
+        "modified_at": "2025-01-13T22:25:12.266700"
     }
 }
