@@ -1,0 +1,14 @@
+{
+    "user.name": {
+        "key": "user.name",
+        "value": "吴天一",
+        "created_at": "2025-01-13T20:36:22.663996",
+        "modified_at": "2025-01-13T20:36:22.663996"
+    },
+    "user.preferences": {
+        "key": "user.preferences",
+        "value": "{}",
+        "created_at": "2025-01-13T20:36:24.030221",
+        "modified_at": "2025-01-13T20:36:24.030221"
+    }
+}
