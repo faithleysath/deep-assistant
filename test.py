@@ -263,15 +263,19 @@ Before answering the user's question, check if there is any new information to s
 For example:
 User: "I watched Inception last week, do you like it?"
 - Store this as `user.watched_movies: ["Inception"]`.
+- after store, you can answer the user's question.
 
 User: "I also watched Interstellar, do you like it?"
 - Update this as `user.watched_movies: ["Inception", "Interstellar"]`.
+- after store, you can answer the user's question.
 
 User: "My favorite genres are sci-fi and action, do you like it?"
 - Store this as `user.favorite_genres: {"sci-fi", "action"}`.
+- after store, you can answer the user's question.
 
 User: "I have a cat named Whiskers, do you like it?"
 - Store this as `user.pets: {"cat": "Whiskers"}`.
+- after store, you can answer the user's question.
 
 You must force yourself to remember as much user information as possible. This includes their past actions, current actions, future plans, preferences, experiences, etc.  
 Each time, call `add_memory` or `update_memory` to store user information, unless there is no more information to store.  
