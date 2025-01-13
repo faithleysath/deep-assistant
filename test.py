@@ -108,8 +108,8 @@ class MemoryManager:
                     self.memories[key] = Memory(
                         key=data["key"],
                         value=data["value"],
-                        created=data.get("created_at"),
-                        modified=data.get("modified_at")
+                        created_at=data.get("created_at"),
+                        modified_at=data.get("modified_at")
                     )
             logging.info(f"Memories loaded from {self.file_path}")
         except FileNotFoundError:
