@@ -7,8 +7,12 @@
     },
     "user.movie_preferences": {
         "key": "user.movie_preferences",
-        "value": "action, comedy, sci-fi",
+        "value": [
+            "action, comedy, sci-fi",
+            "星际穿越",
+            "盗梦空间"
+        ],
         "created_at": "2025-01-13T22:18:42.567830",
-        "modified_at": "2025-01-13T22:18:42.567830"
+        "modified_at": "2025-01-13T22:19:00.253347"
     }
 }
