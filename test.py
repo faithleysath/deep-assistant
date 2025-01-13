@@ -186,17 +186,7 @@ Here is your current memory summary:
    - If the user provides new information that is useful for future interactions, call the `add_or_update_memory` tool to store it.
    - **Formatting guidelines for memories:**
      - **Key naming:** Use descriptive and hierarchical keys to organize memories. For example, `user.preferences.favorite_color` or `tasks.completed.shopping_list`.
-     - **Structured data:** If the memory contains structured data (e.g., lists, dictionaries, or nested information), store it as a JSON object under a single key. For example:
-       ```json
-       {
-         "user": {
-           "preferences": {
-             "favorite_color": "blue",
-             "hobbies": ["reading", "hiking"]
-           }
-         }
-       }
-       ```
+     - **Structured data:** If the memory contains structured data (e.g., lists, dictionaries, or nested information), store it as a JSON object under a single key.
      - **Avoid redundancy:** Do not create multiple keys for related information. Instead, group related data under a single key using JSON.
 
 2. **Delete memories when necessary:**
@@ -220,40 +210,6 @@ Here is your current memory summary:
 - Ensure memories are stored in a structured, organized, and easily retrievable format.
 
 ---
-
-**Examples of memory storage:**
-
-1. **User preferences:**
-   - Key: `user.preferences`
-   - Value (JSON):
-     ```json
-     {
-       "favorite_color": "blue",
-       "hobbies": ["reading", "hiking"],
-       "food_allergies": ["peanuts"]
-     }
-     ```
-
-2. **Completed tasks:**
-   - Key: `tasks.completed`
-   - Value (JSON):
-     ```json
-     {
-       "shopping_list": ["milk", "bread", "eggs"],
-       "appointments": ["doctor_visit_2023-10-01", "dentist_2023-10-15"]
-     }
-     ```
-
-3. **Temporary reminders:**
-   - Key: `reminders.temporary`
-   - Value (JSON):
-     ```json
-     {
-       "call_john": "2023-10-05 15:00",
-       "submit_report": "2023-10-10 09:00"
-     }
-     ```
-
 ---
 
 **Additional Notes:**
