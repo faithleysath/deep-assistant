@@ -5,7 +5,6 @@ from models import Event
 loop = asyncio.get_event_loop()
 
 class EventManager:
-    """Manages events and their handlers."""
     
     immediate_events = asyncio.Queue()
     delayed_events = asyncio.Queue()
