@@ -10,5 +10,17 @@
         "value": "看电影",
         "created_at": "2025-01-13T22:09:10.130768",
         "modified_at": "2025-01-13T22:09:10.130768"
+    },
+    "user.favorite_movie_genre": {
+        "key": "user.favorite_movie_genre",
+        "value": "科幻",
+        "created_at": "2025-01-13T22:09:36.961614",
+        "modified_at": "2025-01-13T22:09:36.961614"
+    },
+    "user.favorite_movies": {
+        "key": "user.favorite_movies",
+        "value": "星际穿越",
+        "created_at": "2025-01-13T22:09:36.962617",
+        "modified_at": "2025-01-13T22:09:36.962617"
     }
 }
