@@ -1,5 +1,6 @@
 from enum import Enum
 import time
+from typing import Optional
 import uuid
 import datetime
 
@@ -14,7 +15,7 @@ class EventStatus(Enum):
 
 class Event:
     """Event is a base class for all events"""
-    def __init__(self, **raw_data):
+    def __init__(self, time: Optional[float] = None, id: Optional[uuid.UUID] = None, status: Optional[EventStatus] = None, trigger_num: int = 0, name: str = 'untitled', summary: str = 'no summary', creator: str = 'unknown', source: str = 'unknown', **raw_data):
         self.raw_data = raw_data
         self.time = raw_data.get('time', time.time())
         self.id = raw_data.get('id', uuid.uuid4())
