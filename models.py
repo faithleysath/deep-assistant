@@ -91,3 +91,12 @@ class MessageSegment:
 
     def __repr__(self):
         return str(self)
+    
+class TextSegment(MessageSegment):
+    """文本片段，继承自 MessageSegment"""
+    def __init__(self, raw_data: dict):
+        super().__init__(raw_data)
+        self.content: str = self.data.get("text", "")
+
+    def __str__(self):
+        return self.content
