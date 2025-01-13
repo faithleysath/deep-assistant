@@ -67,5 +67,13 @@
         ],
         "created_at": "2025-01-13T23:37:29.844388",
         "modified_at": "2025-01-13T23:37:29.844388"
+    },
+    "user.future_plans": {
+        "key": "user.future_plans",
+        "value": [
+            "阅读《雪崩》"
+        ],
+        "created_at": "2025-01-13T23:38:36.870297",
+        "modified_at": "2025-01-13T23:38:36.870297"
     }
 }
