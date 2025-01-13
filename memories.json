@@ -7,9 +7,9 @@
     },
     "user.preferences.movies": {
         "key": "user.preferences.movies",
-        "value": "钢铁侠",
+        "value": "绿皮书",
         "created_at": "2025-01-13T21:39:33.789801",
-        "modified_at": "2025-01-13T21:39:33.789801"
+        "modified_at": "2025-01-13T21:40:21.001759"
     },
     "user.preferences.movies.favorite_part": {
         "key": "user.preferences.movies.favorite_part",
