@@ -22,5 +22,11 @@
         "value": "星际穿越",
         "created_at": "2025-01-13T22:09:36.962617",
         "modified_at": "2025-01-13T22:09:36.962617"
+    },
+    "user.favorite_movies.details.星际穿越": {
+        "key": "user.favorite_movies.details.星际穿越",
+        "value": "配乐很强",
+        "created_at": "2025-01-13T22:10:09.135295",
+        "modified_at": "2025-01-13T22:10:09.135295"
     }
 }
