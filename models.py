@@ -112,3 +112,4 @@ class UnknownSegment(MessageSegment):
 
     def __str__(self):
         return "<UNKNOWN SEGMENT>"
+
