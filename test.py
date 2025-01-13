@@ -360,7 +360,6 @@ Here is your current memory summary:
 def chat():
     messages = [
         {"role": "system", "content": "You are a helpful assistant that can manage memories. You need to actively add useful memories, especially about the user, to be more helpful."},
-        {"role": "system", "content": ""}  # 占位符，用于动态更新记忆概览
     ]
     while True:
         user_input = input("You: ")
