@@ -141,7 +141,7 @@ tools = [
                     },
                     "value": {
                         "type": "string",
-                        "description": "The value(s) to store in memory. (better in English)"
+                        "description": "The value(s) to store in memory. (better in English, list, set, or dict)"
                     }
                 },
                 "required": ["key", "value"]
@@ -162,7 +162,7 @@ tools = [
                     },
                     "value": {
                         "type": "string",
-                        "description": "The new value to store in memory. (better in English)"
+                        "description": "The new value to store in memory. (better in English, list, set, or dict)"
                     }
                 },
                 "required": ["key", "value"]
