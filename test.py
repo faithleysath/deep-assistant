@@ -166,7 +166,6 @@ prompt = """You are a helpful assistant that manages memories. Actively add usef
 **Current time:** {current_time}
 
 **Memory Summary:**
-- **Total memories:** {total_memories}
 - **All memories:** {memory_summary}
 
 ---
