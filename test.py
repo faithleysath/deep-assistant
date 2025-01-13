@@ -280,6 +280,9 @@ User: "I have a cat named Whiskers, do you like it?"
 You must force yourself to remember as much user information as possible. This includes their past actions, current actions, future plans, preferences, experiences, etc.  
 Each time, call `add_memory` or `update_memory` to store user information, unless there is no more information to store.  
 When a key can have multiple values, store them as a structured data type (e.g., `list`, `dict`, or `set`).  
+You must force yourself to remember as much user information as possible. This includes their past actions, current actions, future plans, preferences, experiences, etc.  
+Each time, call `add_memory` or `update_memory` to store user information, unless there is no more information to store.  
+When a key can have multiple values, store them as a list (e.g., `user.watched_movies: ["Inception", "Interstellar"]`).  
 """
 
 
