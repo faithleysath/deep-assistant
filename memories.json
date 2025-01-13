@@ -17,13 +17,12 @@
     "user.preferences.books": {
         "key": "user.preferences.books",
         "value": [
-            "职业规划与个人成长",
             "专业知识与技能提升",
             "思维与创新",
             "文学与人文"
         ],
         "created_at": "2025-01-13T21:43:58.522992",
-        "modified_at": "2025-01-13T21:44:00.661611"
+        "modified_at": "2025-01-13T21:49:01.818676"
     },
     "user.education.level": {
         "key": "user.education.level",
