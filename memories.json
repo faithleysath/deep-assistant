@@ -10,5 +10,11 @@
         "value": "{\"favorite_drinks\": [\"咖啡\"], \"favorite_foods\": [\"黄焖鸡\", \"手抓饼\"], \"favorite_sports\": [\"篮球\"], \"favorite_programming_language\": \"Python\"}",
         "created_at": "2025-01-13T21:26:56.613743",
         "modified_at": "2025-01-13T21:26:56.613743"
+    },
+    "user.preferences.favorite_movies": {
+        "key": "user.preferences.favorite_movies",
+        "value": "[\"钢铁侠\"]",
+        "created_at": "2025-01-13T21:28:53.494405",
+        "modified_at": "2025-01-13T21:28:53.494405"
     }
 }
