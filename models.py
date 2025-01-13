@@ -125,3 +125,16 @@ class Message:
 
     def __str__(self):
         return f"{self.type.name.capitalize()} message from {self.user_id}: {self.raw_message}"
+    
+    def __repr__(self):
+        return str(self)
+    
+class PrivateMessage(Message):
+    """私聊消息，继承自 Message"""
+    def __init__(self, message_id: int, user_id: int, timestamp: int, raw_message: str, segments: list[MessageSegment]):
+        super().__init__(message_id, user_id, MessageType.PRIVATE, timestamp, raw_message, segments)
+
+class GroupMessage(Message):
+    """群聊消息，继承自 Message"""
+    def __init__(self, message_id: int, user_id: int, timestamp: int, raw_message: str, segments: list[MessageSegment]):
+        super().__init__(message_id, user_id, MessageType.GROUP, timestamp, raw_message, segments)
