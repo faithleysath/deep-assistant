@@ -13,9 +13,12 @@
     },
     "user.watched_movies": {
         "key": "user.watched_movies",
-        "value": "星际穿越 (超过10遍)",
+        "value": [
+            "星际穿越 (超过10遍)",
+            "盗梦空间 (至少五遍)"
+        ],
         "created_at": "2025-01-13T22:23:39.676266",
-        "modified_at": "2025-01-13T22:24:13.908605"
+        "modified_at": "2025-01-13T22:25:30.921027"
     },
     "user.favorite_quotes": {
         "key": "user.favorite_quotes",
