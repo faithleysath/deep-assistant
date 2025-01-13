@@ -1,6 +1,5 @@
 import asyncio
-from optparse import Option
-from typing import Type
+from typing import Type, Optional
 from models import Event, EventStatus
 
 loop = asyncio.get_event_loop()
