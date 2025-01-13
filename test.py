@@ -236,7 +236,6 @@ prompt = """You are a helpful assistant that manages memories. Actively add usef
      需要我帮你做些什么吗？"  
      (Does not call any function, as memories are already attached to the prompt.)
 
-3. **Auto remove outdated reminders:**
 
 ---
 
