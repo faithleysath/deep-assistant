@@ -4,5 +4,11 @@
         "value": "laysath",
         "created_at": "2025-01-13T22:08:59.557426",
         "modified_at": "2025-01-13T22:08:59.557426"
+    },
+    "user.hobbies": {
+        "key": "user.hobbies",
+        "value": "看电影",
+        "created_at": "2025-01-13T22:09:10.130768",
+        "modified_at": "2025-01-13T22:09:10.130768"
     }
 }
