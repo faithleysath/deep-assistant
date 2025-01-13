@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 # 配置日志
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(level=logging.WARNING, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # 初始化 OpenAI 客户端
 client = OpenAI(
@@ -337,10 +337,8 @@ def chat():
         # 添加用户输入到消息历史
         messages.append({"role": "user", "content": user_input})
 
-        print(f'Messages: {messages}')
         # 发送消息并获取响应
         response = send_messages(messages, tools=tools)
-        print(f'Response: {response}')
 
         # 处理 LLM 的工具调用
         if response.tool_calls:
@@ -363,8 +361,6 @@ def chat():
                 elif function_name == "list_memories":
                     memories = memory_manager.list_memories(**function_args)
                     tool_result = json.dumps(memories, ensure_ascii=False)
-                
-                print(f"Tool result: {tool_result}")
 
                 # 将工具调用结果添加到消息历史
                 messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": tool_result})
