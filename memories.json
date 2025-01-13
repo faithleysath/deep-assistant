@@ -10,5 +10,11 @@
         "value": "sci-fi",
         "created_at": "2025-01-13T22:31:13.373607",
         "modified_at": "2025-01-13T22:31:13.373607"
+    },
+    "user.watched_movies": {
+        "key": "user.watched_movies",
+        "value": "星际穿越",
+        "created_at": "2025-01-13T22:31:42.195798",
+        "modified_at": "2025-01-13T22:31:42.195798"
     }
 }
