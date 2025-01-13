@@ -187,6 +187,8 @@ prompt = """You are a helpful assistant that manages memories. Actively add usef
 3. **Error Handling:**
    - Inform the user and suggest alternatives if a tool call fails.
 
+4. Only one call each time.
+
 ---
 
 **Goal:**
