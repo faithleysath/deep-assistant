@@ -5,7 +5,7 @@ client = OpenAI(
     base_url="https://api.deepseek.com",
 )
 
-def send_messages(messages):
+def send_messages(messages, tools={}):
     response = client.chat.completions.create(
         model="deepseek-chat",
         messages=messages,
@@ -13,4 +13,3 @@ def send_messages(messages):
     )
     print(response)
     return response.choices[0].message
-
