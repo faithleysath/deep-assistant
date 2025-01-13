@@ -1,6 +1,11 @@
+import json
+import logging
 from openai import OpenAI
 from datetime import datetime
 from typing import Dict, List, Optional
+
+# 配置日志
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # 初始化 OpenAI 客户端
 client = OpenAI(
@@ -17,6 +22,7 @@ def send_messages(messages, tools={}):
         messages=messages,
         tools=tools
     )
+    logging.info(f"LLM Response: {response}")
     return response.choices[0].message
 
 
@@ -64,11 +70,13 @@ class Memory:
 
 
 class MemoryManager:
-    def __init__(self):
+    def __init__(self, file_path: str = "memories.json"):
         """
         初始化记忆管理器。
         """
+        self.file_path = file_path
         self.memories: Dict[str, Memory] = {}
+        self.load_memories()
 
     def add_memory(self, key: str, value: str, lifetime: str, tags: Optional[List[str]] = None, priority: Optional[str] = None):
         """
@@ -77,6 +85,7 @@ class MemoryManager:
         if key in self.memories:
             raise ValueError(f"Memory with key '{key}' already exists.")
         self.memories[key] = Memory(key, value, lifetime, tags, priority)
+        self.save_memories()
 
     def retrieve_memory(self, key: str) -> Optional[Dict]:
         """
@@ -86,6 +95,7 @@ class MemoryManager:
             memory = self.memories[key]
             memory.access_count += 1
             memory.last_accessed = datetime.now()
+            self.save_memories()
             return memory.to_dict()
         return None
 
@@ -95,6 +105,7 @@ class MemoryManager:
         """
         if key in self.memories:
             self.memories[key].update(value, tags, priority)
+            self.save_memories()
         else:
             raise ValueError(f"Memory with key '{key}' does not exist.")
 
@@ -113,6 +124,7 @@ class MemoryManager:
         """
         if key in self.memories:
             del self.memories[key]
+            self.save_memories()
         else:
             raise ValueError(f"Memory with key '{key}' does not exist.")
 
@@ -152,9 +164,34 @@ class MemoryManager:
             "permanent_memory_details": permanent_memory_details
         }
 
+    def save_memories(self):
+        """
+        将记忆保存到本地文件。
+        """
+        memories_data = {key: memory.to_dict() for key, memory in self.memories.items()}
+        with open(self.file_path, "w") as file:
+            json.dump(memories_data, file, indent=4)
+        logging.info(f"Memories saved to {self.file_path}")
 
-# 初始化记忆管理器
-memory_manager = MemoryManager()
+    def load_memories(self):
+        """
+        从本地文件加载记忆。
+        """
+        try:
+            with open(self.file_path, "r") as file:
+                memories_data = json.load(file)
+                for key, data in memories_data.items():
+                    self.memories[key] = Memory(
+                        key=data["key"],
+                        value=data["value"],
+                        lifetime=data["lifetime"],
+                        tags=data["tags"],
+                        priority=data["priority"]
+                    )
+            logging.info(f"Memories loaded from {self.file_path}")
+        except FileNotFoundError:
+            logging.warning(f"No memory file found at {self.file_path}. Starting with an empty memory manager.")
+
 
 # 定义工具函数
 tools = [
@@ -280,24 +317,51 @@ tools = [
 ]
 
 
-# 示例对话
-messages = [
-    {"role": "system", "content": "You are a helpful assistant that can manage memories."},
-    {"role": "user", "content": "Remember that my favorite color is blue."}
-]
+# 初始化记忆管理器
+memory_manager = MemoryManager()
 
-# 发送消息并获取响应
-response = send_messages(messages, tools=tools)
+# 多轮对话
+def chat():
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that can manage memories."}
+    ]
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() in ["exit", "quit"]:
+            break
 
-# 处理 LLM 的工具调用
-if response.tool_calls:
-    for tool_call in response.tool_calls:
-        function_name = tool_call.function.name
-        function_args = eval(tool_call.function.arguments)
+        # 添加用户输入到消息历史
+        messages.append({"role": "user", "content": user_input})
 
-        if function_name == "add_memory":
-            memory_manager.add_memory(**function_args)
-            print(f"Added memory: {function_args}")
+        # 发送消息并获取响应
+        response = send_messages(messages, tools=tools)
 
-# 打印当前记忆
-print("Current memories:", memory_manager.list_memories())
+        # 处理 LLM 的工具调用
+        if response.tool_calls:
+            for tool_call in response.tool_calls:
+                function_name = tool_call.function.name
+                function_args = eval(tool_call.function.arguments)
+
+                logging.info(f"Calling function: {function_name} with args: {function_args}")
+
+                if function_name == "add_memory":
+                    memory_manager.add_memory(**function_args)
+                    messages.append({"role": "function", "name": "add_memory", "content": json.dumps({"status": "success"})})
+                elif function_name == "retrieve_memory":
+                    memory = memory_manager.retrieve_memory(**function_args)
+                    messages.append({"role": "function", "name": "retrieve_memory", "content": json.dumps(memory)})
+                elif function_name == "update_memory":
+                    memory_manager.update_memory(**function_args)
+                    messages.append({"role": "function", "name": "update_memory", "content": json.dumps({"status": "success"})})
+                elif function_name == "list_memories":
+                    memories = memory_manager.list_memories(**function_args)
+                    messages.append({"role": "function", "name": "list_memories", "content": json.dumps(memories)})
+
+        # 添加 LLM 响应到消息历史
+        if response.content:
+            messages.append({"role": "assistant", "content": response.content})
+            print(f"Assistant: {response.content}")
+
+# 启动对话
+if __name__ == "__main__":
+    chat()
