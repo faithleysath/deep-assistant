@@ -1,6 +1,6 @@
 import asyncio
 from core import EventManager
-from models import PrivateMessageEvent
+from models import PrivateMessageEvent, MessageEvent
 from qqws import listen_message
 
 @EventManager.register()
