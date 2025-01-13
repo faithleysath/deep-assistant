@@ -64,7 +64,7 @@ class MemoryManager:
             return {"status": "error", "message": f"Memory with key '{key}' already exists with value {self.memories[key].value}."}
         self.memories[key] = Memory(key, value)
         self.save_memories()
-        return {"status": "success"}
+        return {"status": "successfully add memory with key '{key}' and value '{value}'."}
 
     def update_memory(self, key: str, value: str):
         """
