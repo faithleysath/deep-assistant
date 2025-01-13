@@ -19,8 +19,8 @@
     },
     "user.watched_movies": {
         "key": "user.watched_movies",
-        "value": "Interstellar",
+        "value": "Interstellar, Gravity, The Martian, Arrival",
         "created_at": "2025-01-13T23:12:47.803712",
-        "modified_at": "2025-01-13T23:12:47.803712"
+        "modified_at": "2025-01-13T23:13:08.185783"
     }
 }
