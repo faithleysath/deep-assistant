@@ -10,5 +10,11 @@
         "value": "Chinese",
         "created_at": "2025-01-13T22:55:51.479882",
         "modified_at": "2025-01-13T22:55:51.479882"
+    },
+    "user.current_actions": {
+        "key": "user.current_actions",
+        "value": "想看电影",
+        "created_at": "2025-01-13T22:56:11.267337",
+        "modified_at": "2025-01-13T22:56:11.267337"
     }
 }
