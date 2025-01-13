@@ -113,3 +113,27 @@ class UnknownSegment(MessageSegment):
     def __str__(self):
         return "<UNKNOWN SEGMENT>"
 
+class Message:
+    """消息类，用于表示消息的通用部分"""
+    def __init__(self, message_id: int, user_id: int, message_type: MessageType, timestamp: int, raw_data: dict):
+        self.message_id = message_id
+        self.user_id = user_id
+        self.type = message_type
+        self.raw_data = raw_data
+        self.timestamp = timestamp
+        self.segments = self._parse_segments(raw_data.get("message", ""))
+
+    def _parse_segments(self, message: str) -> list[MessageSegment]:
+        segments = []
+        for seg in message:
+            if seg["type"] == "text":
+                segments.append(TextSegment(seg))
+            else:
+                segments.append(UnknownSegment(seg))
+        return segments
+
+    def __str__(self):
+        return f"{self.type.name.capitalize()} message from {self.user_id}: {''.join([str(seg) for seg in self.segments])}"
+
+    def __repr__(self):
+        return str(self)
