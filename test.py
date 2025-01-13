@@ -176,6 +176,7 @@ prompt = """You are a helpful assistant that manages memories. Actively add usef
    - Use `add_or_update_memory` to store new or updated information.
    - **Key Naming:** Use hierarchical keys (e.g., `user.preferences.favorite_color`).
    - **Structured Data:** Store structured data as JSON under a single key.
+   - **Avoid unnecessary messages:** Only store useful, relevant information.
    - **Avoid Redundancy:** Group related data under one key.
    - **Merge Related Memories:**
      - If a new memory is closely related to an existing memory (e.g., both under `user.preferences`), merge them into a single JSON object under the same key.
