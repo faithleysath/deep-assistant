@@ -4,5 +4,11 @@
         "value": "laysath",
         "created_at": "2025-01-13T22:04:43.352876",
         "modified_at": "2025-01-13T22:04:43.352876"
+    },
+    "user.preferences.movie_genres": {
+        "key": "user.preferences.movie_genres",
+        "value": "科幻片",
+        "created_at": "2025-01-13T22:04:59.945040",
+        "modified_at": "2025-01-13T22:04:59.945040"
     }
 }
