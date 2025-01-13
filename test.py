@@ -231,26 +231,26 @@ def chat():
         # 处理 LLM 的工具调用
         while response.tool_calls:
             messages.append(response)
-            for tool_call in response.tool_calls:
-                function_name = tool_call.function.name
-                function_args = eval(tool_call.function.arguments)
+            tool_call = response.tool_calls[0]
+            function_name = tool_call.function.name
+            function_args = eval(tool_call.function.arguments)
 
-                logging.warning(f"Calling function: {function_name} with args: {function_args}")
+            logging.warning(f"Calling function: {function_name} with args: {function_args}")
 
-                try:
-                    if function_name == "add_or_update_memory":
-                        memory_manager.add_or_update_memory(**function_args)
-                        tool_result = json.dumps({"status": "success"}, ensure_ascii=False)
-                    elif function_name == "delete_memory":
-                        memory_manager.delete_memory(**function_args)
-                        tool_result = json.dumps({"status": "success"}, ensure_ascii=False)
-                    else:
-                        tool_result = json.dumps({"status": "error", "message": f"Unknown function: {function_name}"}, ensure_ascii=False)
-                except Exception as e:
-                    tool_result = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False)
+            try:
+                if function_name == "add_or_update_memory":
+                    memory_manager.add_or_update_memory(**function_args)
+                    tool_result = json.dumps({"status": "success"}, ensure_ascii=False)
+                elif function_name == "delete_memory":
+                    memory_manager.delete_memory(**function_args)
+                    tool_result = json.dumps({"status": "success"}, ensure_ascii=False)
+                else:
+                    tool_result = json.dumps({"status": "error", "message": f"Unknown function: {function_name}"}, ensure_ascii=False)
+            except Exception as e:
+                tool_result = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False)
 
-                # 将工具调用结果添加到消息历史
-                messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": tool_result})
+            # 将工具调用结果添加到消息历史
+            messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": tool_result})
 
             # 再次调用 LLM 以处理工具结果
             response = send_messages(messages, tools=tools)
