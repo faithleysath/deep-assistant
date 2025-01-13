@@ -342,7 +342,7 @@ def chat():
         response = send_messages(messages, tools=tools)
 
         # 处理 LLM 的工具调用
-        if response.tool_calls:
+        while response.tool_calls:
             messages.append(response)
             for tool_call in response.tool_calls:
                 function_name = tool_call.function.name
@@ -350,18 +350,31 @@ def chat():
 
                 logging.warning(f"Calling function: {function_name} with args: {function_args}")
 
-                if function_name == "add_memory":
-                    memory_manager.add_memory(**function_args)
-                    tool_result = json.dumps({"status": "success"}, ensure_ascii=False)
-                elif function_name == "retrieve_memory":
-                    memory = memory_manager.retrieve_memory(**function_args)
-                    tool_result = json.dumps(memory, ensure_ascii=False)
-                elif function_name == "update_memory":
-                    memory_manager.update_memory(**function_args)
-                    tool_result = json.dumps({"status": "success"}, ensure_ascii=False)
-                elif function_name == "list_memories":
-                    memories = memory_manager.list_memories(**function_args)
-                    tool_result = json.dumps(memories, ensure_ascii=False)
+                try:
+                    if function_name == "add_memory":
+                        memory_manager.add_memory(**function_args)
+                        tool_result = json.dumps({"status": "success"}, ensure_ascii=False)
+                    elif function_name == "retrieve_memory":
+                        # 检查 key 是否存在
+                        if function_args["key"] in memory_summary["all_keys"]:
+                            memory = memory_manager.retrieve_memory(**function_args)
+                            tool_result = json.dumps(memory, ensure_ascii=False)
+                        else:
+                            tool_result = json.dumps({"status": "error", "message": f"Key '{function_args['key']}' does not exist."}, ensure_ascii=False)
+                    elif function_name == "update_memory":
+                        # 检查 key 是否存在
+                        if function_args["key"] in memory_summary["all_keys"]:
+                            memory_manager.update_memory(**function_args)
+                            tool_result = json.dumps({"status": "success"}, ensure_ascii=False)
+                        else:
+                            tool_result = json.dumps({"status": "error", "message": f"Key '{function_args['key']}' does not exist."}, ensure_ascii=False)
+                    elif function_name == "list_memories":
+                        memories = memory_manager.list_memories(**function_args)
+                        tool_result = json.dumps(memories, ensure_ascii=False)
+                    else:
+                        tool_result = json.dumps({"status": "error", "message": f"Unknown function: {function_name}"}, ensure_ascii=False)
+                except Exception as e:
+                    tool_result = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False)
 
                 # 将工具调用结果添加到消息历史
                 messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": tool_result})
@@ -369,10 +382,10 @@ def chat():
             # 再次调用 LLM 以处理工具结果
             response = send_messages(messages, tools=tools)
 
-        messages.append(response)
         # 添加 LLM 响应到消息历史
         if response.content:
             print(f"Assistant: {response.content}")
+        messages.append(response)
 
 # 启动对话
 if __name__ == "__main__":
