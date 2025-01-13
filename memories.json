@@ -4,5 +4,11 @@
         "value": "laysath",
         "created_at": "2025-01-13T22:59:07.054517",
         "modified_at": "2025-01-13T22:59:07.054517"
+    },
+    "user.current_actions": {
+        "key": "user.current_actions",
+        "value": "想看电影",
+        "created_at": "2025-01-13T22:59:17.973333",
+        "modified_at": "2025-01-13T22:59:17.973333"
     }
 }
