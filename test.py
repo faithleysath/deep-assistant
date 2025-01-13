@@ -204,6 +204,10 @@ By following these guidelines, you will ensure smooth, efficient, and engaging u
 
 --- 
 Before answer user's question, if there any information my memory didn't have? Let me store it first.
+
+For example
+user: I'm a software engineer, recommad me a book.
+If i don't know user's job before, i should store it first. After that, i can answer user's question.
 """
 
 # 多轮对话
