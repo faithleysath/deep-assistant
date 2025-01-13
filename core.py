@@ -41,7 +41,6 @@ class EventManager:
             if event.trigger_num == 0:
                 await cls.immediate_events.put(event)
             else:
-                print(f'Adding delayed event: {event}')
                 await cls.delayed_events.put(event)
 
     @classmethod
