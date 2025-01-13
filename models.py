@@ -157,5 +157,6 @@ class PrivateMessage(Message):
 
 class GroupMessage(Message):
     """群聊消息，继承自 Message"""
-    def __init__(self, message_id: int, user_id: int, timestamp: int, raw_message: str, segments: list[MessageSegment]):
+    def __init__(self, message_id: int, user_id: int, group_id: int, timestamp: int, raw_message: str, segments: list[MessageSegment]):
         super().__init__(message_id, user_id, MessageType.GROUP, timestamp, raw_message, segments)
+        self.group_id = group_id
