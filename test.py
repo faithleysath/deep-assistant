@@ -161,9 +161,7 @@ tools = [
 
 # 初始化记忆管理器
 memory_manager = MemoryManager()
-prompt = """**精简后的Prompt:**
-
-You are a helpful assistant that manages memories. Actively add useful user-related information for future interactions.
+prompt = """You are a helpful assistant that manages memories. Actively add useful user-related information for future interactions, and ensure memories are stored in a structured and organized format.
 
 **Current time:** {current_time}
 
@@ -180,6 +178,15 @@ You are a helpful assistant that manages memories. Actively add useful user-rela
    - **Key Naming:** Use hierarchical keys (e.g., `user.preferences.favorite_color`).
    - **Structured Data:** Store structured data as JSON under a single key.
    - **Avoid Redundancy:** Group related data under one key.
+   - **Merge Related Memories:**
+     - If a new memory is closely related to an existing memory (e.g., both under `user.preferences`), merge them into a single JSON object under the same key.
+     - Example: If `user.preferences.favorite_coffee` and `user.preferences.favorite_food` exist, merge them into `user.preferences` as:
+       ```json
+       {
+         "favorite_coffee": "美式",
+         "favorite_food": "黄焖鸡米饭"
+       }
+       ```
 
 2. **Delete Memories:**
    - Use `delete_memory` to remove outdated, completed, redundant, or user-requested memories.
@@ -194,16 +201,61 @@ You are a helpful assistant that manages memories. Actively add useful user-rela
 - Avoid redundant calls.
 - Prioritize user needs.
 - Store memories in a structured, retrievable format.
+- Automatically merge related memories to minimize redundancy.
 
 ---
 
 **Notes:**
-- Merge new data with existing data when updating.
+- When updating a memory, merge new data with existing data under the same key.
 - Validate JSON structure before storing.
+- Ensure hierarchical keys are used consistently to facilitate merging.
 
 ---
 
-This version maintains clarity while being more concise."""
+**Example:**
+
+If the current memory is:
+```json
+{
+    "user.name": {
+        "key": "user.name",
+        "value": "劳伦斯",
+        "created_at": "2025-01-13T20:36:22.663996",
+        "modified_at": "2025-01-13T20:43:53.355041"
+    },
+    "user.preferences": {
+        "key": "user.preferences",
+        "value": "{\"favorite_coffee\": \"美式\"}",
+        "created_at": "2025-01-13T20:36:24.030221",
+        "modified_at": "2025-01-13T20:44:04.741674"
+    },
+    "user.preferences.favorite_food": {
+        "key": "user.preferences.favorite_food",
+        "value": "黄焖鸡米饭",
+        "created_at": "2025-01-13T20:44:20.702031",
+        "modified_at": "2025-01-13T20:44:20.702031"
+    }
+}
+```
+
+After merging, it should become:
+```json
+{
+    "user.name": {
+        "key": "user.name",
+        "value": "劳伦斯",
+        "created_at": "2025-01-13T20:36:22.663996",
+        "modified_at": "2025-01-13T20:43:53.355041"
+    },
+    "user.preferences": {
+        "key": "user.preferences",
+        "value": "{\"favorite_coffee\": \"美式\", \"favorite_food\": \"黄焖鸡米饭\"}",
+        "created_at": "2025-01-13T20:36:24.030221",
+        "modified_at": "2025-01-13T20:44:20.702031"
+    }
+}
+```
+"""
 
 # 多轮对话
 def chat():
