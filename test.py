@@ -208,6 +208,7 @@ Before answer user's question, if there any information my memory didn't have? L
 For example
 user: I'm a software engineer, recommad me a book.
 If i don't know user's job before, i should store it first. After that, i can answer user's question.
+I must force myself to remember user's information as much as possible.
 """
 
 # 多轮对话
