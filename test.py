@@ -141,7 +141,7 @@ tools = [
                     },
                     "value": {
                         "type": "string",
-                        "description": "The value to store in memory. (better in English)"
+                        "description": "The value(s) to store in memory. (better in English)"
                     }
                 },
                 "required": ["key", "value"]
