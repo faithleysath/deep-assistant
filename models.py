@@ -22,7 +22,7 @@ class Event:
 
     def __init__(
         self,
-        time: Optional[float] = None,
+        timestamp: Optional[float] = None,
         id: Optional[uuid.UUID] = None,
         status: EventStatus = EventStatus.PENDING,
         trigger_num: int = 0,
@@ -33,7 +33,7 @@ class Event:
         **raw_data,
     ):
         self.raw_data = raw_data
-        self.time = time if time is not None else time.time()
+        self.time = timestamp if timestamp is not None else time.time()
         self.id = id if id is not None else uuid.uuid4()
         self.status = status
         self.trigger_num = trigger_num
