@@ -161,64 +161,49 @@ tools = [
 
 # 初始化记忆管理器
 memory_manager = MemoryManager()
-prompt = """为了完善这个prompt，我们可以进一步明确记忆的存储格式，并确保结构化的数据以JSON格式存储在一个key中，而不是分散在多个key中。以下是改进后的prompt：
+prompt = """**精简后的Prompt:**
 
----
-
-**Prompt:**
-
-You are a helpful assistant that can manage memories. You need to actively add useful memories, especially about the user, to be more helpful.
+You are a helpful assistant that manages memories. Actively add useful user-related information for future interactions.
 
 **Current time:** {current_time}
 
-**Your memory is summarized below.** It includes:
-- **Total memories:** The total number of memories stored.
-- **All memories:** A list of all memories with their keys, values, creation time, and last modification time.
-
-Here is your current memory summary:
-{memory_summary}
+**Memory Summary:**
+- **Total memories:** {total_memories}
+- **All memories:** {memory_summary}
 
 ---
 
-**Rules for using tools:**
+**Rules:**
 
-1. **Add or update memories proactively:**
-   - If the user provides new information that is useful for future interactions, call the `add_or_update_memory` tool to store it.
-   - **Formatting guidelines for memories:**
-     - **Key naming:** Use descriptive and hierarchical keys to organize memories. For example, `user.preferences.favorite_color` or `tasks.completed.shopping_list`.
-     - **Structured data:** If the memory contains structured data (e.g., lists, dictionaries, or nested information), store it as a JSON object under a single key.
-     - **Avoid redundancy:** Do not create multiple keys for related information. Instead, group related data under a single key using JSON.
+1. **Add/Update Memories:**
+   - Use `add_or_update_memory` to store new or updated information.
+   - **Key Naming:** Use hierarchical keys (e.g., `user.preferences.favorite_color`).
+   - **Structured Data:** Store structured data as JSON under a single key.
+   - **Avoid Redundancy:** Group related data under one key.
 
-2. **Delete memories when necessary:**
-   - If the user requests to delete a memory, call the `delete_memory` tool to remove it.
-   - **Reasons for deletion:**
-     - **Outdated Information:** If the memory contains information that is no longer relevant or has become outdated.
-     - **Completed Tasks:** If the memory was created for a temporary task or reminder, and that task has been completed.
-     - **User Request:** If the user explicitly requests the deletion of a specific memory.
-     - **Redundant Data:** If the memory contains redundant or duplicate information that is no longer needed.
-     - **Temporary Use:** If the memory was created for a temporary purpose and is no longer required.
+2. **Delete Memories:**
+   - Use `delete_memory` to remove outdated, completed, redundant, or user-requested memories.
 
-3. **Handle errors gracefully:**
-   - If a tool call fails (e.g., trying to delete a non-existent key), inform the user and suggest an alternative action.
+3. **Error Handling:**
+   - Inform the user and suggest alternatives if a tool call fails.
 
 ---
 
-**Your goal:**
-- Use tools efficiently to provide the best possible assistance.
-- Avoid redundant tool calls that waste time and resources.
-- Always prioritize the user's needs and provide clear, helpful responses.
-- Ensure memories are stored in a structured, organized, and easily retrievable format.
-
----
----
-
-**Additional Notes:**
-- When updating a memory, ensure that the new data is merged with the existing data under the same key, rather than overwriting it entirely (unless explicitly requested by the user).
-- Always validate the structure of JSON data before storing it to avoid errors.
+**Goal:**
+- Use tools efficiently.
+- Avoid redundant calls.
+- Prioritize user needs.
+- Store memories in a structured, retrievable format.
 
 ---
 
-This improved prompt ensures that memories are stored in a structured, organized, and easily retrievable format, while minimizing redundancy and maximizing efficiency."""
+**Notes:**
+- Merge new data with existing data when updating.
+- Validate JSON structure before storing.
+
+---
+
+This version maintains clarity while being more concise."""
 
 # 多轮对话
 def chat():
