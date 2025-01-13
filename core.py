@@ -19,7 +19,7 @@ class EventManager:
     async def run_immediate(cls):
         while True:
             event = await cls.immediate_events.get()
-            await cls.execute_event(event)
+            loop.create_task(cls.execute_event(event))
     
     @classmethod
     async def run_delayed(cls):
