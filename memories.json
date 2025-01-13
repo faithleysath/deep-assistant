@@ -7,9 +7,9 @@
     },
     "user.preferences.rules": {
         "key": "user.preferences.rules",
-        "value": "{\"priority\": \"merge into existing nodes\", \"structure\": \"hierarchical and structured\", \"remember_when_asked\": true}",
+        "value": "{\"priority\": \"merge into existing nodes\", \"structure\": \"hierarchical and structured\", \"remember_when_asked\": true, \"delete_duplicates_first\": true}",
         "created_at": "2025-01-13T21:30:27.340488",
-        "modified_at": "2025-01-13T21:31:15.105173"
+        "modified_at": "2025-01-13T21:34:07.338590"
     },
     "user.preferences": {
         "key": "user.preferences",
