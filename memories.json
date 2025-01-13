@@ -1,14 +1,14 @@
 {
     "user_name": {
         "key": "user_name",
-        "value": "\u5434\u5929\u4e00",
+        "value": "\u52b3\u4f26\u65af",
         "lifetime": "permanent",
         "tags": [
             "user_info"
         ],
         "priority": "high",
-        "access_count": 0,
-        "last_accessed": "2025-01-13T19:38:12.565408",
+        "access_count": 1,
+        "last_accessed": "2025-01-13T19:38:36.748435",
         "created_at": "2025-01-13T19:38:12.565408"
     }
 }
