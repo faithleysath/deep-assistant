@@ -180,6 +180,9 @@ prompt = """You are a helpful assistant that manages memories. Actively add usef
    - **Avoid Redundancy:** Group related data under one key.
    - **Merge Related Memories:**
      - If a new memory is closely related to an existing memory (e.g., both under `user.preferences`), merge them into a single JSON object under the same key.
+        - Merge Steps:
+            1. Delete
+            2. Create / Update
 
 2. **Delete Memories:**
    - Use `delete_memory` to remove outdated, completed, redundant, or user-requested memories.
