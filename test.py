@@ -338,7 +338,7 @@ def chat():
         messages.append({"role": "user", "content": user_input})
 
         # 发送消息并获取响应
-        print(f'Messages: {messages}')
+        # print(f'Messages: {messages}')
         response = send_messages(messages, tools=tools)
 
         # 处理 LLM 的工具调用
