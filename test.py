@@ -26,14 +26,14 @@ def send_messages(messages, tools={}):
 
 
 class Memory:
-    def __init__(self, key: str, value: str, created: Optional[str] = None, modified: Optional[str] = None):
+    def __init__(self, key: str, value: str, created_at: Optional[str] = None, modified_at: Optional[str] = None):
         """
         初始化记忆对象。
         """
         self.key = key
         self.value = value
-        self.created_at = created or datetime.now().isoformat()
-        self.modified_at = modified or datetime.now().isoformat()
+        self.created_at = created_at or datetime.now().isoformat()
+        self.modified_at = modified_at or datetime.now().isoformat()
 
     def to_dict(self):
         """
@@ -63,7 +63,7 @@ class MemoryManager:
         if key in self.memories:
             # 更新 existing memory
             self.memories[key].value = value
-            self.memories[key].modified = datetime.now().isoformat()
+            self.memories[key].modified_at = datetime.now().isoformat()
         else:
             # 添加 new memory
             self.memories[key] = Memory(key, value)
@@ -108,8 +108,8 @@ class MemoryManager:
                     self.memories[key] = Memory(
                         key=data["key"],
                         value=data["value"],
-                        created=data.get("created"),
-                        modified=data.get("modified")
+                        created=data.get("created_at"),
+                        modified=data.get("modified_at")
                     )
             logging.info(f"Memories loaded from {self.file_path}")
         except FileNotFoundError:
