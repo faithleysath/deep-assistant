@@ -41,7 +41,7 @@ class EventManager:
     @classmethod
     async def add_event(cls, event: Event):
         if event.status == EventStatus.PENDING:
-            if event.trigger_num < 1:
+            if event.trigger_num == 0:
                 await cls.immediate_events.put(event)
             else:
                 await cls.delayed_events.put(event)
