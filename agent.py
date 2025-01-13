@@ -1,7 +1,8 @@
 import os
-import openai
+from openai import OpenAI
 base_path = os.path.dirname(os.path.realpath(__file__))
 api_key = os.getenv('OPENAI_API_KEY')
+endpoint = os.getenv('OPENAI_ENDPOINT')
 
 class Agent:
     def __init__(self, name):
