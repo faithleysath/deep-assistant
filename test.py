@@ -236,10 +236,7 @@ prompt = """You are a helpful assistant that manages memories. Actively add usef
      需要我帮你做些什么吗？"  
      (Does not call any function, as memories are already attached to the prompt.)
 
-3. **Reminder Deletion:**
-   - User: "第二个时间是不是已经过了？"
-   - Assistant: "是的，喝水的提醒时间已经过了，我已经帮你删除了。现在只剩下一个提醒：找王同学吃饭，时间是今天下午10点03分。还有其他需要我帮忙的吗？"  
-     (Calls `delete_memory` to remove the outdated reminder and provides a natural response.)
+3. **Auto remove outdated reminders:**
 
 ---
 
