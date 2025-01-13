@@ -350,16 +350,22 @@ def chat():
 
                 if function_name == "add_memory":
                     memory_manager.add_memory(**function_args)
-                    messages.append({"role": "function", "name": "add_memory", "content": json.dumps({"status": "success"})})
+                    tool_result = json.dumps({"status": "success"})
                 elif function_name == "retrieve_memory":
                     memory = memory_manager.retrieve_memory(**function_args)
-                    messages.append({"role": "function", "name": "retrieve_memory", "content": json.dumps(memory)})
+                    tool_result = json.dumps(memory)
                 elif function_name == "update_memory":
                     memory_manager.update_memory(**function_args)
-                    messages.append({"role": "function", "name": "update_memory", "content": json.dumps({"status": "success"})})
+                    tool_result = json.dumps({"status": "success"})
                 elif function_name == "list_memories":
                     memories = memory_manager.list_memories(**function_args)
-                    messages.append({"role": "function", "name": "list_memories", "content": json.dumps(memories)})
+                    tool_result = json.dumps(memories)
+
+                # 将工具调用结果添加到消息历史
+                messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": tool_result})
+
+            # 再次调用 LLM 以处理工具结果
+            response = send_messages(messages, tools=tools)
 
         # 添加 LLM 响应到消息历史
         if response.content:
