@@ -169,7 +169,7 @@ class MemoryManager:
         """
         memories_data = {key: memory.to_dict() for key, memory in self.memories.items()}
         with open(self.file_path, "w", encoding='utf-8') as file:
-            json.dump(memories_data, file, indent=4)
+            json.dump(memories_data, file, indent=4, ensure_ascii=False)  # 确保中文字符不被转义
         logging.info(f"Memories saved to {self.file_path}")
 
     def load_memories(self):
@@ -332,7 +332,7 @@ def chat():
 
         # 更新 messages[1] 为当前记忆概览
         memory_summary = memory_manager.get_summary()
-        messages[1] = {"role": "system", "content": f"Your memory: {json.dumps(memory_summary, indent=2)}"}
+        messages[1] = {"role": "system", "content": f"Your memory: {json.dumps(memory_summary, indent=2, ensure_ascii=False)}"}
 
         # 添加用户输入到消息历史
         messages.append({"role": "user", "content": user_input})
@@ -353,16 +353,16 @@ def chat():
 
                 if function_name == "add_memory":
                     memory_manager.add_memory(**function_args)
-                    tool_result = json.dumps({"status": "success"})
+                    tool_result = json.dumps({"status": "success"}, ensure_ascii=False)
                 elif function_name == "retrieve_memory":
                     memory = memory_manager.retrieve_memory(**function_args)
-                    tool_result = json.dumps(memory)
+                    tool_result = json.dumps(memory, ensure_ascii=False)
                 elif function_name == "update_memory":
                     memory_manager.update_memory(**function_args)
-                    tool_result = json.dumps({"status": "success"})
+                    tool_result = json.dumps({"status": "success"}, ensure_ascii=False)
                 elif function_name == "list_memories":
                     memories = memory_manager.list_memories(**function_args)
-                    tool_result = json.dumps(memories)
+                    tool_result = json.dumps(memories, ensure_ascii=False)
                 
                 print(f"Tool result: {tool_result}")
 
