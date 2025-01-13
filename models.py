@@ -120,7 +120,8 @@ class Message:
         self.user_id = user_id
         self.type = message_type
         self.timestamp = timestamp
-        self.raw_message
+        self.raw_message = raw_message
+        self.segments = segments
         self.segments = self._parse_segments(raw_data.get("message", ""))
 
     def _parse_segments(self, message: str) -> list[MessageSegment]:
