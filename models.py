@@ -85,6 +85,14 @@ class MessageSegment:
             return MessageSegmentType(raw_data.get("type", "unknown"))
         except ValueError:
             return MessageSegmentType.UNKNOWN
+        
+    @staticmethod
+    def from_dict(data: dict):
+        segment_type = MessageSegmentType(data.get("type", "unknown"))
+        if segment_type == MessageSegmentType.TEXT:
+            return TextSegment(data)
+        else:
+            return UnknownSegment(data)
 
     def __str__(self):
         raise NotImplementedError
@@ -130,7 +138,7 @@ class Message:
         message_type = MessageType(data.get("message_type", "private"))
         timestamp = data.get("timestamp", 0)
         raw_message = data.get("raw_message", "")
-        segments = [cls._segment_from_dict(seg) for seg in data.get("message", [])]
+        segments = 
         if message_type == MessageType.PRIVATE:
             return PrivateMessage(message_id, user_id, timestamp, raw_message, segments)
         elif message_type == MessageType.GROUP:
