@@ -45,7 +45,7 @@ class EventManager:
                 await cls.delayed_events.put(event)
 
     @classmethod
-    def register(cls, event_type: Option[Type[Event]] = None, priority: int = 0):
+    def register(cls, event_type: Option(Type[Event]) = None, priority: int = 0):
         def decorator(handler):
             nonlocal event_type
             if event_type is None:
