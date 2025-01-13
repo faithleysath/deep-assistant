@@ -34,9 +34,7 @@ class EventManager:
         for event_type, handler, priority in sorted(cls.handlers, key=lambda x: x[2]):
             if isinstance(event, event_type) and event.status != EventStatus.DEPRECATED:
                 result = await handler(event)
-                if result:
-                    event.status = EventStatus.COMPLETE
-                else:
+                
 
     @classmethod
     async def add_event(cls, event: Event):
