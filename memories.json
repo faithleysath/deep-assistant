@@ -19,5 +19,11 @@
         "value": "星际穿越的配乐",
         "created_at": "2025-01-13T22:15:42.584226",
         "modified_at": "2025-01-13T22:15:42.584226"
+    },
+    "user.music_preferences.composer": {
+        "key": "user.music_preferences.composer",
+        "value": "汉斯·季默",
+        "created_at": "2025-01-13T22:16:19.788014",
+        "modified_at": "2025-01-13T22:16:19.788014"
     }
 }
