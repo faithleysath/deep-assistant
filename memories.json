@@ -4,5 +4,11 @@
         "value": "laysath",
         "created_at": "2025-01-13T22:18:10.042926",
         "modified_at": "2025-01-13T22:18:10.042926"
+    },
+    "user.movie_preferences": {
+        "key": "user.movie_preferences",
+        "value": "action, comedy, sci-fi",
+        "created_at": "2025-01-13T22:18:42.567830",
+        "modified_at": "2025-01-13T22:18:42.567830"
     }
 }
