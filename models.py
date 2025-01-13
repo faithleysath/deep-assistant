@@ -162,6 +162,11 @@ class GroupMessage(Message):
         super().__init__(message_id, user_id, MessageType.GROUP, timestamp, raw_message, segments)
         self.group_id = group_id
 
+class MessageEvent(Event):
+    def __init__(self, message: Message, **raw_data):
+        super().__init__(**raw_data)
+        self.message = message
+
 class PrivateMessageEvent(Event):
     def __init__(self, message: PrivateMessage, **raw_data):
         super().__init__(**raw_data)
