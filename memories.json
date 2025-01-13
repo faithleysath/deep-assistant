@@ -13,9 +13,9 @@
     },
     "user.favorite_genres": {
         "key": "user.favorite_genres",
-        "value": "科幻片",
+        "value": "科幻片, 喜剧片",
         "created_at": "2025-01-13T22:59:32.257866",
-        "modified_at": "2025-01-13T23:02:19.701707"
+        "modified_at": "2025-01-13T23:03:10.007567"
     },
     "user.watched_movies": {
         "key": "user.watched_movies",
