@@ -347,7 +347,7 @@ def chat():
                 function_name = tool_call.function.name
                 function_args = eval(tool_call.function.arguments)
 
-                logging.info(f"Calling function: {function_name} with args: {function_args}")
+                logging.warning(f"Calling function: {function_name} with args: {function_args}")
 
                 if function_name == "add_memory":
                     memory_manager.add_memory(**function_args)
