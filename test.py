@@ -367,9 +367,9 @@ def chat():
         if user_input.lower() in ["exit", "quit"]:
             break
 
-        # 更新 messages[1] 为当前记忆概览
+        # 更新 messages[0] 为当前记忆概览
         memory_summary = memory_manager.get_summary()
-        messages[1] = {"role": "system", "content": f"Your memory: {json.dumps(memory_summary, ensure_ascii=False)}"}
+        messages[0] = prompt.format(memory_summary=json.dumps(memory_summary, indent=4, ensure_ascii=False))
 
         # 添加用户输入到消息历史
         messages.append({"role": "user", "content": user_input})
