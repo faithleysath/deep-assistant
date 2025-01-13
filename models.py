@@ -72,3 +72,22 @@ class MessageSegmentType(Enum):
 class MessageType(Enum):
     PRIVATE = "private"
     GROUP = "group"
+
+class MessageSegment:
+    """基类，用于表示消息片段的通用部分"""
+    def __init__(self, raw_data: dict):
+        self.type = self._determine_type(raw_data)  # 根据传入数据确定类型
+        self.data = raw_data.get("data", {})  # 通用数据
+
+    @staticmethod
+    def _determine_type(raw_data: dict) -> MessageSegmentType:
+        try:
+            return MessageSegmentType(raw_data.get("type", "unknown"))
+        except ValueError:
+            return MessageSegmentType.UNKNOWN
+
+    def __str__(self):
+        raise NotImplementedError
+
+    def __repr__(self):
+        return str(self)
