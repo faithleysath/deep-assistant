@@ -61,7 +61,7 @@ class MemoryManager:
         添加记忆。
         """
         if key in self.memories:
-            return {"status": "error", "message": f"Memory with key '{key}' already exists with {self.memories[key].value}."}
+            return {"status": "error", "message": f"Memory with key '{key}' already exists with value {self.memories[key].value}."}
         self.memories[key] = Memory(key, value)
         self.save_memories()
         return {"status": "success"}
