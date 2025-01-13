@@ -7,8 +7,11 @@
     },
     "user.preferences.movies": {
         "key": "user.preferences.movies",
-        "value": "钢铁侠第一部",
+        "value": [
+            "钢铁侠第一部",
+            "绿皮书"
+        ],
         "created_at": "2025-01-13T21:41:15.552550",
-        "modified_at": "2025-01-13T21:41:15.552550"
+        "modified_at": "2025-01-13T21:41:29.278846"
     }
 }
