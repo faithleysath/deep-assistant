@@ -62,7 +62,7 @@ class MemoryManager:
         """
         if not isinstance(value, list):
             value = [value]  # 确保 value 是列表
-
+        value = set(value)  # 使用集合去重
         if key in self.memories and not override:
             # 如果 key 已存在且不覆盖，则将新值追加到列表中
             self.memories[key].value.extend(value)
