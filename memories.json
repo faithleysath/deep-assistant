@@ -7,9 +7,9 @@
             "user_info"
         ],
         "priority": "high",
-        "access_count": 2,
-        "last_accessed": "2025-01-13T19:47:21.471685",
-        "created_at": "2025-01-13T19:46:49.439029"
+        "access_count": 0,
+        "last_accessed": "2025-01-13T20:02:29.283667",
+        "created_at": "2025-01-13T20:02:29.283667"
     },
     "user_location": {
         "key": "user_location",
@@ -19,8 +19,20 @@
             "user_info"
         ],
         "priority": "high",
-        "access_count": 1,
-        "last_accessed": "2025-01-13T19:47:06.289210",
-        "created_at": "2025-01-13T19:46:49.439029"
+        "access_count": 0,
+        "last_accessed": "2025-01-13T20:02:29.283667",
+        "created_at": "2025-01-13T20:02:29.283667"
+    },
+    "favorite_food": {
+        "key": "favorite_food",
+        "value": "西瓜",
+        "lifetime": "permanent",
+        "tags": [
+            "user_info"
+        ],
+        "priority": null,
+        "access_count": 0,
+        "last_accessed": "2025-01-13T20:03:11.293838",
+        "created_at": "2025-01-13T20:03:11.293838"
     }
 }
