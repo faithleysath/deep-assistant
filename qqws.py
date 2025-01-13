@@ -1,5 +1,6 @@
 import websockets
 import json
+from models import Message
 
 # WebSocket 客户端逻辑
 async def listen_message():
@@ -11,9 +12,8 @@ async def listen_message():
         try:
             while True:
                 message = await websocket.recv()  # 接收消息
-                print(f"收到消息: {message}")  # 输出消息
                 data: dict = json.loads(message)
-                if data.get("message_type") == "private" and data.get("user_id") == 5079132:
-                    print(data['message']) 
+                if data.get("post_type", "null") == "message":
+                    
         except websockets.ConnectionClosed:
             print("连接已关闭")
