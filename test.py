@@ -56,18 +56,26 @@ class MemoryManager:
         self.memories: Dict[str, Memory] = {}
         self.load_memories()
 
-    def add_or_update_memory(self, key: str, value: str):
+    def add_memory(self, key: str, value: str):
         """
-        添加或更新记忆。
+        添加记忆。
         """
         if key in self.memories:
-            # 更新 existing memory
-            self.memories[key].value = value
-            self.memories[key].modified_at = datetime.now().isoformat()
-        else:
-            # 添加 new memory
-            self.memories[key] = Memory(key, value)
+            return {"status": "error", "message": f"Memory with key '{key}' already exists."}
+        self.memories[key] = Memory(key, value)
         self.save_memories()
+        return {"status": "success"}
+
+    def update_memory(self, key: str, value: str):
+        """
+        更新记忆。
+        """
+        if key not in self.memories:
+            return {"status": "error", "message": f"Memory with key '{key}' does not exist."}
+        self.memories[key].value = value
+        self.memories[key].modified_at = datetime.now().isoformat()
+        self.save_memories()
+        return {"status": "success"}
 
     def delete_memory(self, key: str):
         """
@@ -76,8 +84,9 @@ class MemoryManager:
         if key in self.memories:
             del self.memories[key]
             self.save_memories()
+            return {"status": "success"}
         else:
-            raise ValueError(f"Memory with key '{key}' does not exist.")
+            return {"status": "error", "message": f"Memory with key '{key}' does not exist."}
 
     def get_summary(self) -> Dict:
         """
@@ -121,8 +130,8 @@ tools = [
     {
         "type": "function",
         "function": {
-            "name": "add_or_update_memory",
-            "description": "Add or update a memory in the memory manager.",
+            "name": "add_memory",
+            "description": "Add a new memory to the memory manager.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -133,6 +142,27 @@ tools = [
                     "value": {
                         "type": "string",
                         "description": "The value to store in memory."
+                    }
+                },
+                "required": ["key", "value"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "update_memory",
+            "description": "Update an existing memory in the memory manager.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "description": "The key associated with the memory."
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "The new value to store in memory."
                     }
                 },
                 "required": ["key", "value"]
@@ -171,7 +201,8 @@ You are a helpful assistant that manages user memories. Actively add or update u
 
 **Rules:**  
 1. **Add/Update Memories:**  
-   - Use `add_or_update_memory` **only for new or updated information**.  
+   - Use `add_memory` **only for new information**.  
+   - Use `update_memory` **only for updating existing information**.  
    - Use hierarchical keys (e.g., `user.preferences`) and store structured data as JSON like dict or list.
    - Avoid unnecessary or repetitive function calls.
    - Add any information especially about the user to be more helpful. You can first store the information, then reply to the user.
@@ -198,7 +229,7 @@ You are a helpful assistant that manages user memories. Actively add or update u
 ---
 
 **Notes:**  
-- Do not call `add_or_update_memory` to retrieve or check existing memories (they are automatically attached to the prompt).  
+- Do not call `add_memory` or `update_memory` to retrieve or check existing memories (they are automatically attached to the prompt).  
 
 By following these guidelines, you will ensure smooth, efficient, and engaging user interactions.  
 
@@ -209,7 +240,7 @@ For example
 user: I'm a software engineer, recommad me a book.
 If you don't know user's job before, you should store it first. After that, you can answer user's question.
 You must force myself to remember user's information as much as possible. About user's everything, like job, hobby, family, even user's watched movie or read book.
-Each time you should call add_or_update_memory function to store user's information, unless there's no more information to store.
+Each time you should call add_memory or update_memory function to store user's information, unless there's no more information to store.
 When a key can have multiple values, you should store them as a list. For example, user's hobby can be multiple, you should store them as a list.
 """
 
@@ -244,19 +275,19 @@ def chat():
                 logging.warning(f"Calling function: {function_name} with args: {function_args}")
 
                 try:
-                    if function_name == "add_or_update_memory":
-                        memory_manager.add_or_update_memory(**function_args)
-                        tool_result = json.dumps({"status": "success"}, ensure_ascii=False)
+                    if function_name == "add_memory":
+                        tool_result = memory_manager.add_memory(**function_args)
+                    elif function_name == "update_memory":
+                        tool_result = memory_manager.update_memory(**function_args)
                     elif function_name == "delete_memory":
-                        memory_manager.delete_memory(**function_args)
-                        tool_result = json.dumps({"status": "success"}, ensure_ascii=False)
+                        tool_result = memory_manager.delete_memory(**function_args)
                     else:
-                        tool_result = json.dumps({"status": "error", "message": f"Unknown function: {function_name}"}, ensure_ascii=False)
+                        tool_result = {"status": "error", "message": f"Unknown function: {function_name}"}
                 except Exception as e:
-                    tool_result = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False)
+                    tool_result = {"status": "error", "message": str(e)}
 
                 # 将工具调用结果添加到消息历史
-                messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": tool_result})
+                messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": json.dumps(tool_result, ensure_ascii=False)})
 
             # 再次调用 LLM 以处理工具结果
             response = send_messages(messages, tools=tools)
