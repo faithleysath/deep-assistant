@@ -84,7 +84,7 @@ class MemoryManager:
         if key in self.memories:
             del self.memories[key]
             self.save_memories()
-            return {"status": "success"}
+            return {"status": "successfully delete memory with key '{key}'."}
         else:
             return {"status": "error", "message": f"Memory with key '{key}' does not exist."}
 
