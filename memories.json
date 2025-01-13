@@ -16,5 +16,11 @@
         "value": "Interstellar",
         "created_at": "2025-01-13T23:19:06.776756",
         "modified_at": "2025-01-13T23:19:06.776756"
+    },
+    "user.favorite_books": {
+        "key": "user.favorite_books",
+        "value": "One Hundred Years of Solitude, 1984, The Stranger",
+        "created_at": "2025-01-13T23:21:33.038196",
+        "modified_at": "2025-01-13T23:21:33.038196"
     }
 }
