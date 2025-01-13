@@ -13,9 +13,9 @@
     },
     "user.watched_movies": {
         "key": "user.watched_movies",
-        "value": "星际穿越",
+        "value": "珍珠港",
         "created_at": "2025-01-13T21:55:39.264393",
-        "modified_at": "2025-01-13T21:55:39.264393"
+        "modified_at": "2025-01-13T21:57:34.286700"
     },
     "user.watched_movies.interstellar": {
         "key": "user.watched_movies.interstellar",
