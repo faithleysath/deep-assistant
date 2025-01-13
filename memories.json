@@ -16,5 +16,11 @@
         "value": "Python",
         "created_at": "2025-01-13T21:19:42.229069",
         "modified_at": "2025-01-13T21:19:42.229069"
+    },
+    "user.preferences.favorite_foods": {
+        "key": "user.preferences.favorite_foods",
+        "value": "[\"黄焖鸡\", \"手抓饼\"]",
+        "created_at": "2025-01-13T21:20:02.292991",
+        "modified_at": "2025-01-13T21:20:02.292991"
     }
 }
