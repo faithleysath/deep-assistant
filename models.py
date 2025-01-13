@@ -131,7 +131,10 @@ class Message:
         timestamp = data.get("timestamp", 0)
         raw_message = data.get("raw_message", "")
         segments = [cls._segment_from_dict(seg) for seg in data.get("message", [])]
-        return cls(message_id, user_id, message_type, timestamp, raw_message, segments)
+        if message_type == MessageType.PRIVATE:
+            return PrivateMessage(message_id, user_id, timestamp, raw_message, segments)
+        elif message_type == MessageType.GROUP:
+            return GroupMessage(message_id, user_id, timestamp, raw_message, segments)
 
     def __str__(self):
         return f"{self.type.name.capitalize()} message from {self.user_id}: {self.raw_message}"
