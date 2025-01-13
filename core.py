@@ -33,8 +33,8 @@ class EventManager:
     async def handle_event(cls, event: Event):
         for event_type, handler, priority in sorted(cls.handlers, key=lambda x: x[2]):
             if isinstance(event, event_type) and event.status != EventStatus.DEPRECATED:
+                event.trigger_num += 1
                 result = await handler(event)
-                
 
     @classmethod
     async def add_event(cls, event: Event):
