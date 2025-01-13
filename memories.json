@@ -10,5 +10,11 @@
         "value": "{\"favorite_drinks\": [\"咖啡\"], \"favorite_foods\": [\"黄焖鸡\"], \"favorite_sports\": [\"篮球\"]}",
         "created_at": "2025-01-13T21:16:53.004298",
         "modified_at": "2025-01-13T21:16:53.004298"
+    },
+    "user.preferences.favorite_programming_language": {
+        "key": "user.preferences.favorite_programming_language",
+        "value": "Python",
+        "created_at": "2025-01-13T21:17:38.090974",
+        "modified_at": "2025-01-13T21:17:38.090974"
     }
 }
