@@ -29,5 +29,11 @@
         "value": "大三",
         "created_at": "2025-01-13T21:48:12.645723",
         "modified_at": "2025-01-13T21:48:12.645723"
+    },
+    "user.preferences.books.currently_reading": {
+        "key": "user.preferences.books.currently_reading",
+        "value": "中国近代史",
+        "created_at": "2025-01-13T21:49:30.192115",
+        "modified_at": "2025-01-13T21:49:30.192115"
     }
 }
