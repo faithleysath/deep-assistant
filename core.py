@@ -1,6 +1,6 @@
 import asyncio
 from typing import Type
-from models import Event
+from models import Event, EventStatus
 
 loop = asyncio.get_event_loop()
 
@@ -31,7 +31,7 @@ class EventManager:
     @classmethod
     async def handle_event(cls, event: Event):
         for event_type, handler, priority in sorted(cls.handlers, key=lambda x: x[2]):
-            if isinstance(event, event_type):
+            if isinstance(event, event_type) and event.status != EventStatus.DEPRECATED:
                 result = await handler(event)
                 
 
