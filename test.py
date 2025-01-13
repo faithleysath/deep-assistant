@@ -65,7 +65,7 @@ class MemoryManager:
         value = set(value)  # 使用集合去重
         if key in self.memories and not override:
             # 如果 key 已存在且不覆盖，则将新值追加到列表中
-            self.memories[key].value.extend(value)
+            self.memories[key].value.update(value)
             self.memories[key].modified_at = datetime.now().isoformat()
             status_message = f"successfully updated memory with key '{key}' by appending new value(s)."
         else:
