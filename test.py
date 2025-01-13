@@ -158,11 +158,11 @@ tools = [
                 "properties": {
                     "key": {
                         "type": "string",
-                        "description": "The key associated with the memory."
+                        "description": "The key associated with the memory (always in English)."
                     },
                     "value": {
                         "type": "string",
-                        "description": "The new value to store in memory."
+                        "description": "The new value to store in memory. (better in English)"
                     }
                 },
                 "required": ["key", "value"]
