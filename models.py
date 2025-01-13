@@ -135,6 +135,7 @@ class Message:
     def from_dict(data: dict):
         message_id = data.get("message_id", 0)
         user_id = data.get("user_id", 0)
+        group_id = data.get("group_id", 0)
         message_type = MessageType(data.get("message_type", "private"))
         timestamp = data.get("timestamp", 0)
         raw_message = data.get("raw_message", "")
@@ -142,7 +143,7 @@ class Message:
         if message_type == MessageType.PRIVATE:
             return PrivateMessage(message_id, user_id, timestamp, raw_message, segments)
         elif message_type == MessageType.GROUP:
-            return GroupMessage(message_id, user_id, data.get("group_id", 0), timestamp, raw_message, segments)
+            return GroupMessage(message_id, user_id, group_id, timestamp, raw_message, segments)
 
     def __str__(self):
         return f"{self.type.name.capitalize()} message from {self.user_id}: {self.raw_message}"
