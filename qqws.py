@@ -1,6 +1,6 @@
 import websockets
 import json
-from models import Message
+from models import Message, MessageEvent
 
 # WebSocket 客户端逻辑
 async def listen_message():
@@ -14,6 +14,7 @@ async def listen_message():
                 message = await websocket.recv()  # 接收消息
                 data: dict = json.loads(message)
                 if data.get("post_type", "null") == "message":
-                    
+                    message = Message.from_dict(data)
+                    event = 
         except websockets.ConnectionClosed:
             print("连接已关闭")
