@@ -75,5 +75,13 @@
         ],
         "created_at": "2025-01-13T23:38:36.870297",
         "modified_at": "2025-01-13T23:38:36.870297"
+    },
+    "user.current_actions": {
+        "key": "user.current_actions",
+        "value": [
+            "正在看书"
+        ],
+        "created_at": "2025-01-13T23:39:27.050655",
+        "modified_at": "2025-01-13T23:39:27.050655"
     }
 }
