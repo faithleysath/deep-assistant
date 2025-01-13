@@ -1,0 +1,26 @@
+{
+    "user_name": {
+        "key": "user_name",
+        "value": "吴天一",
+        "lifetime": "permanent",
+        "tags": [
+            "user_info"
+        ],
+        "priority": "high",
+        "access_count": 0,
+        "last_accessed": "2025-01-13T19:44:10.652826",
+        "created_at": "2025-01-13T19:44:10.652826"
+    },
+    "user_location": {
+        "key": "user_location",
+        "value": "南京",
+        "lifetime": "permanent",
+        "tags": [
+            "user_info"
+        ],
+        "priority": "high",
+        "access_count": 0,
+        "last_accessed": "2025-01-13T19:44:10.653834",
+        "created_at": "2025-01-13T19:44:10.653834"
+    }
+}
