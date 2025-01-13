@@ -1,5 +1,5 @@
 import asyncio
-from core import EventManager
+from src.core import EventManager
 from models import MessageEvent
 from qqws import listen_message
 

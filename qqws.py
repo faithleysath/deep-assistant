@@ -1,7 +1,7 @@
 import websockets
 import json
 from models import Message, MessageEvent
-from core import EventManager
+from src.core import EventManager
 
 # WebSocket 客户端逻辑
 async def listen_message():
