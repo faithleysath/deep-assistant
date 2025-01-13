@@ -26,7 +26,7 @@ class EventManager:
         while True:
             event = await cls.delayed_events.get()
             loop.create_task(cls.handle_event(event))
-            await asyncio.sleep(0.1)
+            await asyncio.sleep(0.1) # sleep for a short time to prevent busy waiting
 
     @classmethod
     async def handle_event(cls, event: Event):
