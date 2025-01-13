@@ -123,6 +123,16 @@ class Message:
         self.raw_message = raw_message
         self.segments = segments
 
+    @classmethod
+    def from_dict(cls, data: dict):
+        message_id = data.get("message_id", 0)
+        user_id = data.get("user_id", 0)
+        message_type = MessageType(data.get("message_type", "private"))
+        timestamp = data.get("timestamp", 0)
+        raw_message = data.get("raw_message", "")
+        segments = [cls._segment_from_dict(seg) for seg in data.get("segments", [])]
+        return cls(message_id, user_id, message_type, timestamp, raw_message, segments)
+
     def __str__(self):
         return f"{self.type.name.capitalize()} message from {self.user_id}: {self.raw_message}"
     
