@@ -1,3 +1,12 @@
+import json
+import logging
+from openai import OpenAI
+from datetime import datetime
+from typing import Dict, Optional, List, Set, Union
+
+# 配置日志
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
 # 初始化 OpenAI 客户端
 client = OpenAI(
     api_key="sk-c5ea9ba45f3f4fdbb55c2d6a32399a57",
