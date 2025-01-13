@@ -71,7 +71,7 @@ class MemoryManager:
         更新记忆。
         """
         if key not in self.memories:
-            return {"status": "error", "message": f"Memory with key '{key}' does not exist."}
+            return {"status": "error", "message": f"Memory with key '{key}' does not exist. Please use 'add_memory' to add a new memory."}
         self.memories[key].value = value
         self.memories[key].modified_at = datetime.now().isoformat()
         self.save_memories()
