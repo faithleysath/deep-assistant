@@ -2,10 +2,10 @@ import json
 import logging
 from openai import OpenAI
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Dict, Optional, List, Union
 
 # 配置日志
-logging.basicConfig(level=logging.WARNING, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # 初始化 OpenAI 客户端
 client = OpenAI(
@@ -26,7 +26,7 @@ def send_messages(messages, tools={}):
 
 
 class Memory:
-    def __init__(self, key: str, value: str, created_at: Optional[str] = None, modified_at: Optional[str] = None):
+    def __init__(self, key: str, value: List[Union[str, dict, list, tuple]], created_at: Optional[str] = None, modified_at: Optional[str] = None):
         """
         初始化记忆对象。
         """
@@ -56,26 +56,24 @@ class MemoryManager:
         self.memories: Dict[str, Memory] = {}
         self.load_memories()
 
-    def add_memory(self, key: str, value: str):
+    def save_memory(self, key: str, value: List[Union[str, dict, list, tuple]], override: bool = False):
         """
-        添加记忆。
+        保存记忆。如果 override 为 True，则覆盖原有值；否则将新值追加到列表中。
         """
-        if key in self.memories:
-            return {"status": "error", "message": f"Memory with key '{key}' already exists with value {self.memories[key].value}."}
-        self.memories[key] = Memory(key, value)
-        self.save_memories()
-        return {"status": "successfully add memory with key '{key}' and value '{value}'."}
+        if not isinstance(value, list):
+            value = [value]  # 确保 value 是列表
 
-    def update_memory(self, key: str, value: str):
-        """
-        更新记忆。
-        """
-        if key not in self.memories:
-            return {"status": "error", "message": f"Memory with key '{key}' does not exist. Please use 'add_memory' to add a new memory."}
-        self.memories[key].value = value
-        self.memories[key].modified_at = datetime.now().isoformat()
+        if key in self.memories and not override:
+            # 如果 key 已存在且不覆盖，则将新值追加到列表中
+            self.memories[key].value.extend(value)
+            self.memories[key].modified_at = datetime.now().isoformat()
+            status_message = f"successfully updated memory with key '{key}' by appending new value(s)."
+        else:
+            # 如果 key 不存在或需要覆盖，则创建或覆盖记忆
+            self.memories[key] = Memory(key, value)
+            status_message = f"successfully added memory with key '{key}' and value '{value}'."
         self.save_memories()
-        return {"status": "successfully update memory with key '{key}' and value '{value}'."}
+        return {"status": status_message}
 
     def delete_memory(self, key: str):
         """
@@ -84,7 +82,7 @@ class MemoryManager:
         if key in self.memories:
             del self.memories[key]
             self.save_memories()
-            return {"status": "successfully delete memory with key '{key}'."}
+            return {"status": f"successfully deleted memory with key '{key}'."}
         else:
             return {"status": "error", "message": f"Memory with key '{key}' does not exist."}
 
@@ -130,8 +128,8 @@ tools = [
     {
         "type": "function",
         "function": {
-            "name": "add_memory",
-            "description": "Add a new memory to the memory manager.",
+            "name": "save_memory",
+            "description": "Save a memory to the memory manager. If the key already exists, the new value will be appended to the list unless override is set to True.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -140,29 +138,16 @@ tools = [
                         "description": "The key associated with the memory (always in English)."
                     },
                     "value": {
-                        "type": "string",
-                        "description": "The value(s) to store in memory. (better in English, list, set, or dict)"
-                    }
-                },
-                "required": ["key", "value"]
-            }
-        }
-    },
-    {
-        "type": "function",
-        "function": {
-            "name": "update_memory",
-            "description": "Update an existing memory in the memory manager.",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "key": {
-                        "type": "string",
-                        "description": "The key associated with the memory (always in English)."
+                        "type": "array",
+                        "items": {
+                            "type": ["string", "object", "array"]
+                        },
+                        "description": "The value(s) to store in memory. Must be a list, even if it contains only one element."
                     },
-                    "value": {
-                        "type": "string",
-                        "description": "The new value to store in memory. (better in English, list, set, or dict)"
+                    "override": {
+                        "type": "boolean",
+                        "description": "If True, overwrite the existing value. If False, append the new value to the list.",
+                        "default": False
                     }
                 },
                 "required": ["key", "value"]
@@ -220,25 +205,20 @@ You are a helpful assistant that manages user memories. Actively add or update u
        - `user.read_books`: Books the user has read.  
    - Use descriptive and specific keys to avoid ambiguity.  
 
-3. **Add/Update Memories:**  
-   - Use `add_memory` **only for new information**.  
-   - Use `update_memory` **only for updating existing information**.  
-   - When calling `update_memory`, **always pass the `value` as a structured data type** (e.g., `list`, `dict`, or `set`).  
-   - **Do not call `add_memory` multiple times for the same key.** Instead, use `update_memory` to pass structured data.  
+3. **Save Memories:**  
+   - Use `save_memory` to store new information or update existing information.  
+   - The `value` must always be a list, even if it contains only one element.  
+   - If the key already exists and `override` is False, the new value will be appended to the list.  
+   - If `override` is True, the entire value will be replaced.  
 
-4. **Error Handling:**  
-   - If a function call fails (e.g., key conflict), **retry** with an appropriate adjustment (e.g., use `update_memory` instead of `add_memory`, be careful not overwrite the old value unless needed. otherwise, use list).  
-   - If the error persists, inform the user and ask for clarification.  
-
-5. **Delete Memories:**  
+4. **Delete Memories:**  
    - Use `delete_memory` to remove outdated, redundant, or user-requested memories.  
-   - Automatically delete expired reminders without user confirmation.  
 
-6. **Function Calls:**  
+5. **Function Calls:**  
    - Call functions only when necessary.  
    - Avoid redundant or repetitive calls within the same interaction.  
 
-7. **Response Style:**  
+6. **Response Style:**  
    - Be conversational, friendly, and human-like.  
 
 ---
@@ -252,10 +232,10 @@ You are a helpful assistant that manages user memories. Actively add or update u
 ---
 
 **Notes:**  
-- Do not call `add_memory` or `update_memory` to retrieve or check existing memories (they are automatically attached to the prompt).  
+- Do not call `save_memory` to retrieve or check existing memories (they are automatically attached to the prompt).  
 - Always ensure keys are in English and values are stored in a structured format (e.g., `list`, `dict`, or `set`).  
 - Clearly distinguish between similar but different concepts (e.g., `user.past_actions` vs. `user.current_actions` vs. `user.future_plans`).  
-- **When calling `update_memory`, always pass the `value` as a structured data type (e.g., `list`, `dict`, or `set`).**  
+- **When calling `save_memory`, always pass the `value` as a list.**  
 
 --- 
 Before answering the user's question, check if there is any new information to store. If so, store it first.
@@ -274,17 +254,13 @@ User: "My favorite genres are sci-fi and action, do you like it?"
 - after store, you can answer the user's question.
 
 User: "I have a cat named Whiskers, do you like it?"
-- Store this as `user.pets: "cat": "Whiskers"`.
+- Store this as `user.pets: [{"cat": "Whiskers"}]`.
 - after store, you can answer the user's question.
 
 You must force yourself to remember as much user information as possible. This includes their past actions, current actions, future plans, preferences, experiences, etc.  
-Each time, call `add_memory` or `update_memory` to store user information, unless there is no more information to store.  
-When a key can have multiple values, store them as a structured data type (e.g., `list`, `dict`, or `set`).  
-You must force yourself to remember as much user information as possible. This includes their past actions, current actions, future plans, preferences, experiences, etc.  
-Each time, call `add_memory` or `update_memory` to store user information, unless there is no more information to store.  
+Each time, call `save_memory` to store user information, unless there is no more information to store.  
 When a key can have multiple values, store them as a list (e.g., `user.watched_movies: ["Inception", "Interstellar"]`).  
 """
-
 
 
 # 多轮对话
@@ -314,15 +290,13 @@ def chat():
             messages.append(response)
             for tool_call in response.tool_calls:
                 function_name = tool_call.function.name
-                function_args = eval(tool_call.function.arguments)
+                function_args = json.loads(tool_call.function.arguments)
 
                 logging.warning(f"Calling function: {function_name} with args: {function_args}")
 
                 try:
-                    if function_name == "add_memory":
-                        tool_result = memory_manager.add_memory(**function_args)
-                    elif function_name == "update_memory":
-                        tool_result = memory_manager.update_memory(**function_args)
+                    if function_name == "save_memory":
+                        tool_result = memory_manager.save_memory(**function_args)
                     elif function_name == "delete_memory":
                         tool_result = memory_manager.delete_memory(**function_args)
                     else:
