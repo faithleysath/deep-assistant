@@ -75,7 +75,7 @@ class MemoryManager:
         self.memories[key].value = value
         self.memories[key].modified_at = datetime.now().isoformat()
         self.save_memories()
-        return {"status": "success"}
+        return {"status": "successfully update memory with key '{key}' and value '{value}'."}
 
     def delete_memory(self, key: str):
         """
