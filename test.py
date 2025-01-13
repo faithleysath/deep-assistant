@@ -332,6 +332,8 @@ def chat():
         # 添加用户输入到消息历史
         messages.append({"role": "user", "content": user_input})
 
+        logging.info(f"messages: {messages}")
+
         # 发送消息并获取响应
         response = send_messages(messages, tools=tools)
 
