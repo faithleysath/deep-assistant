@@ -122,19 +122,6 @@ class Message:
         self.timestamp = timestamp
         self.raw_message = raw_message
         self.segments = segments
-        self.segments = self._parse_segments(raw_data.get("message", ""))
-
-    def _parse_segments(self, message: str) -> list[MessageSegment]:
-        segments = []
-        for seg in message:
-            if seg["type"] == "text":
-                segments.append(TextSegment(seg))
-            else:
-                segments.append(UnknownSegment(seg))
-        return segments
 
     def __str__(self):
-        return f"{self.type.name.capitalize()} message from {self.user_id}: {''.join([str(seg) for seg in self.segments])}"
-
-    def __repr__(self):
-        return str(self)
+        return f"{self.type.name.capitalize()} message from {self.user_id}: {self.raw_message}"
