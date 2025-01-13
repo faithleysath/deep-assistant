@@ -168,7 +168,7 @@ class MemoryManager:
         将记忆保存到本地文件。
         """
         memories_data = {key: memory.to_dict() for key, memory in self.memories.items()}
-        with open(self.file_path, "w") as file:
+        with open(self.file_path, "w", encoding='utf-8') as file:
             json.dump(memories_data, file, indent=4)
         logging.info(f"Memories saved to {self.file_path}")
 
