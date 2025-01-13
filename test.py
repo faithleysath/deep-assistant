@@ -297,7 +297,7 @@ def chat():
         if user_input.lower() in ["exit", "quit"]:
             break
         
-        user_input += "Please remember new information about me if exist. Then answer my question."
+        user_input += "Please remember new information about me if exist. Then reply."
         # 更新 messages[0] 为当前记忆概览
         memory_summary = memory_manager.get_summary()
         current_time = datetime.now().isoformat()
