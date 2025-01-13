@@ -123,8 +123,8 @@ class Message:
         self.raw_message = raw_message
         self.segments = segments
 
-    @classmethod
-    def from_dict(cls, data: dict):
+    @staticmethod
+    def from_dict(data: dict):
         message_id = data.get("message_id", 0)
         user_id = data.get("user_id", 0)
         message_type = MessageType(data.get("message_type", "private"))
