@@ -6,6 +6,13 @@ client = OpenAI(
     base_url="https://api.deepseek.com",
 )
 
+async def send_messages(messages):
+    response = client.chat.completions.create(
+        model="deepseek-chat",
+        messages=messages,
+    )
+    print(response)
+    return response.choices[0].message
 
 class Agent:
     def __init__(self, name):
