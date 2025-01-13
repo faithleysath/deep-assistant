@@ -340,6 +340,7 @@ def chat():
         print(f'Messages: {messages}')
         # 发送消息并获取响应
         response = send_messages(messages, tools=tools)
+        print(f'Response: {response}')
 
         # 处理 LLM 的工具调用
         if response.tool_calls:
