@@ -33,7 +33,7 @@ class Event:
         return str(self)
 
 class DownloadEvent(Event):
-    def __init__(self, **raw_data):
+    def __init__(self, url: str, path: str, **raw_data):
         super().__init__(**raw_data)
         self.path = raw_data.get('path', 'unknown')
         self.url = raw_data.get('url', 'unknown')
