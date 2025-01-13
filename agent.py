@@ -6,6 +6,7 @@ class Agent:
     def __init__(self, name):
         self.name = name
         self.prompt_file = os.path.join(base_path, 'agents', name, 'prompt.txt')
+        self.prompt = self.get_prompt()
 
     def get_prompt(self):
         with open(self.prompt_file, 'r') as f:
