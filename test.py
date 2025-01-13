@@ -22,7 +22,6 @@ def send_messages(messages, tools={}):
         messages=messages,
         tools=tools
     )
-    logging.info(f"LLM Response: {response}")
     return response.choices[0].message
 
 
