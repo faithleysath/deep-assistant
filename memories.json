@@ -10,5 +10,11 @@
         "value": "钢铁侠",
         "created_at": "2025-01-13T21:39:33.789801",
         "modified_at": "2025-01-13T21:39:33.789801"
+    },
+    "user.preferences.movies.favorite_part": {
+        "key": "user.preferences.movies.favorite_part",
+        "value": "2",
+        "created_at": "2025-01-13T21:39:43.837909",
+        "modified_at": "2025-01-13T21:39:43.837909"
     }
 }
