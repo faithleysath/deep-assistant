@@ -18,7 +18,7 @@ async def main():
         url = await get_user_input('Enter URL: ')
         path = await get_user_input('Enter path: ')
         event = DownloadEvent(url=url, path=path)
-        await EventManager.events.put(event)
+        await EventManager.add_event(event)
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
