@@ -31,5 +31,13 @@
         ],
         "created_at": "2025-01-13T23:36:12.499715",
         "modified_at": "2025-01-13T23:36:12.499715"
+    },
+    "user.favorite_movie_soundtracks": {
+        "key": "user.favorite_movie_soundtracks",
+        "value": [
+            "星际穿越"
+        ],
+        "created_at": "2025-01-13T23:36:33.326229",
+        "modified_at": "2025-01-13T23:36:33.326229"
     }
 }
