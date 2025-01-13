@@ -56,3 +56,19 @@ class DownloadEvent(Event):
         super().__init__(**raw_data)
         self.url = url
         self.path = path
+
+
+class MessageSegmentType(Enum):
+    TEXT = "text"
+    IMAGE = "image"
+    VIDEO = "video"
+    AUDIO = "record"
+    FILE = "file"
+    REPLY = "reply"
+    FACE = "face"
+    AT = "at"
+    UNKNOWN = "unknown"
+
+class MessageType(Enum):
+    PRIVATE = "private"
+    GROUP = "group"
