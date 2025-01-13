@@ -1,8 +1,11 @@
 import os
 from openai import OpenAI
 base_path = os.path.dirname(os.path.realpath(__file__))
-api_key = os.getenv('OPENAI_API_KEY')
-endpoint = os.getenv('OPENAI_ENDPOINT')
+client = OpenAI(
+    api_key="<your api key>",
+    base_url="https://api.deepseek.com",
+)
+
 
 class Agent:
     def __init__(self, name):
