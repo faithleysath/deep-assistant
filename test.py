@@ -221,8 +221,7 @@ prompt = """You are a helpful assistant that manages memories. Actively add usef
 - Assistant: (Checks the existing memory and responds without calling any function.)
 
 ---
-
-By following these guidelines, you will ensure that function calls are made efficiently and without unnecessary redundancy.
+"""
 
 # 多轮对话
 def chat():
