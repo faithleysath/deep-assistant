@@ -178,6 +178,11 @@ Here is your current memory summary:
 
 2. **Delete memories when necessary:**
    - If the user requests to delete a memory, call the `delete_memory` tool to remove it.
+    - **Outdated Information:** If the memory contains information that is no longer relevant or has become outdated.
+    - **Completed Tasks:** If the memory was created for a temporary task or reminder, and that task has been completed.
+    - **User Request:** If the user explicitly requests the deletion of a specific memory.
+    - **Redundant Data:** If the memory contains redundant or duplicate information that is no longer needed.
+    - **Temporary Use:** If the memory was created for a temporary purpose and is no longer required.
 
 3. **Handle errors gracefully:**
    - If a tool call fails (e.g., trying to delete a non-existent key), inform the user and suggest an alternative action.
