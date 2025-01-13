@@ -1,4 +1,5 @@
 import os
+import openai
 base_path = os.path.dirname(os.path.realpath(__file__))
 
 class Agent:
