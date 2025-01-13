@@ -26,12 +26,14 @@ def send_messages(messages, tools={}):
 
 
 class Memory:
-    def __init__(self, key: str, value: str):
+    def __init__(self, key: str, value: str, created: Optional[str] = None, modified: Optional[str] = None):
         """
         初始化记忆对象。
         """
         self.key = key
         self.value = value
+        self.created_at = created or datetime.now().isoformat()
+        self.modified_at = modified or datetime.now().isoformat()
 
     def to_dict(self):
         """
@@ -39,7 +41,9 @@ class Memory:
         """
         return {
             "key": self.key,
-            "value": self.value
+            "value": self.value,
+            "created_at": self.created_at,
+            "modified_at": self.modified_at
         }
 
 
@@ -56,7 +60,13 @@ class MemoryManager:
         """
         添加或更新记忆。
         """
-        self.memories[key] = Memory(key, value)
+        if key in self.memories:
+            # 更新 existing memory
+            self.memories[key].value = value
+            self.memories[key].modified = datetime.now().isoformat()
+        else:
+            # 添加 new memory
+            self.memories[key] = Memory(key, value)
         self.save_memories()
 
     def delete_memory(self, key: str):
@@ -95,7 +105,12 @@ class MemoryManager:
             with open(self.file_path, "r", encoding='utf-8') as file:
                 memories_data = json.load(file)
                 for key, data in memories_data.items():
-                    self.memories[key] = Memory(key=data["key"], value=data["value"])
+                    self.memories[key] = Memory(
+                        key=data["key"],
+                        value=data["value"],
+                        created=data.get("created"),
+                        modified=data.get("modified")
+                    )
             logging.info(f"Memories loaded from {self.file_path}")
         except FileNotFoundError:
             logging.warning(f"No memory file found at {self.file_path}. Starting with an empty memory manager.")
@@ -148,9 +163,11 @@ tools = [
 memory_manager = MemoryManager()
 prompt = """You are a helpful assistant that can manage memories. You need to actively add useful memories, especially about the user, to be more helpful.
 
+Current time: {current_time}
+
 Your memory is summarized below. It includes:
 - Total memories: The total number of memories stored.
-- All memories: A list of all memories with their keys and values.
+- All memories: A list of all memories with their keys, values, creation time, and last modification time.
 
 Here is your current memory summary:
 {memory_summary}
@@ -164,13 +181,6 @@ Here is your current memory summary:
 
 3. **Handle errors gracefully:**
    - If a tool call fails (e.g., trying to delete a non-existent key), inform the user and suggest an alternative action.
-
-**Example:**
-- If the user asks, "What do you know about me?", check the memory summary first. If the summary shows only the user's name, respond with:
-  "I currently only know your name. If you'd like, you can tell me more about yourself, and I'll remember it for future conversations."
-
-- If the user asks, "What is my favorite food?", and the summary does not include this information, respond with:
-  "I don't have any information about your favorite food yet. Would you like to tell me what it is so I can remember it?"
 
 **Your goal:**
 - Use tools efficiently to provide the best possible assistance.
@@ -189,7 +199,8 @@ def chat():
 
         # 更新 messages[0] 为当前记忆概览
         memory_summary = memory_manager.get_summary()
-        messages[0] = {"role": "system", "content": prompt.format(memory_summary=json.dumps(memory_summary, indent=4, ensure_ascii=False))}
+        current_time = datetime.now().isoformat()
+        messages[0] = {"role": "system", "content": prompt.format(current_time=current_time, memory_summary=json.dumps(memory_summary, indent=4, ensure_ascii=False))}
 
         # 添加用户输入到消息历史
         messages.append({"role": "user", "content": user_input})
