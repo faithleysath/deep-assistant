@@ -17,7 +17,7 @@ async def listen_message():
                 if data.get("post_type", "null") == "message":
                     message = Message.from_dict(data)
                     event = MessageEvent.from_message(message)
-                    print(f"添加事件: {event}")
+                    print(f"添加事件: {type(event)}")
                     await EventManager.add_event(event)
         except websockets.ConnectionClosed:
             print("连接已关闭")
