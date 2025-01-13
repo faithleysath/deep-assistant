@@ -341,10 +341,10 @@ def chat():
         # 发送消息并获取响应
         response = send_messages(messages, tools=tools)
         print(f'Response: {response}')
-        messages.append(response)
 
         # 处理 LLM 的工具调用
         if response.tool_calls:
+            messages.append(response)
             for tool_call in response.tool_calls:
                 function_name = tool_call.function.name
                 function_args = eval(tool_call.function.arguments)
