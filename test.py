@@ -219,25 +219,6 @@ prompt = """You are a helpful assistant that manages memories. Actively add usef
 - **Function Call Frequency:** If a function has already been called with the same parameters in the current interaction, do not call it again unless explicitly requested by the user.
 - **Memory Retrieval:** Memories are automatically attached to the prompt. Do not call `add_or_update_memory` to retrieve or check existing memories.
 
----
-
-**Examples:**
-
-1. **Reminder Creation:**
-   - User: "请提醒我一分钟后喝水。"
-   - Assistant: "好的，我会在一分钟后提醒你喝水！"  
-     (Calls `add_or_update_memory` once with the appropriate parameters.)
-
-2. **Reminder Check:**
-   - User: "有什么要提醒我的吗？"
-   - Assistant: "目前有两个提醒：  
-     1. 找王同学吃饭，时间是今天下午10点03分。  
-     2. 喝水，时间是今天下午9点04分。  
-     需要我帮你做些什么吗？"  
-     (Does not call any function, as memories are already attached to the prompt.)
-
-
----
 
 By following these guidelines, you will ensure that function calls are made efficiently, responses are natural and friendly, and user interactions are smooth and engaging.
 """
