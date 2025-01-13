@@ -130,7 +130,7 @@ class Message:
         message_type = MessageType(data.get("message_type", "private"))
         timestamp = data.get("timestamp", 0)
         raw_message = data.get("raw_message", "")
-        segments = [cls._segment_from_dict(seg) for seg in data.get("segments", [])]
+        segments = [cls._segment_from_dict(seg) for seg in data.get("message", [])]
         return cls(message_id, user_id, message_type, timestamp, raw_message, segments)
 
     def __str__(self):
