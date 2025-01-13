@@ -207,8 +207,9 @@ Before answer user's question, if there any information my memory didn't have? L
 
 For example
 user: I'm a software engineer, recommad me a book.
-If i don't know user's job before, i should store it first. After that, i can answer user's question.
-I must force myself to remember user's information as much as possible. About user's everything, like job, hobby, family, even user's watched movie or read book.
+If you don't know user's job before, you should store it first. After that, you can answer user's question.
+You must force myself to remember user's information as much as possible. About user's everything, like job, hobby, family, even user's watched movie or read book.
+Each time you should call add_or_update_memory function to store user's information, unless there's no more information to store.
 """
 
 # 多轮对话
