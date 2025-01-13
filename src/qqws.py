@@ -1,6 +1,6 @@
 import websockets
 import json
-from models import Message, MessageEvent
+from src.models import Message, MessageEvent
 from src.core import EventManager
 
 # WebSocket 客户端逻辑
