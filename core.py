@@ -31,7 +31,6 @@ class EventManager:
     @classmethod
     async def handle_event(cls, event: Event):
         for event_type, handler, priority in sorted(cls.handlers, key=lambda x: x[2]):
-            print(f'Checking handler for {event_type}')
             if isinstance(event, event_type) and event.status != EventStatus.DEPRECATED:
                 event.trigger_num += 1
                 result = await handler(event)
@@ -40,7 +39,6 @@ class EventManager:
     async def add_event(cls, event: Event):
         if event.status == EventStatus.PENDING:
             if event.trigger_num == 0:
-                print(f'Adding immediate event: {event}')
                 await cls.immediate_events.put(event)
             else:
                 print(f'Adding delayed event: {event}')
