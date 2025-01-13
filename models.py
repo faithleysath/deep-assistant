@@ -115,12 +115,12 @@ class UnknownSegment(MessageSegment):
 
 class Message:
     """消息类，用于表示消息的通用部分"""
-    def __init__(self, message_id: int, user_id: int, message_type: MessageType, timestamp: int, raw_data: dict):
+    def __init__(self, message_id: int, user_id: int, message_type: MessageType, timestamp: int, raw_message: str, segments: list[MessageSegment]):
         self.message_id = message_id
         self.user_id = user_id
         self.type = message_type
-        self.raw_data = raw_data
         self.timestamp = timestamp
+        self.raw_message
         self.segments = self._parse_segments(raw_data.get("message", ""))
 
     def _parse_segments(self, message: str) -> list[MessageSegment]:
