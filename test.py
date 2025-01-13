@@ -362,6 +362,8 @@ def chat():
                 elif function_name == "list_memories":
                     memories = memory_manager.list_memories(**function_args)
                     tool_result = json.dumps(memories)
+                
+                print(f"Tool result: {tool_result}")
 
                 # 将工具调用结果添加到消息历史
                 messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": tool_result})
