@@ -6,6 +6,7 @@ def send_messages(messages):
         messages=messages,
         tools=tools
     )
+    print(response)
     return response.choices[0].message
 
 client = OpenAI(
