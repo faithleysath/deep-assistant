@@ -17,14 +17,14 @@ class Event:
     """Event is a base class for all events"""
     def __init__(self, time: Optional[float] = None, id: Optional[uuid.UUID] = None, status: EventStatus = EventStatus.PENDING, trigger_num: int = 0, name: str = 'untitled', summary: str = 'no summary', creator: str = 'unknown', source: str = 'unknown', **raw_data):
         self.raw_data = raw_data
-        self.time = raw_data.get('time', time.time())
-        self.id = raw_data.get('id', uuid.uuid4())
-        self.status = EventStatus(raw_data.get('status', 'pending'))
-        self.trigger_num = raw_data.get('trigger_num', 0)
-        self.name = raw_data.get('name', 'untitled')
-        self.summary = raw_data.get('summary', 'no summary')
-        self.creator = raw_data.get('creator', 'unknown')
-        self.source = raw_data.get('source', 'unknown')
+        self.time = time if time is not None else time.time()
+        self.id = id if id is not None else uuid.uuid4()
+        self.status = status
+        self.trigger_num = trigger_num
+        self.name = name
+        self.summary = summary
+        self.creator = creator
+        self.source = source
 
     def __str__(self):
         return f'{datetime.datetime.fromtimestamp(self.time)}: {self.name} ({self.status})'
