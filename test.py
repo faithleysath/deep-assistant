@@ -210,7 +210,6 @@ user: I'm a software engineer, recommad me a book.
 If you don't know user's job before, you should store it first. After that, you can answer user's question.
 You must force myself to remember user's information as much as possible. About user's everything, like job, hobby, family, even user's watched movie or read book.
 Each time you should call add_or_update_memory function to store user's information, unless there's no more information to store.
-Remember, when you want to write into a key with a value, be careful not to overwrite the existing value, unless you want.
 """
 
 # 多轮对话
