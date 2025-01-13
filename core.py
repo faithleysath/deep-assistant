@@ -1,4 +1,5 @@
 import asyncio
+from optparse import Option
 from typing import Type
 from models import Event, EventStatus
 
@@ -46,16 +47,11 @@ class EventManager:
                 await cls.delayed_events.put(event)
 
     @classmethod
-    def register(cls, event_type: Type[Event], priority: int = 0):
+    def register(cls, event_type: Option[Type[Event]] = None, priority: int = 0):
         def decorator(handler):
+            nonlocal event_type
+            if event_type is None:
+                event_type = handler.__annotations__['event']
             cls.handlers.append((event_type, handler, priority))
             return handler
-        return decorator
-    
-    @classmethod
-    def register(cls, priority: int = 0):
-        def decorator(handler):
-            # read the event type from the handler annotation
-            event_type = handler.__annotations__['event']
-            cls.handlers.append((event_type, handler, priority))
         return decorator
