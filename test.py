@@ -2,7 +2,7 @@ import json
 import logging
 from openai import OpenAI
 from datetime import datetime
-from typing import Dict, Optional, List, Union
+from typing import Dict, Optional, List, Set, Union
 
 # 配置日志
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -26,7 +26,7 @@ def send_messages(messages, tools={}):
 
 
 class Memory:
-    def __init__(self, key: str, value: List[Union[str, dict, list, tuple]], created_at: Optional[str] = None, modified_at: Optional[str] = None):
+    def __init__(self, key: str, value: Set[Union[str, dict, list, tuple]], created_at: Optional[str] = None, modified_at: Optional[str] = None):
         """
         初始化记忆对象。
         """
@@ -41,7 +41,7 @@ class Memory:
         """
         return {
             "key": self.key,
-            "value": self.value,
+            "value": list(self.value),
             "created_at": self.created_at,
             "modified_at": self.modified_at
         }
