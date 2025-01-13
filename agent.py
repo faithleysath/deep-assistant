@@ -1,6 +1,8 @@
 import os
 from openai import OpenAI
+
 base_path = os.path.dirname(os.path.realpath(__file__))
+
 client = OpenAI(
     api_key="sk-c5ea9ba45f3f4fdbb55c2d6a32399a57",
     base_url="https://api.deepseek.com",
