@@ -103,3 +103,12 @@ class TextSegment(MessageSegment):
 
     def __str__(self):
         return self.content
+    
+class UnknownSegment(MessageSegment):
+    """未知片段，继承自 MessageSegment"""
+    def __init__(self, raw_data: dict):
+        super().__init__(raw_data)
+        self.type = MessageSegmentType.UNKNOWN
+
+    def __str__(self):
+        return "<UNKNOWN SEGMENT>"
