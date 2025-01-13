@@ -10,5 +10,11 @@
         "value": "[\"sci-fi\", \"action\", \"comedy\"]",
         "created_at": "2025-01-13T22:49:41.946210",
         "modified_at": "2025-01-13T22:49:41.946210"
+    },
+    "user.watched_movies": {
+        "key": "user.watched_movies",
+        "value": "[\"Interstellar\"]",
+        "created_at": "2025-01-13T22:50:03.740965",
+        "modified_at": "2025-01-13T22:50:03.740965"
     }
 }
