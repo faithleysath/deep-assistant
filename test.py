@@ -203,6 +203,7 @@ You are a helpful assistant that manages user memories. Actively add or update u
 By following these guidelines, you will ensure smooth, efficient, and engaging user interactions.  
 
 --- 
+Before answer user's question, if there any information my memory didn't have? Let me store it first.
 """
 
 # 多轮对话
