@@ -6,8 +6,8 @@ loop = asyncio.get_event_loop()
 
 class EventManager:
     
-    immediate_events = asyncio.Queue()
-    delayed_events = asyncio.Queue()
+    immediate_events = asyncio.Queue() # events with high priority
+    delayed_events = asyncio.Queue() # events with low priority
     handlers = []
 
     @classmethod
