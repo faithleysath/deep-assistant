@@ -341,6 +341,7 @@ def chat():
         # 发送消息并获取响应
         response = send_messages(messages, tools=tools)
         print(f'Response: {response}')
+        messages.append(response)
 
         # 处理 LLM 的工具调用
         if response.tool_calls:
@@ -371,9 +372,9 @@ def chat():
             # 再次调用 LLM 以处理工具结果
             response = send_messages(messages, tools=tools)
 
+        messages.append(response)
         # 添加 LLM 响应到消息历史
         if response.content:
-            messages.append({"role": "assistant", "content": response.content})
             print(f"Assistant: {response.content}")
 
 # 启动对话
