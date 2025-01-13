@@ -4,5 +4,11 @@
         "value": "laysath",
         "created_at": "2025-01-13T22:55:40.432875",
         "modified_at": "2025-01-13T22:55:40.432875"
+    },
+    "user.language_preference": {
+        "key": "user.language_preference",
+        "value": "Chinese",
+        "created_at": "2025-01-13T22:55:51.479882",
+        "modified_at": "2025-01-13T22:55:51.479882"
     }
 }
