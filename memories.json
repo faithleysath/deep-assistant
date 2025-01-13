@@ -25,9 +25,9 @@
     },
     "user.greeting": {
         "key": "user.greeting",
-        "value": "你好啊",
+        "value": "你好",
         "created_at": "2025-01-13T23:01:18.540244",
-        "modified_at": "2025-01-13T23:01:18.540244"
+        "modified_at": "2025-01-13T23:06:46.784149"
     },
     "user.current_status": {
         "key": "user.current_status",
