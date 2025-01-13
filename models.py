@@ -174,12 +174,10 @@ class MessageEvent(Event):
         elif message.type == MessageType.GROUP:
             return GroupMessageEvent(message)
 
-class PrivateMessageEvent(Event):
+class PrivateMessageEvent(MessageEvent):
     def __init__(self, message: PrivateMessage, **raw_data):
-        super().__init__(**raw_data)
-        self.message = message
+        super().__init__(message, **raw_data)
 
-class GroupMessageEvent(Event):
+class GroupMessageEvent(MessageEvent):
     def __init__(self, message: GroupMessage, **raw_data):
-        super().__init__(**raw_data)
-        self.message = message
+        super().__init__(message, **raw_data)
