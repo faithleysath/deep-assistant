@@ -98,5 +98,8 @@ class TextSegment(MessageSegment):
         super().__init__(raw_data)
         self.content: str = self.data.get("text", "")
 
+    def __init__(self, content: str):
+        self.__init__({"type": "text", "data": {"text": content}})
+
     def __str__(self):
         return self.content
