@@ -270,7 +270,7 @@ User: "I also watched Interstellar, do you like it?"
 - after store, you can answer the user's question.
 
 User: "My favorite genres are sci-fi and action, do you like it?"
-- Store this as `user.favorite_genres: {"sci-fi", "action"}`.
+- Store this as `user.favorite_genres: ["sci-fi", "action"]`.
 - after store, you can answer the user's question.
 
 User: "I have a cat named Whiskers, do you like it?"
