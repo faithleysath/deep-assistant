@@ -9,3 +9,4 @@ async def handle_message(event: MessageEvent):
 
 loop = asyncio.get_event_loop()
 loop.create_task(listen_message())
+loop.run_until_complete(EventManager.run())
