@@ -4,5 +4,11 @@
         "value": "laysath",
         "created_at": "2025-01-13T23:18:38.662308",
         "modified_at": "2025-01-13T23:18:38.662308"
+    },
+    "user.favorite_genres": {
+        "key": "user.favorite_genres",
+        "value": "sci-fi",
+        "created_at": "2025-01-13T23:18:55.105646",
+        "modified_at": "2025-01-13T23:18:55.105646"
     }
 }
