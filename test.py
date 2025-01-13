@@ -177,7 +177,7 @@ class MemoryManager:
         从本地文件加载记忆。
         """
         try:
-            with open(self.file_path, "r") as file:
+            with open(self.file_path, "r", encoding='utf-8') as file:
                 memories_data = json.load(file)
                 for key, data in memories_data.items():
                     self.memories[key] = Memory(
