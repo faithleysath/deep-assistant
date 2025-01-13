@@ -138,7 +138,7 @@ class Message:
         message_type = MessageType(data.get("message_type", "private"))
         timestamp = data.get("timestamp", 0)
         raw_message = data.get("raw_message", "")
-        segments = [MessageSegment.from_dict(seg) for seg in data.get("segments", [])]
+        segments = [MessageSegment.from_dict(seg) for seg in data.get("message", [])]
         if message_type == MessageType.PRIVATE:
             return PrivateMessage(message_id, user_id, timestamp, raw_message, segments)
         elif message_type == MessageType.GROUP:
