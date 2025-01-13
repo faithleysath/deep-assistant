@@ -171,3 +171,8 @@ class PrivateMessageEvent(Event):
     def __init__(self, message: PrivateMessage, **raw_data):
         super().__init__(**raw_data)
         self.message = message
+
+class GroupMessageEvent(Event):
+    def __init__(self, message: GroupMessage, **raw_data):
+        super().__init__(**raw_data)
+        self.message = message
