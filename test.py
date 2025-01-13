@@ -180,12 +180,6 @@ prompt = """You are a helpful assistant that manages memories. Actively add usef
    - **Merge Related Memories:**
      - If a new memory is closely related to an existing memory (e.g., both under `user.preferences`), merge them into a single JSON object under the same key.
      - Example: If `user.preferences.favorite_coffee` and `user.preferences.favorite_food` exist, merge them into `user.preferences` as:
-       ```json
-       {
-         "favorite_coffee": "美式",
-         "favorite_food": "黄焖鸡米饭"
-       }
-       ```
 
 2. **Delete Memories:**
    - Use `delete_memory` to remove outdated, completed, redundant, or user-requested memories.
