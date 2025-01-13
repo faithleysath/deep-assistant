@@ -2,49 +2,49 @@
     "user_language": {
         "key": "user_language",
         "value": "Chinese",
-        "created_at": "2025-01-13T20:24:35.588469",
-        "modified_at": "2025-01-13T20:24:35.588469"
+        "created_at": "2025-01-13T20:25:35.184259",
+        "modified_at": "2025-01-13T20:25:35.184259"
     },
     "reminder_drink_water": {
         "key": "reminder_drink_water",
         "value": "2025-01-13T20:25:44.585177",
-        "created_at": "2025-01-13T20:24:46.301095",
-        "modified_at": "2025-01-13T20:24:46.301095"
+        "created_at": "2025-01-13T20:25:35.184259",
+        "modified_at": "2025-01-13T20:25:35.184259"
     },
     "reminder_message": {
         "key": "reminder_message",
         "value": "记得喝水",
-        "created_at": "2025-01-13T20:24:48.205635",
-        "modified_at": "2025-01-13T20:24:48.205635"
+        "created_at": "2025-01-13T20:25:35.184259",
+        "modified_at": "2025-01-13T20:25:35.184259"
     },
     "reminder_time": {
         "key": "reminder_time",
         "value": "2025-01-13T20:25:44.585177",
-        "created_at": "2025-01-13T20:24:49.937521",
-        "modified_at": "2025-01-13T20:24:49.937521"
+        "created_at": "2025-01-13T20:25:35.184259",
+        "modified_at": "2025-01-13T20:25:35.184259"
     },
     "reminder_action": {
         "key": "reminder_action",
         "value": "喝水",
-        "created_at": "2025-01-13T20:24:51.730644",
-        "modified_at": "2025-01-13T20:24:51.730644"
+        "created_at": "2025-01-13T20:25:35.184259",
+        "modified_at": "2025-01-13T20:25:35.184259"
     },
     "reminder_status": {
         "key": "reminder_status",
-        "value": "pending",
-        "created_at": "2025-01-13T20:24:54.474262",
-        "modified_at": "2025-01-13T20:24:54.474262"
+        "value": "completed",
+        "created_at": "2025-01-13T20:25:35.184259",
+        "modified_at": "2025-01-13T20:25:35.184259"
     },
     "reminder_user": {
         "key": "reminder_user",
         "value": "user",
-        "created_at": "2025-01-13T20:24:56.894206",
-        "modified_at": "2025-01-13T20:24:56.894206"
+        "created_at": "2025-01-13T20:25:35.184259",
+        "modified_at": "2025-01-13T20:25:35.184259"
     },
     "reminder_language": {
         "key": "reminder_language",
         "value": "Chinese",
-        "created_at": "2025-01-13T20:24:56.894206",
-        "modified_at": "2025-01-13T20:24:56.894206"
+        "created_at": "2025-01-13T20:25:35.184259",
+        "modified_at": "2025-01-13T20:25:35.184259"
     }
 }
