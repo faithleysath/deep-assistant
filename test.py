@@ -137,7 +137,7 @@ tools = [
                 "properties": {
                     "key": {
                         "type": "string",
-                        "description": "The key associated with the memory."
+                        "description": "The key associated with the memory (always in English)."
                     },
                     "value": {
                         "type": "string",
