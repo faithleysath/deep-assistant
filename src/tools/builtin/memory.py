@@ -22,13 +22,22 @@ class Memory:
         }
 
 class MemoryManager:
+    _instances: Dict[str, 'MemoryManager'] = {}
+
+    def __new__(cls, agent_name: str) -> 'MemoryManager':
+        if agent_name not in cls._instances:
+            instance = super().__new__(cls)
+            instance.agent_name = agent_name
+            instance.memories_dir = Path("memories")
+            instance.memories_dir.mkdir(exist_ok=True)
+            instance.file_path = instance.memories_dir / f"{agent_name}.json"
+            instance.memories: Dict[str, Memory] = {}
+            instance.load_memories()
+            cls._instances[agent_name] = instance
+        return cls._instances[agent_name]
+
     def __init__(self, agent_name: str):
-        self.agent_name = agent_name
-        self.memories_dir = Path("memories")
-        self.memories_dir.mkdir(exist_ok=True)
-        self.file_path = self.memories_dir / f"{agent_name}.json"
-        self.memories: Dict[str, Memory] = {}
-        self.load_memories()
+        """初始化方法仅用于类型提示"""
 
     def save_memory(self, key: str, value: List[Union[str, dict, list, tuple]], 
                    override: bool = False) -> Dict:
@@ -82,6 +91,25 @@ class MemoryManager:
                     }
         except Exception as e:
             logging.error(f"Error loading memories for agent {self.agent_name}: {str(e)}")
+
+# 插件元数据
+plugin_metadata = {
+    "name": "Memory Manager",
+    "version": "1.1.0",
+    "description": "Provides memory management capabilities for multiple agents",
+    "author": "Cline",
+    "features": [
+        "Multi-agent memory isolation",
+        "Persistent storage",
+        "Memory versioning",
+        "Memory summary"
+    ],
+    "config": {
+        "storage_path": "memories",
+        "max_memory_size": "10MB",
+        "auto_save": True
+    }
+}
 
 # 插件接口
 tools = [
@@ -146,5 +174,26 @@ export = {
     "save_memory": lambda agent_name, key, value, override=False: 
         MemoryManager(agent_name).save_memory(key, value, override),
     "delete_memory": lambda agent_name, key: 
-        MemoryManager(agent_name).delete_memory(key)
+        MemoryManager(agent_name).delete_memory(key),
+    "get_summary": lambda agent_name: 
+        MemoryManager(agent_name).get_summary()
 }
+
+# 工具管理器扩展功能
+def get_plugin_info():
+    """获取插件信息"""
+    return plugin_metadata
+
+def list_agents():
+    """列出所有已存储记忆的agent"""
+    memories_dir = Path("memories")
+    return [f.stem for f in memories_dir.glob("*.json")]
+
+def cleanup_old_memories(days: int = 30):
+    """清理超过指定天数的记忆"""
+    cutoff = datetime.now() - timedelta(days=days)
+    memories_dir = Path("memories")
+    for file in memories_dir.glob("*.json"):
+        if file.stat().st_mtime < cutoff.timestamp():
+            file.unlink()
+            logging.info(f"Removed old memory file: {file.name}")
