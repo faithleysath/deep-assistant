@@ -53,3 +53,9 @@ class ToolManager:
             return False
         finally:
             logging.debug("工具加载过程完成")
+
+# 创建全局工具管理器实例并导出
+tool_manager = ToolManager()
+tool_manager.load_tools()
+
+__all__ = ['ToolManager', 'tool_manager']
