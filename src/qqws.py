@@ -16,10 +16,6 @@ async def listen_message():
                 message = await websocket.recv()  # 接收消息
                 data: dict = json.loads(message)
                 if data.get("post_type", "null") == "message":
-                    message = Message.from_dict(data)
-                    event = MessageEvent.from_message(message)
-                    await EventManager.add_event(event)
-                    
                     # 保存消息到数据库
                     save_message(
                         message_id=str(data.get("message_id")),
@@ -27,5 +23,9 @@ async def listen_message():
                         type=data.get("post_type"),
                         data=message
                     )
+                    message = Message.from_dict(data)
+                    event = MessageEvent.from_message(message)
+                    await EventManager.add_event(event)
+                    
         except websockets.ConnectionClosed:
             print("连接已关闭")
