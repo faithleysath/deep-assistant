@@ -52,4 +52,4 @@ class Config:
         self._load_config()
 
 # 创建 Config 实例（单例）
-config = Config(config_file="config1.yaml")
+config = Config(config_file="config.yaml")
