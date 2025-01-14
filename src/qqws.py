@@ -22,6 +22,7 @@ async def listen_message():
                         user_id=str(data.get("user_id")),
                         type=data.get("message_type"),
                         timestamp=int(data.get("time")),
+                        raw_message=data.get("raw_message", ""),
                         data=message
                     )
                     message = Message.from_dict(data)
