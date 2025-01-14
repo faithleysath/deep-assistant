@@ -20,7 +20,7 @@ async def listen_message():
                     save_message(
                         message_id=str(data.get("message_id")),
                         user_id=str(data.get("user_id")),
-                        type=data.get("post_type"),
+                        type=data.get("message_type"),
                         data=message
                     )
                     message = Message.from_dict(data)
