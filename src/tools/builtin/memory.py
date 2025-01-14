@@ -85,7 +85,7 @@ class MemoryManager:
             instance.memories_dir = Path("memories")
             instance.memories_dir.mkdir(exist_ok=True)
             instance.file_path = instance.memories_dir / f"{agent_name}.json"
-            instance.memories: Dict[str, Memory] = {}
+            instance.memories = {}
             instance.load_memories()
             cls._instances[agent_name] = instance
         return cls._instances[agent_name]
