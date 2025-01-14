@@ -20,28 +20,7 @@ class ToolManager:
                     
                 for filename in os.listdir(plugin_path):
                     if filename.endswith('.py') and not filename.startswith('__'):
-                        module_name = filename[:-3]
-                        try:
-                            module = importlib.import_module(f'src.tools.{plugin_dir}.{module_name}')
-                            if hasattr(module, 'tools') and hasattr(module, 'export'):
-                                # 注册工具元数据
-                                for tool in module.tools:
-                                    self.tools[tool['function']['name']] = tool
-                                # 注册工具函数
-                                self.functions.update(module.export)
-                                logging.info(f"Loaded plugin: {module_name}")
-                        except Exception as e:
-                            logging.error(f"Error loading plugin {module_name}: {str(e)}")
-        except Exception as e:
-            logging.error(f"Error loading tools: {str(e)}")
-
-    def get_tools(self) -> List[Dict]:
-        """获取所有工具元数据"""
-        return list(self.tools.values())
-
-    def get_tool_function(self, tool_name: str) -> Callable:
-        """根据名称获取工具函数"""
-        return self.functions.get(tool_name)
+                        
 
 # 创建全局工具管理器实例
 tool_manager = ToolManager()
