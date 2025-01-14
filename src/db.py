@@ -22,14 +22,14 @@ def init_db():
         """)
         conn.commit()
 
-def save_message(message_id: str, user_id: str, type: str, timestamp: int, data: str):
+def save_message(message_id: str, user_id: str, type: str, timestamp: int, raw_message: str, data: str):
     """保存消息到数据库"""
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
         cursor.execute("""
             INSERT INTO messages (message_id, user_id, type, timestamp, raw_message, data)
             VALUES (?, ?, ?, ?, ?, ?)
-        """, (message_id, user_id, type, timestamp, data))
+        """, (message_id, user_id, type, timestamp, raw_message, data))
         conn.commit()
 
 def get_messages(limit: int = 100):
