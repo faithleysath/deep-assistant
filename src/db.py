@@ -2,7 +2,7 @@ import sqlite3
 from pathlib import Path
 from datetime import datetime
 
-DB_PATH = Path(__file__).parent / "data" / "messages.db"
+DB_PATH = "messages.db"
 
 def init_db():
     """初始化数据库"""
