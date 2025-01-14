@@ -28,16 +28,19 @@ class Config:
             return self._config.get(section, default)
         return self._config.get(section, {}).get(key, default)
 
-    def set(self, section, key, value):
+    def set(self, section, key=None, value=None):
         """
         设置配置值
         :param section: 配置的一级键，例如 'file_paths'
-        :param key: 配置的二级键，例如 'data_file'
+        :param key: 配置的二级键，例如 'data_file'，可选
         :param value: 要设置的值
         """
-        if section not in self._config:
-            self._config[section] = {}
-        self._config[section][key] = value
+        if key is None:
+            self._config[section] = value
+        else:
+            if section not in self._config:
+                self._config[section] = {}
+            self._config[section][key] = value
 
     def save(self):
         """将配置保存回 YAML 文件"""
