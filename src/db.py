@@ -16,6 +16,7 @@ def init_db():
                 user_id TEXT NOT NULL,
                 type TEXT NOT NULL,
                 timestamp INTEGER NOT NULL,
+                raw_message TEXT NOT NULL,
                 data TEXT NOT NULL
             )
         """)
@@ -26,8 +27,8 @@ def save_message(message_id: str, user_id: str, type: str, timestamp: int, data:
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
         cursor.execute("""
-            INSERT INTO messages (message_id, user_id, type, timestamp, data)
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO messages (message_id, user_id, type, timestamp, raw_message, data)
+            VALUES (?, ?, ?, ?, ?, ?)
         """, (message_id, user_id, type, timestamp, data))
         conn.commit()
 
