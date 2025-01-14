@@ -59,22 +59,9 @@ def chat():
                 logging.warning(f"Calling function: {function_name} with args: {function_args}")
 
                 try:
-                    if function_name == "save_memory":
-                        tool_result = memory_manager.save_memory(**function_args)
-                    elif function_name == "delete_memory":
-                        tool_result = memory_manager.delete_memory(**function_args)
+                    if function_name in tool_manager.exports:
+                        tool_result = tool_manager.exports[function_name](**function_args)
                     else:
                         tool_result = {"status": "error", "message": f"Unknown function: {function_name}"}
                 except Exception as e:
                     tool_result = {"status": "error", "message": str(e)}
-
-                # 将工具调用结果添加到消息历史
-                messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": json.dumps(tool_result, ensure_ascii=False)})
-
-            # 再次调用 LLM 以处理工具结果
-            response = send_messages(messages, tools=tools)
-
-        # 添加 LLM 响应到消息历史
-        if response.content:
-            print(f"Assistant: {response.content}")
-        messages.append(response)
