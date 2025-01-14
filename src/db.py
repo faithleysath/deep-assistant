@@ -33,15 +33,35 @@ def save_message(message_id: str, user_id: str, type: str, timestamp: int, raw_m
         """, (message_id, user_id, type, timestamp, raw_message, data))
         conn.commit()
 
-def get_messages(limit: int = 100):
-    """获取最近的消息"""
+def get_messages(limit: int = 100, uids: list[str] = None, types: list[str] = None):
+    """获取最近的消息
+    Args:
+        limit: 返回消息数量限制
+        uids: 筛选指定用户ID列表
+        types: 筛选指定消息类型列表
+    """
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
-        cursor.execute("""
-            SELECT * FROM messages
-            ORDER BY timestamp ASC
-            LIMIT ?
-        """, (limit,))
+        
+        query = "SELECT * FROM messages"
+        params = []
+        
+        # 构建WHERE条件
+        conditions = []
+        if uids:
+            conditions.append(f"user_id IN ({','.join(['?']*len(uids))})")
+            params.extend(uids)
+        if types:
+            conditions.append(f"type IN ({','.join(['?']*len(types))})")
+            params.extend(types)
+            
+        if conditions:
+            query += " WHERE " + " AND ".join(conditions)
+            
+        query += " ORDER BY timestamp ASC LIMIT ?"
+        params.append(limit)
+        
+        cursor.execute(query, params)
         return cursor.fetchall()
 
 # 初始化数据库
