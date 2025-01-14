@@ -16,6 +16,7 @@ class ToolManager:
             for plugin_dir in ['builtin', 'self_created']:
                 plugin_path = os.path.join(os.path.dirname(__file__), plugin_dir)
                 if not os.path.exists(plugin_path):
+                    logging.warning(f"工具目录 {plugin_path} 不存在")
                     continue
                     
                 for filename in os.listdir(plugin_path):
@@ -39,7 +40,16 @@ class ToolManager:
                                         logging.warning(f"工具函数 {func_name} 已存在，将被覆盖")
                                     self.exports[func_name] = func
                                     
+                        except ImportError as e:
+                            logging.error(f"无法导入工具模块 {module_name}: {str(e)}")
                         except Exception as e:
-                            logging.error(f"加载工具模块 {module_name} 失败: {str(e)}")
+                            logging.error(f"加载工具模块 {module_name} 时发生错误: {str(e)}")
                             
             logging.info(f"成功加载 {len(self.tools)} 个工具接口和 {len(self.exports)} 个工具实现")
+            return True
+            
+        except Exception as e:
+            logging.error(f"加载工具时发生严重错误: {str(e)}")
+            return False
+        finally:
+            logging.debug("工具加载过程完成")
