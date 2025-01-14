@@ -178,22 +178,3 @@ export = {
     "get_summary": lambda agent_name: 
         MemoryManager(agent_name).get_summary()
 }
-
-# 工具管理器扩展功能
-def get_plugin_info():
-    """获取插件信息"""
-    return plugin_metadata
-
-def list_agents():
-    """列出所有已存储记忆的agent"""
-    memories_dir = Path("memories")
-    return [f.stem for f in memories_dir.glob("*.json")]
-
-def cleanup_old_memories(days: int = 30):
-    """清理超过指定天数的记忆"""
-    cutoff = datetime.now() - timedelta(days=days)
-    memories_dir = Path("memories")
-    for file in memories_dir.glob("*.json"):
-        if file.stat().st_mtime < cutoff.timestamp():
-            file.unlink()
-            logging.info(f"Removed old memory file: {file.name}")
