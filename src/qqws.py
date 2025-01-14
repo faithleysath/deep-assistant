@@ -15,7 +15,7 @@ async def listen_message():
             while True:
                 message = await websocket.recv()  # 接收消息
                 data: dict = json.loads(message)
-                if data.get("post_type", "null") == "message":
+                if data.get("post_type", "null") in ("message", "message_sent"):
                     # 保存消息到数据库
                     save_message(
                         message_id=str(data.get("message_id")),
