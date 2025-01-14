@@ -1,6 +1,6 @@
 import sqlite3
 from pathlib import Path
-from datetime import datetime
+import time
 
 DB_PATH = "messages.db"
 
@@ -15,7 +15,7 @@ def init_db():
                 message_id TEXT NOT NULL,
                 user_id TEXT NOT NULL,
                 type TEXT NOT NULL,
-                timestamp DATETIME NOT NULL,
+                timestamp INTEGER NOT NULL,
                 data TEXT NOT NULL
             )
         """)
@@ -28,7 +28,7 @@ def save_message(message_id: str, user_id: str, type: str, data: str):
         cursor.execute("""
             INSERT INTO messages (message_id, user_id, type, timestamp, data)
             VALUES (?, ?, ?, ?, ?)
-        """, (message_id, user_id, type, datetime.now().isoformat(), data))
+        """, (message_id, user_id, type, int(time.time()), data))
         conn.commit()
 
 def get_messages(limit: int = 100):
@@ -37,7 +37,7 @@ def get_messages(limit: int = 100):
         cursor = conn.cursor()
         cursor.execute("""
             SELECT * FROM messages
-            ORDER BY timestamp DESC
+            ORDER BY timestamp ASC
             LIMIT ?
         """, (limit,))
         return cursor.fetchall()
