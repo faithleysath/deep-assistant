@@ -78,6 +78,7 @@ class MemoryManager:
     _instances: Dict[str, 'MemoryManager'] = {}
 
     def __new__(cls, agent_name: str) -> 'MemoryManager':
+        """Singleton pattern to ensure only one instance per agent"""
         if agent_name not in cls._instances:
             instance = super().__new__(cls)
             instance.agent_name = agent_name
