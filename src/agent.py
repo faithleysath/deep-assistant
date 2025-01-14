@@ -1,7 +1,8 @@
 import json
 import logging
 from openai import OpenAI
-from src.tools.builtin.memory import Memory, MemoryManager, tools
+from src.tools import tool_manager
+from src.tools.builtin.memory import Memory, MemoryManager
 
 # 配置日志
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -12,10 +13,13 @@ client = OpenAI(
     base_url="https://api.deepseek.com",
 )
 
-def send_messages(messages, tools={}):
+def send_messages(messages, tools=None):
     """
     发送消息到 LLM 并获取响应。
     """
+    if tools is None:
+        tools = tool_manager.get_tools()
+    
     response = client.chat.completions.create(
         model="deepseek-chat",
         messages=messages,
