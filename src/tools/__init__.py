@@ -5,9 +5,7 @@ from typing import Dict, List, Any, Callable
 
 class ToolManager:
     def __init__(self):
-        self.tools: Dict[str, Dict] = {}  # 存储工具元数据
-        self.functions: Dict[str, Callable] = {}  # 存储工具函数
-        self.load_tools()
+        
 
     def load_tools(self):
         """加载所有工具插件"""
