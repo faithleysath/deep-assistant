@@ -2,6 +2,7 @@ import websockets
 import json
 from .models import Message, MessageEvent
 from .core import EventManager
+from .db import save_message
 
 # WebSocket 客户端逻辑
 async def listen_message():
@@ -18,5 +19,13 @@ async def listen_message():
                     message = Message.from_dict(data)
                     event = MessageEvent.from_message(message)
                     await EventManager.add_event(event)
+                    
+                    # 保存消息到数据库
+                    save_message(
+                        message_id=str(data.get("message_id")),
+                        user_id=str(data.get("user_id")),
+                        type=data.get("post_type"),
+                        data=message
+                    )
         except websockets.ConnectionClosed:
             print("连接已关闭")
