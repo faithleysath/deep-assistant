@@ -14,6 +14,9 @@ class ToolManager:
         try:
             # 加载builtin和self_created目录下的工具
             for plugin_dir in ['builtin', 'self_created']:
+        except Exception as e:
+            logging.error(f"Error loading tools: {str(e)}")
+            return
                 plugin_path = os.path.join(os.path.dirname(__file__), plugin_dir)
                 if not os.path.exists(plugin_path):
                     continue
