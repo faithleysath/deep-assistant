@@ -89,10 +89,6 @@ class MemoryManager:
             cls._instances[agent_name] = instance
         return cls._instances[agent_name]
 
-    def __init__(self, agent_name: str):
-        """初始化方法仅用于类型提示"""
-        pass
-
     def save_memory(self, key: str, value: List[Union[str, dict, list, tuple]], 
                    override: bool = False) -> Dict:
         if not isinstance(value, list):
