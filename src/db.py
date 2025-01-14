@@ -33,12 +33,14 @@ def save_message(message_id: str, user_id: str, type: str, timestamp: int, raw_m
         """, (message_id, user_id, type, timestamp, raw_message, data))
         conn.commit()
 
-def get_messages(limit: int = 100, uids: list[str] = None, types: list[str] = None):
+def get_messages(limit: int = 100, uids: list[str] = None, types: list[str] = None) -> list[tuple]:
     """获取最近的消息
     Args:
         limit: 返回消息数量限制
         uids: 筛选指定用户ID列表
         types: 筛选指定消息类型列表
+    Returns:
+        list[tuple]: 包含消息记录的元组列表
     """
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
