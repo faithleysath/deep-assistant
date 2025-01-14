@@ -91,6 +91,7 @@ class MemoryManager:
 
     def __init__(self, agent_name: str):
         """初始化方法仅用于类型提示"""
+        pass
 
     def save_memory(self, key: str, value: List[Union[str, dict, list, tuple]], 
                    override: bool = False) -> Dict:
