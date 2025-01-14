@@ -1,7 +1,7 @@
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path(__file__).parent / "data" / "messages.db"
+DB_PATH = "data" / "messages.db"
 
 def test_db():
     try:
