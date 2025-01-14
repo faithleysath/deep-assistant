@@ -6,7 +6,6 @@ DB_PATH = "messages.db"
 
 def init_db():
     """初始化数据库"""
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
