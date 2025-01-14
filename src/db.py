@@ -1,6 +1,5 @@
 import sqlite3
 from pathlib import Path
-import time
 
 DB_PATH = "messages.db"
 
