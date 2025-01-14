@@ -25,37 +25,5 @@ class ToolManager:
                         
                         try:
                             # 动态加载模块
-                            module_path = f".{plugin_dir}.{module_name}"
-                            module = importlib.import_module(module_path, package='tools')
-                            self.loaded_modules[module_name] = module
-                            
-                            # 收集工具接口
-                            if hasattr(module, 'tools'):
-                                self.tools.extend(module.tools)
-                                
-                            # 收集工具实现
-                            if hasattr(module, 'export'):
-                                for func_name, func in module.export.items():
-                                    if func_name in self.exports:
-                                        logging.warning(f"工具函数 {func_name} 已存在，将被覆盖")
-                                    self.exports[func_name] = func
-                                    
-                        except ImportError as e:
-                            logging.error(f"无法导入工具模块 {module_name}: {str(e)}")
-                        except Exception as e:
-                            logging.error(f"加载工具模块 {module_name} 时发生错误: {str(e)}")
-                            
-            logging.info(f"成功加载 {len(self.tools)} 个工具接口和 {len(self.exports)} 个工具实现")
-            return True
-            
-        except Exception as e:
-            logging.error(f"加载工具时发生严重错误: {str(e)}")
-            return False
-        finally:
-            logging.debug("工具加载过程完成")
-
-# 创建全局工具管理器实例并导出
-tool_manager = ToolManager()
-tool_manager.load_tools()
-
-__all__ = ['ToolManager', 'tool_manager']
+                            module_path = f"src.tools.{plugin_dir}.{module_name}"
+                            module = importlib.import_module(module_path)
