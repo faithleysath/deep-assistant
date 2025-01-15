@@ -110,7 +110,7 @@ tools = [
         "type": "function",
         "function": {
             "name": "save_memory",
-            "description": "Save a memory for the current agent",
+            "description": "Save a memory for the current agent. Stores key-value pairs persistently, with optional override capability. Example: {'agent_name': 'chatbot1', 'key': 'user_preferences', 'value': ['dark_mode', 'notifications']}. Returns {'status': 'success/error', 'message': 'operation result'}",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -143,7 +143,7 @@ tools = [
         "type": "function",
         "function": {
             "name": "delete_memory",
-            "description": "Delete a memory for the current agent",
+            "description": "Delete a memory for the current agent. Removes the specified key and its associated values from persistent storage. Example: {'agent_name': 'chatbot1', 'key': 'user_preferences'}. Returns {'status': 'success/error', 'message': 'operation result'}. Will return error if key not found",
             "parameters": {
                 "type": "object",
                 "properties": {
