@@ -1,10 +1,14 @@
 import asyncio
+from typing import List
 from app.core import EventManager
-from app.models import PrivateMessageEvent, UserMessageEvent
+from app.models import PrivateMessageEvent, UserMessageEvent, Message
 from app.qqws import listen_message
 from app.config import config
 from app.agent import Agent
 from app.db import get_messages
+
+def get_openai_messages(messages: List[Message]):
+    
 
 @EventManager.register()
 async def handle_qq_message(event: PrivateMessageEvent):
