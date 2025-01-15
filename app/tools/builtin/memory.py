@@ -9,12 +9,7 @@ plugin_metadata = {
         "Persistent storage",
         "Memory versioning",
         "Memory summary"
-    ],
-    "config": {
-        "storage_path": "memories",
-        "max_memory_size": "10MB",
-        "auto_save": True
-    }
+    ]
 }
 
 import json
