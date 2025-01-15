@@ -38,12 +38,12 @@ class Memory:
 class MemoryManager:
     _instances: Dict[str, 'MemoryManager'] = {}
 
-    def __new__(cls, agent_name: str) -> 'MemoryManager':
+    def __new__(cls, agent_name: str, memories_dir = "memories") -> 'MemoryManager':
         """Singleton pattern to ensure only one instance per agent"""
         if agent_name not in cls._instances:
             instance = super().__new__(cls)
             instance.agent_name = agent_name
-            instance.memories_dir = Path("memories")
+            instance.memories_dir = Path(memories_dir)
             instance.memories_dir.mkdir(exist_ok=True)
             instance.file_path = instance.memories_dir / f"{agent_name}.json"
             instance.memories = {}
