@@ -48,6 +48,7 @@ class Agent:
     
     async def think_once(self, messages_history):
         """思考一个回合"""
+        logging.debug(f"开始思考，历史消息: {messages_history}")
         # 构建messages列表，包括自身设定，自身记忆，历史消息
         messages = [
             {"role": "system", "content": f"{self.uniform_prompt}\n{self.special_prompts}"},
@@ -82,4 +83,5 @@ class Agent:
             response = await send_messages(messages)
         
         # 返回最终的响应内容
+        logging.debug(f"思考完成，响应内容: {response.content}")
         return response.content
