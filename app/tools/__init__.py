@@ -1,6 +1,6 @@
 import os
 import importlib
-import importlib.util
+import pkgutil
 import logging
 from typing import Dict, List, Any, Callable
 
