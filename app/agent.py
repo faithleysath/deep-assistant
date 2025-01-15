@@ -29,7 +29,7 @@ async def send_messages(messages, tools=None):
     return response.choices[0].message
 
 # 多轮对话
-def chat():
+async def chat():
     messages = [
         {"role": "system", "content": "You are a helpful assistant that can manage memories. You need to actively add useful memories, especially about the user, to be more helpful."},
     ]
