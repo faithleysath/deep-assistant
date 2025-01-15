@@ -93,8 +93,66 @@ class TestAgent(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result, "Final response")
         
     async def test_tool_calls(self):
-        # Test tool call handling
-        pass
+        # Mock agent initialization
+        agent = Agent("test_agent")
+        agent.memory_manager = self.mock_memory_manager
+        agent.uniform_prompt = "Mocked uniform prompt"
+        agent.special_prompts = "Mocked special prompts"
+        
+        # Mock tool call response
+        mock_tool_call = MagicMock()
+        mock_tool_call.function.name = "mock_tool"
+        mock_tool_call.function.arguments = json.dumps({"param": "value"})
+        mock_tool_call.id = "tool_call_id"
+        
+        # First response with tool call
+        mock_response1 = AsyncMock()
+        mock_message1 = MagicMock()
+        mock_message1.content = None
+        mock_message1.tool_calls = [mock_tool_call]
+        mock_response1.choices = [MagicMock(message=mock_message1)]
+        
+        # Final response
+        mock_response2 = AsyncMock()
+        mock_message2 = MagicMock()
+        mock_message2.content = "Final response"
+        mock_message2.tool_calls = None
+        mock_response2.choices = [MagicMock(message=mock_message2)]
+        
+        # Set up mock sequence
+        self.mock_completion.create.side_effect = [mock_response1, mock_response2]
+        
+        # Test think_once with tool calls
+        messages_history = [{"role": "user", "content": "Test message"}]
+        result = await agent.think_once(messages_history)
+        
+        # Verify tool call handling
+        expected_tool_result = {"status": "success"}
+        expected_messages = [
+            {"role": "system", "content": "Mocked uniform prompt\nMocked special prompts"},
+            {"role": "system", "content": "Mocked memory summary"},
+            *messages_history,
+            mock_message1,
+            {
+                "role": "tool",
+                "content": json.dumps(expected_tool_result),
+                "tool_call_id": "tool_call_id"
+            }
+        ]
+        
+        # Verify final response
+        self.assertEqual(result, "Final response")
+        self.mock_completion.create.assert_called_with(
+            model="deepseek-chat",
+            messages=expected_messages,
+            tools=None
+        )
+        
+        # Test error handling
+        self.mock_tool_manager.exports["mock_tool"].side_effect = Exception("Test error")
+        self.mock_completion.create.side_effect = [mock_response1, mock_response2]
+        result = await agent.think_once(messages_history)
+        self.assertEqual(result, "Final response")
 
 if __name__ == '__main__':
     unittest.main()
