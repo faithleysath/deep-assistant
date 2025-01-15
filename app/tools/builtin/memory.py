@@ -115,10 +115,14 @@ tools = [
         "type": "function",
         "function": {
             "name": "save_memory",
-            "description": "Save a memory for the current agent. Stores key-value pairs persistently, with optional override capability. Key supports hierarchical format (e.g. 'user.favorite.movies').",
+            "description": "Save a memory for the specified agent. Stores key-value pairs persistently, with optional override capability. Key supports hierarchical format (e.g. 'user.favorite.movies').",
             "parameters": {
                 "type": "object",
                 "properties": {
+                    "agent_name": {
+                        "type": "string",
+                        "description": "The name of the agent to save memory for"
+                    },
                     "key": {
                         "type": "string",
                         "description": "The key associated with the memory"
@@ -144,10 +148,14 @@ tools = [
         "type": "function",
         "function": {
             "name": "delete_memory",
-            "description": "Delete a memory for the current agent. Removes the specified key and its associated values from persistent storage.",
+            "description": "Delete a memory for the specified agent. Removes the specified key and its associated values from persistent storage.",
             "parameters": {
                 "type": "object",
                 "properties": {
+                    "agent_name": {
+                        "type": "string",
+                        "description": "The name of the agent to delete memory for"
+                    },
                     "key": {
                         "type": "string",
                         "description": "The key associated with the memory, supports hierarchical format (e.g. 'user.preferences.theme')"
