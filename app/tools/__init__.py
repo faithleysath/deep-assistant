@@ -20,17 +20,13 @@ class ToolManager:
                     logging.warning(f"工具目录 {plugin_path} 不存在")
                     continue
                     
-                for filename in os.listdir(plugin_path):
-                    if filename.endswith('.py') and not filename.startswith('__'):
-                        module_name = filename[:-3]  # 去掉.py后缀
-                        
+                # 使用pkgutil遍历模块
+                for finder, name, ispkg in pkgutil.iter_modules([plugin_path]):
+                    if not ispkg and not name.startswith('__'):
                         try:
                             # 动态加载模块
-                            file_path = os.path.join(plugin_path, filename)
-                            spec = importlib.util.spec_from_file_location(module_name, file_path)
-                            module = importlib.util.module_from_spec(spec)
-                            spec.loader.exec_module(module)
-                            self.loaded_modules[module_name] = module
+                            module = importlib.import_module(f'app.tools.{plugin_dir}.{name}')
+                            self.loaded_modules[name] = module
                             
                             # 收集工具接口
                             if hasattr(module, 'tools'):
@@ -44,9 +40,9 @@ class ToolManager:
                                     self.exports[func_name] = func
                                     
                         except ImportError as e:
-                            logging.error(f"无法导入工具模块 {module_name}: {str(e)}")
+                            logging.error(f"无法导入工具模块 {name}: {str(e)}")
                         except Exception as e:
-                            logging.error(f"加载工具模块 {module_name} 时发生错误: {str(e)}")
+                            logging.error(f"加载工具模块 {name} 时发生错误: {str(e)}")
                             
             logging.info(f"成功加载 {len(self.tools)} 个工具接口和 {len(self.exports)} 个工具实现")
             return True
