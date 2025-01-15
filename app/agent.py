@@ -19,7 +19,7 @@ async def send_messages(messages, tools=None):
     发送消息到 LLM 并获取响应。
     """
     if tools is None:
-        tools = tool_manager.get_tools()
+        tools = tool_manager.tools
     
     response = await client.chat.completions.create_async(
         model="deepseek-chat", 
