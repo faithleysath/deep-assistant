@@ -32,6 +32,15 @@ async def send_messages(messages, tools=None):
 
 class Agent:
     """基于llm的智能体代理"""
+    _instances = {}
+
+    @classmethod
+    def get_instance(cls, agent_name):
+        """获取agent实例，如果已存在则直接返回，否则创建新实例"""
+        if agent_name not in cls._instances:
+            cls._instances[agent_name] = cls(agent_name)
+        return cls._instances[agent_name]
+
     def __init__(self, agent_name):
         self.agent_name = agent_name
         self.memory_manager = MemoryManager(agent_name)
