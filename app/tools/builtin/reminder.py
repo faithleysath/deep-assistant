@@ -4,17 +4,7 @@ from typing import Dict, Any
 from app.core import EventManager
 from app.agent import Agent
 import logging
-from app.models import Event
-
-
-class AgentMessageEvent(Event):
-    """Agent间消息事件"""
-
-    def __init__(self, trigger_time: datetime.datetime, from_agent: str, to_agent: str, message: str):
-        self.trigger_time = trigger_time
-        self.from_agent = from_agent
-        self.to_agent = to_agent
-        self.message = message
+from app.models import AgentMessageEvent
 
 # 工具元数据
 metadata = type('metadata', (), {
