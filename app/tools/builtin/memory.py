@@ -168,7 +168,7 @@ tools = [
 ]
 
 # 导出工具函数
-export = {
+exports = {
     "save_memory": lambda agent_name, key, value, override=False: 
         MemoryManager(agent_name).save_memory(key, value, override),
     "delete_memory": lambda agent_name, key: 
