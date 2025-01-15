@@ -15,7 +15,7 @@ async def handle_qq_message(event: PrivateMessageEvent):
 @EventManager.register()
 async def handle_user_message(event: UserMessageEvent):
     agent = Agent("deepAssistant")
-    messages = get_messages(uids=[config.get("user_id"), config.get("assistant_id")])
+    messages = get_messages(uids=[config.get("user_id"), config.get("assistant_id")], types=["private"])
 
 
 loop = asyncio.get_event_loop()
