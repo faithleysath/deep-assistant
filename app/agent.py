@@ -2,7 +2,7 @@ import json
 import logging
 from openai import OpenAI
 from app.tools import tool_manager
-from src.tools.builtin.memory import Memory, MemoryManager
+from app.tools.builtin.memory import Memory, MemoryManager
 from app.config import config
 
 # 配置日志
