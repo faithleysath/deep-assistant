@@ -6,7 +6,20 @@ from app.agent import Agent
 import logging
 from app.models import AgentMessageEvent
 
-# 工具元数据
+# 插件元数据
+plugin_metadata = {
+    "name": "Memory Manager",
+    "version": "1.1.0",
+    "description": "Provides memory management capabilities for multiple agents",
+    "author": "Cline",
+    "enabled": True,
+    "features": [
+        "Multi-agent memory isolation",
+        "Persistent storage",
+        "Memory versioning",
+        "Memory summary"
+    ]
+}
 metadata = type('metadata', (), {
     'enable': True,
     'name': 'reminder',
