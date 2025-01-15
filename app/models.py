@@ -72,6 +72,7 @@ class MessageSegmentType(Enum):
 class MessageType(Enum):
     PRIVATE = "private"
     GROUP = "group"
+    UNKNOWN = "unknown"
 
 class MessageSegment:
     """基类，用于表示消息片段的通用部分"""
