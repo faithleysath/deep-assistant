@@ -6,13 +6,15 @@ from app.agent import Agent
 import logging
 from app.models import Event
 
-@dataclass
-class AgentMessageEvent:
+
+class AgentMessageEvent(Event):
     """Agent间消息事件"""
-    trigger_time: datetime.datetime
-    from_agent: str
-    to_agent: str
-    message: str
+
+    def __init__(self, trigger_time: datetime.datetime, from_agent: str, to_agent: str, message: str):
+        self.trigger_time = trigger_time
+        self.from_agent = from_agent
+        self.to_agent = to_agent
+        self.message = message
 
 # 工具元数据
 metadata = type('metadata', (), {
