@@ -94,8 +94,8 @@ class Agent:
                 })
             
             # 更新messages记忆并重新发送消息
-            messages[0]["content"] = f"Current time: {datetime.now().isoformat()}"
-            messages[2]["content"] = self.memory_manager.get_summary()
+            messages[2]["content"] = f"Current time: {datetime.now().isoformat()}"
+            messages[1]["content"] = self.memory_manager.get_summary()
             response = await send_messages(messages)
         
         # 返回最终的响应内容
