@@ -61,8 +61,36 @@ class TestAgent(unittest.IsolatedAsyncioTestCase):
         )
         
     async def test_agent_think_once(self):
-        # Test Agent.think_once method
-        pass
+        # Mock agent initialization
+        agent = Agent("test_agent")
+        agent.memory_manager = self.mock_memory_manager
+        agent.uniform_prompt = "Mocked uniform prompt"
+        agent.special_prompts = "Mocked special prompts"
+        
+        # Mock response without tool calls
+        mock_response = AsyncMock()
+        mock_message = MagicMock()
+        mock_message.content = "Final response"
+        mock_message.tool_calls = None
+        mock_response.choices = [MagicMock(message=mock_message)]
+        self.mock_completion.create.return_value = mock_response
+        
+        # Test think_once
+        messages_history = [{"role": "user", "content": "Test message"}]
+        result = await agent.think_once(messages_history)
+        
+        # Verify message construction
+        expected_messages = [
+            {"role": "system", "content": "Mocked uniform prompt\nMocked special prompts"},
+            {"role": "system", "content": "Mocked memory summary"},
+            *messages_history
+        ]
+        self.mock_completion.create.assert_called_once_with(
+            model="deepseek-chat",
+            messages=expected_messages,
+            tools=None
+        )
+        self.assertEqual(result, "Final response")
         
     async def test_tool_calls(self):
         # Test tool call handling
