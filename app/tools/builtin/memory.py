@@ -114,12 +114,14 @@ class MemoryManager:
 # 插件接口
 tools = []
 
-# 导出工具函数
-export = {
-    "save_memory": lambda agent_name, key, value, override=False: 
-        MemoryManager(agent_name).save_memory(key, value, override),
-    "delete_memory": lambda agent_name, key: 
-        MemoryManager(agent_name).delete_memory(key),
-    "get_summary": lambda agent_name: 
-        MemoryManager(agent_name).get_summary()
-}
+def get_exports():
+    return {
+        "save_memory": lambda agent_name, key, value, override=False: 
+            MemoryManager(agent_name).save_memory(key, value, override),
+        "delete_memory": lambda agent_name, key: 
+            MemoryManager(agent_name).delete_memory(key),
+        "get_summary": lambda agent_name: 
+            MemoryManager(agent_name).get_summary()
+    }
+
+export = get_exports()
