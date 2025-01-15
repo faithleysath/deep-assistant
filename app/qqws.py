@@ -1,6 +1,6 @@
 import websockets
 import json
-from .models.models import Message, MessageEvent
+from .models import Message, MessageEvent
 from .core import EventManager
 from .db import save_message
 

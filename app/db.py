@@ -1,6 +1,6 @@
 import sqlite3
 from pathlib import Path
-from .models.models import Message
+from .models import Message
 
 DB_PATH = "messages.db"
 
