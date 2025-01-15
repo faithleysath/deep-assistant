@@ -61,6 +61,15 @@ class UserMessageEvent(Event):
     def __init__(self, **raw_data):
         super().__init__(**raw_data)
 
+class AgentMessageEvent(Event):
+    """Agent间消息事件"""
+
+    def __init__(self, trigger_time: datetime.datetime, from_agent: str, to_agent: str, message: str):
+        self.trigger_time = trigger_time
+        self.from_agent = from_agent
+        self.to_agent = to_agent
+        self.message = message
+
 
 class MessageSegmentType(Enum):
     TEXT = "text"
