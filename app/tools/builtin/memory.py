@@ -47,7 +47,7 @@ class MemoryManager:
             instance.memories_dir.mkdir(exist_ok=True)
             instance.file_path = instance.memories_dir / f"{agent_name}.json"
             instance.memories = {}
-            instance.load_memories()
+            instance.load()
             cls._instances[agent_name] = instance
         return cls._instances[agent_name]
 
@@ -65,13 +65,13 @@ class MemoryManager:
             self.memories[key] = Memory(key, value)
             status = f"Created new memory '{key}' for agent '{self.agent_name}'"
             
-        self.save_memories()
+        self.save()
         return {"status": "success", "message": status}
 
     def delete_memory(self, key: str) -> Dict:
         if key in self.memories:
             del self.memories[key]
-            self.save_memories()
+            self.save()
             return {"status": "success", "message": f"Deleted memory '{key}' for agent '{self.agent_name}'"}
         return {"status": "error", "message": f"Memory '{key}' not found for agent '{self.agent_name}'"}
 
@@ -86,12 +86,12 @@ class MemoryManager:
                 summary += f"  • {str(value)}\n"
         return summary
 
-    def save_memories(self):
+    def save(self):
         memories_data = {key: memory.to_dict() for key, memory in self.memories.items()}
         with open(self.file_path, "w", encoding='utf-8') as file:
             json.dump(memories_data, file, indent=4, ensure_ascii=False)
 
-    def load_memories(self):
+    def load(self):
         try:
             if self.file_path.exists():
                 with open(self.file_path, "r", encoding='utf-8') as file:
