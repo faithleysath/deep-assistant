@@ -2,7 +2,7 @@ import sqlite3
 from app.models import Message
 from app.config import config
 
-DB_PATH = 
+DB_PATH = config.get("db_path")
 
 def init_db():
     """初始化数据库"""
