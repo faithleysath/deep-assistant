@@ -104,15 +104,10 @@ class MemoryManager:
         self.load_memories()
         return {"status": "success", "message": "Memories loaded from file"}
 
-    def get_memory(self, key: str) -> Dict:
+    def get_memory(self, key: str) -> Memory:
         if key not in self.memories:
             raise KeyError(f"Memory '{key}' not found for agent '{self.agent_name}'")
-        return {
-            "key": self.memories[key].key,
-            "value": list(self.memories[key].value),
-            "created_at": self.memories[key].created_at,
-            "modified_at": self.memories[key].modified_at
-        }
+        return self.memories[key]
 
     def delete_memory(self, key: str) -> Dict:
         if key in self.memories:
