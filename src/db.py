@@ -72,8 +72,8 @@ def get_messages(limit: int = 100, uids: list[str] = None, types: list[str] = No
         
         cursor.execute(query, params)
         results = cursor.fetchall()
-        messages = []
-        return 
+        messages = [Message.from_dict(data) for _, _, _, _, _, _, data in results]
+        return messages
 
 # 初始化数据库
 init_db()
