@@ -28,6 +28,11 @@ async def send_messages(messages, tools=None):
     )
     return response.choices[0].message
 
+class Agent:
+    """基于llm的智能体代理"""
+    def __init__(self, agent_name):
+        
+
 # 多轮对话
 async def chat():
     messages = [
