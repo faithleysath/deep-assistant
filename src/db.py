@@ -1,5 +1,6 @@
 import sqlite3
 from pathlib import Path
+from .models import Message
 
 DB_PATH = "messages.db"
 
@@ -70,7 +71,9 @@ def get_messages(limit: int = 100, uids: list[str] = None, types: list[str] = No
         params.append(limit)
         
         cursor.execute(query, params)
-        return cursor.fetchall()
+        results = cursor.fetchall()
+        messages = []
+        return 
 
 # 初始化数据库
 init_db()
