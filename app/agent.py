@@ -45,10 +45,11 @@ class Agent:
         """思考一个回合"""
         # 构建messages列表，包括自身设定，自身记忆，历史消息
         messages = [
-            {"role": "system", "content": self.uniform_prompt},
-            {"role": "system", "content": self.special_prompts},
-            {"role": "system", "content": self.memory_manager.get_summary()},
+            {"role": "system", "content": f"{self.uniform_prompt}\n{self.special_prompts}"},
         ]
+        memory_summary = self.memory_manager.get_summary()
+        if memory_summary:
+            messages.append({"role": "system", "content": memory_summary})
         messages.extend(messages_history)
         # 发送消息并获取响应
         response = await send_messages(messages)
