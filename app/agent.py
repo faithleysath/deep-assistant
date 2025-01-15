@@ -43,7 +43,12 @@ class Agent:
     
     async def think_once(self, messages_history):
         """思考一个回合"""
-
+        # 构建messages列表，包括自身设定，自身记忆，历史消息
+        messages = [
+            {"role": "system", "content": self.uniform_prompt},
+            {"role": "system", "content": self.special_prompts},
+            {"role": "system", "content": self.memory_manager.get_summary()},
+        ]
 
 # 多轮对话
 async def chat():
