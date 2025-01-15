@@ -73,11 +73,6 @@ class MemoryManager:
         self.save_memories()
         return {"status": "success", "message": status}
 
-    def get_memory(self, key: str) -> Memory:
-        if key not in self.memories:
-            raise KeyError(f"Memory '{key}' not found for agent '{self.agent_name}'")
-        return self.memories[key]
-
     def save_memories(self, memories_dict: Optional[Dict[str, List[Union[str, dict, list, tuple]]]] = None) -> Dict:
         if memories_dict:
             for key, value in memories_dict.items():
