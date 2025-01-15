@@ -2,6 +2,7 @@ import asyncio
 from app.core import EventManager
 from app.models import PrivateMessageEvent
 from app.qqws import listen_message
+from app.config import config
 
 @EventManager.register()
 async def handle_message(event: Priv
