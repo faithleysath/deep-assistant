@@ -32,7 +32,7 @@ class ToolManager:
                                 self.tools.extend(module.tools)
                                 
                             # 收集工具实现
-                            if hasattr(module, 'export'):
+                            if hasattr(module, 'exports'):
                                 for func_name, func in module.export.items():
                                     if func_name in self.exports:
                                         raise ValueError(f"工具函数 {func_name} 已存在，请检查工具定义")
