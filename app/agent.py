@@ -4,6 +4,7 @@ from openai import OpenAI
 from app.tools import tool_manager
 from app.tools.builtin.memory import Memory, MemoryManager
 from app.config import config
+import os
 
 # 配置日志
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -33,6 +34,8 @@ class Agent:
     def __init__(self, agent_name):
         self.agent_name = agent_name
         self.memory_manager = MemoryManager(agent_name)
+        self.uniform_prompt = ""
+        with open()
 
 
 # 多轮对话
