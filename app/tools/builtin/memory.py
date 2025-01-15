@@ -53,6 +53,11 @@ class MemoryManager:
 
     def save_memory(self, key: str, value: List[Union[str, dict, list, tuple]], 
                    override: bool = False) -> Dict:
+        if not key or not isinstance(key, str):
+            raise ValueError("Key must be a non-empty string")
+        if value is None:
+            raise ValueError("Value cannot be None")
+            
         if not isinstance(value, list):
             value = [value]
         value = set(value)
@@ -67,6 +72,35 @@ class MemoryManager:
             
         self.save_memories()
         return {"status": "success", "message": status}
+
+    def get_memory(self, key: str) -> Memory:
+        if key not in self.memories:
+            raise KeyError(f"Memory '{key}' not found for agent '{self.agent_name}'")
+        return self.memories[key]
+
+    def save_memories(self, memories_dict: Optional[Dict[str, List[Union[str, dict, list, tuple]]]] = None):
+        if memories_dict:
+            for key, value in memories_dict.items():
+                self.save_memory(key, value)
+        self._save_to_file()
+
+    def delete_memories(self, keys: List[str]) -> Dict:
+        deleted_count = 0
+        for key in keys:
+            if key in self.memories:
+                del self.memories[key]
+                deleted_count += 1
+        if deleted_count > 0:
+            self._save_to_file()
+        return {"status": "success", "message": f"Deleted {deleted_count} memories"}
+
+    def _save_to_file(self):
+        memories_data = {key: memory.to_dict() for key, memory in self.memories.items()}
+        with open(self.file_path, "w", encoding='utf-8') as file:
+            json.dump(memories_data, file, indent=4, ensure_ascii=False)
+
+    def load_from_file(self):
+        self.load_memories()
 
     def delete_memory(self, key: str) -> Dict:
         if key in self.memories:
