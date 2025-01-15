@@ -35,11 +35,15 @@ class Agent:
         self.agent_name = agent_name
         self.memory_manager = MemoryManager(agent_name)
         self.uniform_prompt = ""
-        with open(os.path.join(os.path.dirname(__file__), "agents", 'uniform.txt'), "r", encoding='utf-8') as f:
-            self.uniform_prompt = f.read()
         self.special_prompts = ""
-        with open(os.path.join(os.path.dirname(__file__), "agents", self.agent_name + '.txt'), "r", encoding='utf-8') as f:
-            self.special_prompts = f.read()
+        uniform_path = os.path.join(os.path.dirname(__file__), "agents", 'uniform.txt')
+        if os.path.exists(uniform_path):
+            with open(uniform_path, "r", encoding='utf-8') as f:
+                self.uniform_prompt = f.read()
+        special_prompt_path = os.path.join(os.path.dirname(__file__), "agents", self.agent_name + '.txt')
+        if os.path.exists(special_prompt_path):
+            with open(special_prompt_path, "r", encoding='utf-8') as f:
+                self.special_prompts = f.read()
     
     async def think_once(self, messages_history):
         """思考一个回合"""
