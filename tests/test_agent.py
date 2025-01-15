@@ -31,8 +31,34 @@ class TestAgent(unittest.IsolatedAsyncioTestCase):
         self.client_patcher.stop()
     
     async def test_send_messages(self):
-        # Test send_messages function
-        pass
+        # Mock response
+        mock_response = AsyncMock()
+        mock_message = MagicMock()
+        mock_message.content = "Mocked response"
+        mock_message.tool_calls = None
+        mock_response.choices = [MagicMock(message=mock_message)]
+        self.mock_completion.create.return_value = mock_response
+        
+        # Test without tools
+        messages = [{"role": "user", "content": "Test message"}]
+        result = await send_messages(messages)
+        
+        # Verify
+        self.mock_completion.create.assert_called_once_with(
+            model="deepseek-chat",
+            messages=messages,
+            tools=None
+        )
+        self.assertEqual(result.content, "Mocked response")
+        
+        # Test with tools
+        mock_tools = [{"name": "mock_tool"}]
+        await send_messages(messages, tools=mock_tools)
+        self.mock_completion.create.assert_called_with(
+            model="deepseek-chat",
+            messages=messages,
+            tools=mock_tools
+        )
         
     async def test_agent_think_once(self):
         # Test Agent.think_once method
