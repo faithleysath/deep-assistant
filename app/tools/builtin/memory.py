@@ -14,41 +14,7 @@ plugin_metadata = {
         "storage_path": "memories",
         "max_memory_size": "10MB",
         "auto_save": True
-    },
-    "function_calls": [
-        {
-            "name": "save_memory",
-            "description": "Save a memory for the current agent",
-            "parameters": {
-                "agent_name": "string",
-                "key": "string",
-                "value": "array",
-                "override": "boolean"
-            }
-        },
-        {
-            "name": "delete_memory",
-            "description": "Delete a memory for the current agent",
-            "parameters": {
-                "agent_name": "string",
-                "key": "string"
-            }
-        }
-    ],
-    "exports": [
-        {
-            "name": "save_memory",
-            "description": "Save a memory for the current agent"
-        },
-        {
-            "name": "delete_memory",
-            "description": "Delete a memory for the current agent"
-        },
-        {
-            "name": "get_summary",
-            "description": "Get summary of all memories for the current agent"
-        }
-    ]
+    }
 }
 
 import json
