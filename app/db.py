@@ -5,7 +5,21 @@ from app.config import config
 DB_PATH = config.get("db_path")
 
 def init_db():
-    """初始化数据库"""
+    """初始化数据库连接并创建消息表。
+    
+    如果数据库文件不存在则创建，如果消息表已存在则先删除再创建。
+    表结构包含以下字段：
+        - id: 自增主键
+        - message_id: 消息唯一标识
+        - user_id: 用户ID
+        - type: 消息类型
+        - timestamp: 时间戳
+        - raw_message: 原始消息内容
+        - data: 附加数据
+        
+    示例：
+        >>> init_db()  # 初始化数据库
+    """
     
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
@@ -24,7 +38,22 @@ def init_db():
         conn.commit()
 
 def save_message(message_id: str, user_id: str, type: str, timestamp: int, raw_message: str, data: str):
-    """保存消息到数据库"""
+    """将消息保存到数据库。
+    
+    Args:
+        message_id (str): 消息唯一标识
+        user_id (str): 发送消息的用户ID
+        type (str): 消息类型
+        timestamp (int): 消息时间戳
+        raw_message (str): 原始消息内容
+        data (str): 附加数据，通常为JSON格式
+        
+    Returns:
+        None
+        
+    示例：
+        >>> save_message("msg123", "user456", "text", 1698765432, "Hello", "{}")
+    """
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
         cursor.execute("""
@@ -34,20 +63,33 @@ def save_message(message_id: str, user_id: str, type: str, timestamp: int, raw_m
         conn.commit()
 
 def get_messages(limit: int = 100, uids: list[str] = None, types: list[str] = None) -> list[tuple[int, str, str, str, int, str, str]]:
-    """获取最近的消息
+    """从数据库获取消息记录。
+    
     Args:
-        limit: 返回消息数量限制
-        uids: 筛选指定用户ID列表
-        types: 筛选指定消息类型列表
+        limit (int): 返回消息数量限制，默认100
+        uids (list[str]): 筛选指定用户ID列表，可选
+        types (list[str]): 筛选指定消息类型列表，可选
+        
     Returns:
         list[tuple[int, str, str, str, int, str, str]]: 包含消息记录的元组列表，每个元组包含：
-            - id: int 消息ID
-            - message_id: str 消息唯一标识
-            - user_id: str 用户ID
-            - type: str 消息类型
-            - timestamp: int 时间戳
-            - raw_message: str 原始消息内容
-            - data: str 附加数据
+            - id (int): 消息ID
+            - message_id (str): 消息唯一标识
+            - user_id (str): 用户ID
+            - type (str): 消息类型
+            - timestamp (int): 时间戳
+            - raw_message (str): 原始消息内容
+            - data (str): 附加数据
+            
+    Raises:
+        sqlite3.Error: 如果数据库操作失败
+        
+    示例：
+        >>> # 获取最近100条消息
+        >>> messages = get_messages()
+        >>> # 获取用户user123的最近50条消息
+        >>> messages = get_messages(50, uids=["user123"])
+        >>> # 获取类型为text的最近10条消息
+        >>> messages = get_messages(10, types=["text"])
     """
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
