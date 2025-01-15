@@ -1,4 +1,4 @@
-import websockets
+import requests
 import json
 from app.models import Message, MessageEvent
 from app.core import EventManager
