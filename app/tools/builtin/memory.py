@@ -35,20 +35,7 @@ plugin_metadata = {
             }
         }
     ],
-    "exports": [
-        {
-            "name": "save_memory",
-            "description": "Save a memory for the current agent"
-        },
-        {
-            "name": "delete_memory",
-            "description": "Delete a memory for the current agent"
-        },
-        {
-            "name": "get_summary",
-            "description": "Get summary of all memories for the current agent"
-        }
-    ]
+    "exports": []
 }
 
 import json
