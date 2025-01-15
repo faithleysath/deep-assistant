@@ -14,15 +14,15 @@ client = OpenAI(
     base_url=config.get("BASE_URL"),
 )
 
-def send_messages(messages, tools=None):
+async def send_messages(messages, tools=None):
     """
     发送消息到 LLM 并获取响应。
     """
     if tools is None:
         tools = tool_manager.get_tools()
     
-    response = client.chat.completions.create(
-        model="deepseek-chat",
+    response = await client.chat.completions.create_async(
+        model="deepseek-chat", 
         messages=messages,
         tools=tools
     )
@@ -48,7 +48,7 @@ def chat():
         messages.append({"role": "user", "content": user_input})
 
         # 发送消息并获取响应
-        response = send_messages(messages, tools=tools)
+        response = await send_messages(messages, tools=tools)
 
         # 处理 LLM 的工具调用
         while response.tool_calls:
