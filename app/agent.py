@@ -66,3 +66,16 @@ class Agent:
                         tool_result = {"status": "error", "message": f"Unknown function: {function_name}"}
                 except Exception as e:
                     tool_result = {"status": "error", "message": str(e)}
+                
+                # 将工具调用结果添加到messages中
+                messages.append({
+                    "role": "tool",
+                    "content": json.dumps(tool_result),
+                    "tool_call_id": tool_call.id
+                })
+            
+            # 获取新的响应
+            response = await send_messages(messages)
+        
+        # 返回最终的响应内容
+        return response.content
