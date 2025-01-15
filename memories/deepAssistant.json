@@ -5,23 +5,23 @@
             "cat_names"
         ],
         "created_at": "2025-01-15T23:20:36.778218",
-        "modified_at": "2025-01-15T23:33:19.414007"
+        "modified_at": "2025-01-15T23:33:47.030256"
     },
     "user.name": {
         "key": "user.name",
         "value": [
             "吴天一"
         ],
-        "created_at": "2025-01-15T23:33:19.413504",
-        "modified_at": "2025-01-15T23:33:19.413504"
+        "created_at": "2025-01-15T23:33:47.027239",
+        "modified_at": "2025-01-15T23:33:47.027239"
     },
     "user.favorite_movies": {
         "key": "user.favorite_movies",
         "value": [
             "星际穿越"
         ],
-        "created_at": "2025-01-15T23:33:19.410001",
-        "modified_at": "2025-01-15T23:33:19.410001"
+        "created_at": "2025-01-15T23:33:47.028744",
+        "modified_at": "2025-01-15T23:33:47.028744"
     },
     "user.current_actions": {
         "key": "user.current_actions",
@@ -29,6 +29,6 @@
             "询问当前时间"
         ],
         "created_at": "2025-01-15T23:32:30.869849",
-        "modified_at": "2025-01-15T23:33:19.414521"
+        "modified_at": "2025-01-15T23:33:47.028744"
     }
 }
