@@ -2,12 +2,7 @@ import unittest
 import json
 import os
 from pathlib import Path
-from unittest.mock import patch
-import sys
-
-# 模拟导入，避免加载app/tools/__init__.py
-with patch.dict(sys.modules, {'app.tools': None}):
-    from app.tools.builtin.memory import MemoryManager
+from app.tools.builtin.memory import MemoryManager
 
 class TestMemoryManager(unittest.TestCase):
     def setUp(self):
