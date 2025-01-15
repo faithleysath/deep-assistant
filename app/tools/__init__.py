@@ -36,6 +36,12 @@ class ToolManager:
                                 module = importlib.import_module(f'app.tools.{plugin_dir}.{name}')
                             self.loaded_modules[name] = module
                             
+                            # 检查metadata中的enable字段
+                            if hasattr(module, 'metadata') and hasattr(module.metadata, 'enable'):
+                                if not module.metadata.enable:
+                                    logging.info(f"跳过未启用的工具模块: {name}")
+                                    continue
+                            
                             # 收集工具接口
                             if hasattr(module, 'tools'):
                                 self.tools.extend(module.tools)
