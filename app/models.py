@@ -148,7 +148,7 @@ class Message:
         elif message_type == MessageType.GROUP:
             return GroupMessage(message_id, user_id, group_id, timestamp, raw_message, segments)
         else:
-            return Message(message_id, user_id, message_type, timestamp, raw_message
+            return Message(message_id, user_id, message_type, timestamp, raw_message, segments)
 
     def __str__(self):
         return f"{self.type.name.capitalize()} message from {self.user_id}: {self.raw_message}"
