@@ -37,7 +37,9 @@ class Agent:
         self.uniform_prompt = ""
         with open(os.path.join(os.path.dirname(__file__), "agents", 'uniform.txt'), "r", encoding='utf-8') as f:
             self.uniform_prompt = f.read()
-        
+        self.special_prompts = ""
+        with open(os.path.join(os.path.dirname(__file__), "agents", self.agent_name + '.txt'), "r", encoding='utf-8') as f:
+            self.special_prompts = f.read()
 
 
 # 多轮对话
