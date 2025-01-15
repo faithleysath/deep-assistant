@@ -167,7 +167,5 @@ exports = {
     "save_memory": lambda agent_name, key, value, override=False: 
         MemoryManager(agent_name).save_memory(key, value, override),
     "delete_memory": lambda agent_name, key: 
-        MemoryManager(agent_name).delete_memory(key),
-    "get_summary": lambda agent_name: 
-        MemoryManager(agent_name).get_summary()
+        MemoryManager(agent_name).delete_memory(key)
 }
