@@ -44,7 +44,7 @@ class MemoryManager:
             instance = super().__new__(cls)
             instance.agent_name = agent_name
             instance.memories_dir = Path(memories_dir)
-            instance.memories_dir.mkdir(exist_ok=True)
+            instance.memories_dir.mkdir(parents=True, exist_ok=True)
             instance.file_path = instance.memories_dir / f"{agent_name}.json"
             instance.memories = {}
             instance.load()
