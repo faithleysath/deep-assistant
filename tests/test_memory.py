@@ -58,5 +58,54 @@ class TestMemoryManager(unittest.TestCase):
         if self.manager.file_path.exists():
             self.manager.file_path.unlink()
 
+    def test_memory_with_different_value_types(self):
+        # 测试不同类型value
+        mem1 = Memory("key1", "string_value")
+        mem2 = Memory("key2", 123)
+        mem3 = Memory("key3", [1, 2, 3])
+        
+        self.assertEqual(mem1.value, "string_value")
+        self.assertEqual(mem2.value, 123)
+        self.assertEqual(mem3.value, [1, 2, 3])
+
+    def test_memory_manager_exceptions(self):
+        # 测试异常情况
+        with self.assertRaises(ValueError):
+            self.manager.save_memory(None, "value")
+            
+        with self.assertRaises(ValueError):
+            self.manager.save_memory("key", None)
+            
+        with self.assertRaises(KeyError):
+            self.manager.get_memory("non_existent_key")
+
+    def test_memory_persistence(self):
+        # 测试持久化功能
+        self.manager.save_memory("persistent_key", "persistent_value")
+        self.manager.save_to_file()
+        
+        new_manager = MemoryManager("test_agent")
+        new_manager.load_from_file()
+        self.assertEqual(new_manager.get_memory("persistent_key").value, "persistent_value")
+
+    def test_update_memory(self):
+        # 测试更新记忆
+        self.manager.save_memory("update_key", "old_value")
+        self.manager.save_memory("update_key", "new_value")
+        self.assertEqual(self.manager.get_memory("update_key").value, "new_value")
+
+    def test_batch_operations(self):
+        # 测试批量操作
+        memories = {
+            "batch_key1": "value1",
+            "batch_key2": "value2",
+            "batch_key3": "value3"
+        }
+        self.manager.save_memories(memories)
+        self.assertEqual(len(self.manager.memories), 3)
+        
+        self.manager.delete_memories(["batch_key1", "batch_key2"])
+        self.assertEqual(len(self.manager.memories), 1)
+
 if __name__ == "__main__":
     unittest.main()
