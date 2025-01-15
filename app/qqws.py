@@ -1,4 +1,4 @@
-import requests
+import aiohttp
 import json
 from app.models import Message, MessageEvent
 from app.core import EventManager
