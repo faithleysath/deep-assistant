@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 
 # 初始化 OpenAI 客户端
 client = OpenAI(
-    api_key="sk-c5ea9ba45f3f4fdbb55c2d6a32399a57",
+    api_key=config.get("openai_api_key"),
     base_url="https://api.deepseek.com",
 )
 
