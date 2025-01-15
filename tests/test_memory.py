@@ -8,7 +8,7 @@ class TestMemoryManager(unittest.TestCase):
     def setUp(self):
         # 使用测试专用的agent名称
         self.agent_name = "test_agent"
-        self.memories_dir = "test_memories"
+        self.memories_dir = str(Path.cwd() / "test_memories")
         self.manager = MemoryManager(self.agent_name, self.memories_dir)
         self.test_file = Path(self.memories_dir) / f"{self.agent_name}.json"
         
