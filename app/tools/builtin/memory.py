@@ -15,8 +15,40 @@ plugin_metadata = {
         "max_memory_size": "10MB",
         "auto_save": True
     },
-    "function_calls": [],
-    "exports": []
+    "function_calls": [
+        {
+            "name": "save_memory",
+            "description": "Save a memory for the current agent",
+            "parameters": {
+                "agent_name": "string",
+                "key": "string",
+                "value": "array",
+                "override": "boolean"
+            }
+        },
+        {
+            "name": "delete_memory",
+            "description": "Delete a memory for the current agent",
+            "parameters": {
+                "agent_name": "string",
+                "key": "string"
+            }
+        }
+    ],
+    "exports": [
+        {
+            "name": "save_memory",
+            "description": "Save a memory for the current agent"
+        },
+        {
+            "name": "delete_memory",
+            "description": "Delete a memory for the current agent"
+        },
+        {
+            "name": "get_summary",
+            "description": "Get summary of all memories for the current agent"
+        }
+    ]
 }
 
 import json
@@ -112,16 +144,69 @@ class MemoryManager:
             logging.error(f"Error loading memories for agent {self.agent_name}: {str(e)}")
 
 # 插件接口
-tools = []
-
-def get_exports():
-    return {
-        "save_memory": lambda agent_name, key, value, override=False: 
-            MemoryManager(agent_name).save_memory(key, value, override),
-        "delete_memory": lambda agent_name, key: 
-            MemoryManager(agent_name).delete_memory(key),
-        "get_summary": lambda agent_name: 
-            MemoryManager(agent_name).get_summary()
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "save_memory",
+            "description": "Save a memory for the current agent",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "agent_name": {
+                        "type": "string",
+                        "description": "The name of the agent"
+                    },
+                    "key": {
+                        "type": "string",
+                        "description": "The key associated with the memory"
+                    },
+                    "value": {
+                        "type": "array",
+                        "items": {
+                            "type": ["string", "object", "array"]
+                        },
+                        "description": "The value(s) to store in memory"
+                    },
+                    "override": {
+                        "type": "boolean",
+                        "description": "If True, overwrite existing value",
+                        "default": False
+                    }
+                },
+                "required": ["agent_name", "key", "value"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "delete_memory",
+            "description": "Delete a memory for the current agent",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "agent_name": {
+                        "type": "string",
+                        "description": "The name of the agent"
+                    },
+                    "key": {
+                        "type": "string",
+                        "description": "The key associated with the memory"
+                    }
+                },
+                "required": ["agent_name", "key"]
+            }
+        }
     }
+]
 
-export = get_exports()
+# 导出工具函数
+export = {
+    "save_memory": lambda agent_name, key, value, override=False: 
+        MemoryManager(agent_name).save_memory(key, value, override),
+    "delete_memory": lambda agent_name, key: 
+        MemoryManager(agent_name).delete_memory(key),
+    "get_summary": lambda agent_name: 
+        MemoryManager(agent_name).get_summary()
+}

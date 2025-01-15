@@ -2,6 +2,7 @@ import os
 import importlib
 import pkgutil
 import logging
+from typing import Dict, List, Any, Callable
 
 class ToolManager:
     def __init__(self):
@@ -19,33 +20,29 @@ class ToolManager:
                     logging.warning(f"工具目录 {plugin_path} 不存在")
                     continue
                     
-            # 使用pkgutil遍历模块
-            for finder, name, ispkg in pkgutil.iter_modules([plugin_path]):
-                if not ispkg and not name.startswith('__'):
-                    if name in self.loaded_modules:
-                        continue  # 跳过已加载的模块
-                        
-                    try:
-                        # 动态加载模块
-                        module = importlib.import_module(f'app.tools.{plugin_dir}.{name}')
-                        self.loaded_modules[name] = module
-                        
-                        # 收集工具接口
-                        if hasattr(module, 'tools'):
-                            self.tools.extend(module.tools)
+                # 使用pkgutil遍历模块
+                for finder, name, ispkg in pkgutil.iter_modules([plugin_path]):
+                    if not ispkg and not name.startswith('__'):
+                        try:
+                            # 动态加载模块
+                            module = importlib.import_module(f'app.tools.{plugin_dir}.{name}')
+                            self.loaded_modules[name] = module
                             
-                        # 收集工具实现
-                        if hasattr(module, 'export'):
-                            for func_name, func in module.export.items():
-                                if func_name in self.exports:
-                                    logging.warning(f"工具函数 {func_name} 已存在，跳过重复定义")
-                                    continue
-                                self.exports[func_name] = func
+                            # 收集工具接口
+                            if hasattr(module, 'tools'):
+                                self.tools.extend(module.tools)
                                 
-                    except ImportError as e:
-                        logging.error(f"无法导入工具模块 {name}: {str(e)}")
-                    except Exception as e:
-                        logging.error(f"加载工具模块 {name} 时发生错误: {str(e)}")
+                            # 收集工具实现
+                            if hasattr(module, 'export'):
+                                for func_name, func in module.export.items():
+                                    if func_name in self.exports:
+                                        raise ValueError(f"工具函数 {func_name} 已存在，请检查工具定义")
+                                    self.exports[func_name] = func
+                                    
+                        except ImportError as e:
+                            logging.error(f"无法导入工具模块 {name}: {str(e)}")
+                        except Exception as e:
+                            logging.error(f"加载工具模块 {name} 时发生错误: {str(e)}")
                             
             logging.info(f"成功加载 {len(self.tools)} 个工具接口和 {len(self.exports)} 个工具实现")
             return True
