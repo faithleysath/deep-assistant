@@ -2,7 +2,7 @@ import sqlite3
 from app.models import Message
 from app.config import config
 
-DB_PATH = config.get("db_path")
+DB_PATH = config.get("DB_PATH")
 
 def init_db():
     """初始化数据库连接并创建消息表。
