@@ -3,6 +3,7 @@ import json
 from app.models import Message, MessageEvent
 from app.core import EventManager
 from app.db import save_message
+from app.config import config
 
 # WebSocket 客户端逻辑
 async def listen_message():
