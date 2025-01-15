@@ -114,10 +114,6 @@ tools = [
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "agent_name": {
-                        "type": "string",
-                        "description": "The name of the agent"
-                    },
                     "key": {
                         "type": "string",
                         "description": "The key associated with the memory"
@@ -135,7 +131,7 @@ tools = [
                         "default": False
                     }
                 },
-                "required": ["agent_name", "key", "value"]
+                "required": ["key", "value"]
             }
         }
     },
@@ -147,16 +143,12 @@ tools = [
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "agent_name": {
-                        "type": "string",
-                        "description": "The name of the agent"
-                    },
                     "key": {
                         "type": "string",
                         "description": "The key associated with the memory"
                     }
                 },
-                "required": ["agent_name", "key"]
+                "required": ["key"]
             }
         }
     }
