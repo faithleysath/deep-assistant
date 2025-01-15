@@ -4,7 +4,7 @@ plugin_metadata = {
     "version": "1.1.0",
     "description": "Provides memory management capabilities for multiple agents",
     "author": "Cline",
-    "enabled": True,
+    "enabled": False,
     "features": [
         "Multi-agent memory isolation",
         "Persistent storage",
