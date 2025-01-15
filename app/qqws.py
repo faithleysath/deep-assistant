@@ -34,7 +34,7 @@ async def listen_message():
             print("连接已关闭")
 
 
-def send_private_msg(user_id: int, message: str) -> dict:
+async def send_private_msg(user_id: int, message: str) -> dict:
     """
     发送私聊消息
     
@@ -57,5 +57,6 @@ def send_private_msg(user_id: int, message: str) -> dict:
             }
         ]
     }
-    response = requests.post(url, json=payload)
-    return response.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, json=payload) as response:
+            return await response.json()
