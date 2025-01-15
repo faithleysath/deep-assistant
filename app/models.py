@@ -57,6 +57,10 @@ class DownloadEvent(Event):
         self.url = url
         self.path = path
 
+class UserMessageEvent(Event):
+    def __init__(self, **raw_data):
+        super().__init__(**raw_data)
+
 
 class MessageSegmentType(Enum):
     TEXT = "text"
