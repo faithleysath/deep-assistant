@@ -1,0 +1,13 @@
+"filename", "language", "Python", "comment", "blank", "total"
+"c:\Users\Matrix\Documents\proj\deep-assistant\app\__init__.py", "Python", 0, 0, 1, 1
+"c:\Users\Matrix\Documents\proj\deep-assistant\app\agent.py", "Python", 81, 10, 13, 104
+"c:\Users\Matrix\Documents\proj\deep-assistant\app\config.py", "Python", 47, 1, 8, 56
+"c:\Users\Matrix\Documents\proj\deep-assistant\app\core.py", "Python", 45, 0, 10, 55
+"c:\Users\Matrix\Documents\proj\deep-assistant\app\db.py", "Python", 92, 3, 21, 116
+"c:\Users\Matrix\Documents\proj\deep-assistant\app\main.py", "Python", 32, 0, 4, 36
+"c:\Users\Matrix\Documents\proj\deep-assistant\app\models.py", "Python", 159, 0, 35, 194
+"c:\Users\Matrix\Documents\proj\deep-assistant\app\qqws.py", "Python", 52, 4, 8, 64
+"c:\Users\Matrix\Documents\proj\deep-assistant\app\tools\__init__.py", "Python", 50, 7, 12, 69
+"c:\Users\Matrix\Documents\proj\deep-assistant\app\tools\builtin\memory.py", "Python", 159, 3, 15, 177
+"c:\Users\Matrix\Documents\proj\deep-assistant\tests\test_memory.py", "Python", -69, -18, -22, -109
+"Total", "-", 648, 10, 105, 763
