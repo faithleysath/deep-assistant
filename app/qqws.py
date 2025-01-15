@@ -56,5 +56,3 @@ async def send_private_msg(user_id: int, message: list[dict]) -> dict:
         await websocket.send(json.dumps(payload))
         response = await websocket.recv()
         return json.loads(response)
-
-async def send_message(message: str):
