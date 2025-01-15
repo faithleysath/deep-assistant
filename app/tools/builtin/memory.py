@@ -75,12 +75,16 @@ class MemoryManager:
             return {"status": "success", "message": f"Deleted memory '{key}' for agent '{self.agent_name}'"}
         return {"status": "error", "message": f"Memory '{key}' not found for agent '{self.agent_name}'"}
 
-    def get_summary(self) -> Dict:
-        return {
-            "agent_name": self.agent_name,
-            "total_memories": len(self.memories),
-            "all_memories": [memory.to_dict() for memory in self.memories.values()]
-        }
+    def get_summary(self) -> str:
+        summary = f"Agent: {self.agent_name}\n"
+        summary += f"Total Memories: {len(self.memories)}\n"
+        summary += "Memories:\n"
+        for memory in self.memories.values():
+            mem_data = memory.to_dict()
+            summary += f"- {mem_data['key']} (created: {mem_data['created_at']}, modified: {mem_data['modified_at']})\n"
+            for value in mem_data['value']:
+                summary += f"  • {str(value)}\n"
+        return summary
 
     def save_memories(self):
         memories_data = {key: memory.to_dict() for key, memory in self.memories.items()}
