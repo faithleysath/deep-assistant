@@ -60,6 +60,7 @@ class Agent:
         logging.warning(f"开始思考，历史消息: {messages_history}")
         # 构建messages列表，包括自身设定，自身记忆，历史消息
         messages = [
+            {"role": "system", "content": f"Current time: {datetime.now().isoformat()}"},  # 当前时间
             {"role": "system", "content": f"{self.uniform_prompt}\n{self.special_prompts}"},
             {"role": "system", "content": self.memory_manager.get_summary()},
         ]
