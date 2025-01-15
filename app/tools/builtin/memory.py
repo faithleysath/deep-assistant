@@ -62,8 +62,11 @@ class MemoryManager:
             value = [value]
         value = set(value)
         
-        if key in self.memories and not override:
-            self.memories[key].value.update(value)
+        if key in self.memories:
+            if override:
+                self.memories[key] = Memory(key, value)
+            else:
+                self.memories[key].value = value  # Replace instead of update
             self.memories[key].modified_at = datetime.now().isoformat()
             status = f"Updated memory '{key}' for agent '{self.agent_name}'"
         else:
