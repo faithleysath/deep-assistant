@@ -110,7 +110,7 @@ tools = [
         "type": "function",
         "function": {
             "name": "save_memory",
-            "description": "Save a memory for the current agent. Stores key-value pairs persistently, with optional override capability. Example: {'agent_name': 'chatbot1', 'key': 'user_preferences', 'value': ['dark_mode', 'notifications']}. Returns {'status': 'success/error', 'message': 'operation result'}",
+            "description": "Save a memory for the current agent. Stores key-value pairs persistently, with optional override capability. Key supports hierarchical format (e.g. 'user.preferences.theme'). Example: {'key': 'user.preferences.theme', 'value': ['dark_mode']}. Returns {'status': 'success/error', 'message': 'operation result'}",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -139,13 +139,13 @@ tools = [
         "type": "function",
         "function": {
             "name": "delete_memory",
-            "description": "Delete a memory for the current agent. Removes the specified key and its associated values from persistent storage. Example: {'agent_name': 'chatbot1', 'key': 'user_preferences'}. Returns {'status': 'success/error', 'message': 'operation result'}. Will return error if key not found",
+            "description": "Delete a memory for the current agent. Removes the specified key and its associated values from persistent storage. Key supports hierarchical format (e.g. 'user.preferences.theme'). Example: {'key': 'user.preferences.theme'}. Returns {'status': 'success/error', 'message': 'operation result'}. Will return error if key not found",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "key": {
                         "type": "string",
-                        "description": "The key associated with the memory"
+                        "description": "The key associated with the memory, supports hierarchical format (e.g. 'user.preferences.theme')"
                     }
                 },
                 "required": ["key"]
