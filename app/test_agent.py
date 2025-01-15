@@ -1,7 +1,11 @@
 import asyncio
+import logging
 from app.agent import Agent
 
 async def test_think_once():
+    # 设置日志级别为DEBUG
+    logging.basicConfig(level=logging.DEBUG)
+    
     # 创建一个测试agent
     agent = Agent("test_agent")
     
