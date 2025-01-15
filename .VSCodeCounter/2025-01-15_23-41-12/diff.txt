@@ -1,0 +1,42 @@
+Date : 2025-01-15 23:41:12
+Directory : c:\Users\Matrix\Documents\proj\deep-assistant\tests
+Total : 11 files,  -596 codes, -7 comments, -98 blanks, all -701 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Python   |         11 |       -596 |         -7 |        -98 |       -701 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                      | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                         |         11 |       -596 |         -7 |        -98 |       -701 |
+| . (Files)                                                                 |          1 |         69 |         18 |         22 |        109 |
+| ..                                                                        |         10 |       -665 |        -25 |       -120 |       -810 |
+| ..\app                                                                    |         10 |       -665 |        -25 |       -120 |       -810 |
+| ..\app (Files)                                                            |          8 |       -456 |        -15 |        -93 |       -564 |
+| ..\app\tools                                                              |          2 |       -209 |        -10 |        -27 |       -246 |
+| ..\app\tools (Files)                                                      |          1 |        -50 |         -7 |        -12 |        -69 |
+| ..\app\tools\builtin                                                      |          1 |       -159 |         -3 |        -15 |       -177 |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                  | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\Matrix\Documents\proj\deep-assistant\app\__init__.py             | Python   |          0 |          0 |         -1 |         -1 |
+| c:\Users\Matrix\Documents\proj\deep-assistant\app\agent.py                | Python   |        -80 |         -8 |        -13 |       -101 |
+| c:\Users\Matrix\Documents\proj\deep-assistant\app\config.py               | Python   |        -47 |         -1 |         -8 |        -56 |
+| c:\Users\Matrix\Documents\proj\deep-assistant\app\core.py                 | Python   |        -45 |          0 |        -10 |        -55 |
+| c:\Users\Matrix\Documents\proj\deep-assistant\app\db.py                   | Python   |        -92 |         -2 |        -21 |       -115 |
+| c:\Users\Matrix\Documents\proj\deep-assistant\app\main.py                 | Python   |        -11 |          0 |         -2 |        -13 |
+| c:\Users\Matrix\Documents\proj\deep-assistant\app\models.py               | Python   |       -154 |          0 |        -34 |       -188 |
+| c:\Users\Matrix\Documents\proj\deep-assistant\app\qqws.py                 | Python   |        -27 |         -4 |         -4 |        -35 |
+| c:\Users\Matrix\Documents\proj\deep-assistant\app\tools\__init__.py       | Python   |        -50 |         -7 |        -12 |        -69 |
+| c:\Users\Matrix\Documents\proj\deep-assistant\app\tools\builtin\memory.py | Python   |       -159 |         -3 |        -15 |       -177 |
+| c:\Users\Matrix\Documents\proj\deep-assistant\tests\test_memory.py        | Python   |         69 |         18 |         22 |        109 |
+| Total                                                                     |          |       -596 |         -7 |        -98 |       -701 |
++---------------------------------------------------------------------------+----------+------------+------------+------------+------------+
