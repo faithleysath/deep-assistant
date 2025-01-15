@@ -9,7 +9,7 @@ class ToolManager:
         self.exports = {}  # 所有工具实现
         self.loaded_modules = {}  # 已加载的模块
 
-    def load_tools(self, reload=False):
+    def load_tools(self):
         """加载所有工具插件
         Args:
             reload (bool): 是否强制重新加载所有工具模块
