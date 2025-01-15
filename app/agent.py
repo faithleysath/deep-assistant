@@ -10,8 +10,8 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 
 # 初始化 OpenAI 客户端
 client = OpenAI(
-    api_key=config.get("openai_api_key"),
-    base_url="https://api.deepseek.com",
+    api_key=config.get("api_key"),
+    base_url=config.get("BASE_URL"),
 )
 
 def send_messages(messages, tools=None):
