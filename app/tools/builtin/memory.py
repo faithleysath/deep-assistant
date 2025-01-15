@@ -115,7 +115,7 @@ tools = [
         "type": "function",
         "function": {
             "name": "save_memory",
-            "description": "Save a memory for the current agent. Stores key-value pairs persistently, with optional override capability. Key supports hierarchical format (e.g. 'user.favorite.movies'). Example: {'key': 'user.favorite.movies', 'value': ['Inception', 'The Matrix']}. Returns {'status': 'success/error', 'message': 'operation result'}",
+            "description": "Save a memory for the current agent. Stores key-value pairs persistently, with optional override capability. Key supports hierarchical format (e.g. 'user.favorite.movies').",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -144,7 +144,7 @@ tools = [
         "type": "function",
         "function": {
             "name": "delete_memory",
-            "description": "Delete a memory for the current agent. Removes the specified key and its associated values from persistent storage. Key supports hierarchical format (e.g. 'user.favorite.movies'). Example: {'key': 'user.favorite.movies'}. Returns {'status': 'success/error', 'message': 'operation result'}. Will return error if key not found",
+            "description": "Delete a memory for the current agent. Removes the specified key and its associated values from persistent storage.",
             "parameters": {
                 "type": "object",
                 "properties": {
