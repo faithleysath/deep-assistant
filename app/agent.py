@@ -50,6 +50,22 @@ class Agent:
             {"role": "system", "content": self.memory_manager.get_summary()},
         ]
         messages.extend(messages_history)
+        # 发送消息并获取响应
+        response = await send_messages(messages)
+        # 循环处理 LLM 的工具调用
+        while response.tool_calls:
+            messages.append(response)
+            for tool_call in response.tool_calls:
+                function_name = tool_call.function.name
+                function_args = json.loads(tool_call.function.arguments)
+                logging.warning(f"Calling function: {function_name} with args: {function_args}")
+                try:
+                    if function_name in tool_manager.exports:
+                        tool_result = tool_manager.exports[function_name](**function_args)
+                    else:
+                        tool_result = {"status": "error", "message": f"Unknown function: {function_name}"}
+                except Exception as e:
+                    tool_result = {"status": "error", "message": str(e)}
 
 # 多轮对话
 async def chat():
