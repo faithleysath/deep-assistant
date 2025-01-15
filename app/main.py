@@ -8,7 +8,7 @@ from app.config import config
 async def handle_user_message(event: PrivateMessageEvent):
     message = event.message
     if message.user_id == config.get("user_id"):
-        print("来自用户的消息", message.raw_message)
+        return
 
 loop = asyncio.get_event_loop()
 loop.create_task(listen_message())
