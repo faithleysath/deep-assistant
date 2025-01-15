@@ -1,5 +1,6 @@
 import aiohttp
 import json
+import websockets
 from app.models import Message, MessageEvent
 from app.core import EventManager
 from app.db import save_message
