@@ -8,7 +8,10 @@ from app.agent import Agent
 from app.db import get_messages
 
 def get_openai_messages(messages: List[Message]):
-    
+    results = []
+    for msg in messages:
+        if msg.user_id == config.get("assistant_id"):
+            results.append(
 
 @EventManager.register()
 async def handle_qq_message(event: PrivateMessageEvent):
