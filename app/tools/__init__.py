@@ -29,16 +29,12 @@ class ToolManager:
                     if not ispkg and not name.startswith('__'):
                         try:
                             # 动态加载模块
-                            # 如果模块已加载且不需要reload，则跳过
-                            if name in self.loaded_modules and not reload:
-                                module = self.loaded_modules[name]
+                            # 重新加载模块
+                            if name in self.loaded_modules:
+                                module = importlib.reload(self.loaded_modules[name])
                             else:
-                                # 重新加载模块
-                                if name in self.loaded_modules:
-                                    module = importlib.reload(self.loaded_modules[name])
-                                else:
-                                    module = importlib.import_module(f'app.tools.{plugin_dir}.{name}')
-                                self.loaded_modules[name] = module
+                                module = importlib.import_module(f'app.tools.{plugin_dir}.{name}')
+                            self.loaded_modules[name] = module
                             
                             # 收集工具接口
                             if hasattr(module, 'tools'):
