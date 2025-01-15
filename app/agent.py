@@ -1,6 +1,7 @@
 import json
 import logging
-from openai import OpenAI
+import asyncio
+from openai import AsyncOpenAI
 from app.tools import tool_manager
 from app.tools.builtin.memory import Memory, MemoryManager
 from app.config import config
@@ -10,7 +11,7 @@ import os
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # 初始化 OpenAI 客户端
-client = OpenAI(
+client = AsyncOpenAI(
     api_key=config.get("api_key"),
     base_url=config.get("BASE_URL"),
 )
@@ -22,11 +23,12 @@ async def send_messages(messages, tools=None):
     if tools is None:
         tools = tool_manager.tools
     
-    response = await client.chat.completions.create_async(
-        model="deepseek-chat", 
+    chat_completion = await client.chat.completions.create(
+        model="deepseek-chat",
         messages=messages,
         tools=tools
     )
+    return chat_completion.choices[0].message
     return response.choices[0].message
 
 class Agent:
