@@ -71,14 +71,7 @@ def get_messages(limit: int = 100, uids: list[str] = None, types: list[str] = No
         types (list[str]): 筛选指定消息类型列表，可选
         
     Returns:
-        list[tuple[int, str, str, str, int, str, str]]: 包含消息记录的元组列表，每个元组包含：
-            - id (int): 消息ID
-            - message_id (str): 消息唯一标识
-            - user_id (str): 用户ID
-            - type (str): 消息类型
-            - timestamp (int): 时间戳
-            - raw_message (str): 原始消息内容
-            - data (str): 附加数据
+        list[Message]: Message对象列表，包含解析后的消息数据
             
     Raises:
         sqlite3.Error: 如果数据库操作失败
