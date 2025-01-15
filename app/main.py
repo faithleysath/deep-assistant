@@ -12,6 +12,9 @@ def get_openai_messages(messages: List[Message]):
     for msg in messages:
         if msg.user_id == config.get("assistant_id"):
             results.append({"role": "assistant", "content": msg.raw_message})
+        elif msg.user_id == config.get("user_id"):
+            results.append({"role": "user", "content": msg.raw_message})
+    return results
 
 @EventManager.register()
 async def handle_qq_message(event: PrivateMessageEvent):
