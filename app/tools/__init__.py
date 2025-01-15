@@ -11,15 +11,11 @@ class ToolManager:
 
     def load_tools(self):
         """加载所有工具插件
-        Args:
-            reload (bool): 是否强制重新加载所有工具模块
         """
         try:
-            # 清空已有工具
-            if reload:
-                self.tools.clear()
-                self.exports.clear()
-                self.loaded_modules.clear()
+            self.tools.clear()
+            self.exports.clear()
+            self.loaded_modules.clear()
                 
             # 加载builtin和self_created目录下的工具
             for plugin_dir in ['builtin', 'self_created']:
