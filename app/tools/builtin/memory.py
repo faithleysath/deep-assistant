@@ -135,39 +135,6 @@ tools = [
     {
         "type": "function",
         "function": {
-            "name": "save_memory",
-            "description": "Save a memory for the current agent",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "agent_name": {
-                        "type": "string",
-                        "description": "The name of the agent"
-                    },
-                    "key": {
-                        "type": "string",
-                        "description": "The key associated with the memory"
-                    },
-                    "value": {
-                        "type": "array",
-                        "items": {
-                            "type": ["string", "object", "array"]
-                        },
-                        "description": "The value(s) to store in memory"
-                    },
-                    "override": {
-                        "type": "boolean",
-                        "description": "If True, overwrite existing value",
-                        "default": False
-                    }
-                },
-                "required": ["agent_name", "key", "value"]
-            }
-        }
-    },
-    {
-        "type": "function",
-        "function": {
             "name": "delete_memory",
             "description": "Delete a memory for the current agent",
             "parameters": {
