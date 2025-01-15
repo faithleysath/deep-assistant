@@ -88,6 +88,7 @@ class MemoryManager:
 
     def save(self):
         memories_data = {key: memory.to_dict() for key, memory in self.memories.items()}
+        self.file_path.parent.mkdir(parents=True, exist_ok=True)
         with open(self.file_path, "w", encoding='utf-8') as file:
             json.dump(memories_data, file, indent=4, ensure_ascii=False)
 
