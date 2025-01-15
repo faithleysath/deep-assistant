@@ -136,7 +136,10 @@ class Message:
         message_id = data.get("message_id", 0)
         user_id = data.get("user_id", 0)
         group_id = data.get("group_id", 0)
-        message_type = MessageType(data.get("message_type", "private"))
+        try:
+            message_type = MessageType(data.get("message_type", "unknown"))
+        except ValueError:
+            message_type = MessageType.UNKNOWN
         timestamp = data.get("time", 0)
         raw_message = data.get("raw_message", "")
         segments = [MessageSegment.from_dict(seg) for seg in data.get("message", [])]
@@ -144,6 +147,8 @@ class Message:
             return PrivateMessage(message_id, user_id, timestamp, raw_message, segments)
         elif message_type == MessageType.GROUP:
             return GroupMessage(message_id, user_id, group_id, timestamp, raw_message, segments)
+        else:
+            return Message(message_id, user_id, message_type, timestamp, raw_message
 
     def __str__(self):
         return f"{self.type.name.capitalize()} message from {self.user_id}: {self.raw_message}"
