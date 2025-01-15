@@ -62,7 +62,7 @@ def save_message(message_id: str, user_id: str, type: str, timestamp: int, raw_m
         """, (message_id, user_id, type, timestamp, raw_message, data))
         conn.commit()
 
-def get_messages(limit: int = 100, uids: list[str] = None, types: list[str] = None) -> list[tuple[int, str, str, str, int, str, str]]:
+def get_messages(limit: int = 100, uids: list[str] = None, types: list[str] = None) -> list[Message]:
     """从数据库获取消息记录。
     
     Args:
