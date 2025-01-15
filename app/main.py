@@ -2,7 +2,7 @@ import asyncio
 from typing import List
 from app.core import EventManager
 from app.models import PrivateMessageEvent, UserMessageEvent, Message
-from app.qqws import listen_message
+from app.qqws import listen_message, send_private_msg
 from app.config import config
 from app.agent import Agent
 from app.db import get_messages
@@ -28,7 +28,7 @@ async def handle_user_message(event: UserMessageEvent):
     messages = get_messages(uids=[config.get("user_id"), config.get("assistant_id")], types=["private"])
     openai_messages = get_openai_messages(messages)
     response = await agent.think_once(openai_messages)
-    print(response)
+    await send_private_msg(config.get("user_id"), response)
 
 loop = asyncio.get_event_loop()
 loop.create_task(listen_message())
