@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime
-from .memory import Memory, MemoryManager
+from app.tools.builtin.memory import Memory, MemoryManager
 
 class TestMemory(unittest.TestCase):
     def test_memory_creation(self):
