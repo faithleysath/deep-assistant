@@ -80,6 +80,11 @@ class MemoryManager:
         self._save_to_file()
         return {"status": "success", "message": f"Saved {len(memories_dict) if memories_dict else 0} memories"}
 
+    def save_to_file(self):
+        """Public method to save memories to file"""
+        self._save_to_file()
+        return {"status": "success", "message": "Memories saved to file"}
+
     def delete_memories(self, keys: List[str]) -> Dict:
         deleted_count = 0
         for key in keys:
