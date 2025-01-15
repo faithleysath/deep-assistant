@@ -17,16 +17,6 @@ plugin_metadata = {
     },
     "function_calls": [
         {
-            "name": "save_memory",
-            "description": "Save a memory for the current agent",
-            "parameters": {
-                "agent_name": "string",
-                "key": "string",
-                "value": "array",
-                "override": "boolean"
-            }
-        },
-        {
             "name": "delete_memory",
             "description": "Delete a memory for the current agent",
             "parameters": {
