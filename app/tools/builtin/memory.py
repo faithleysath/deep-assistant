@@ -136,7 +136,7 @@ tools = [
                         "default": False
                     }
                 },
-                "required": ["key", "value"]
+                "required": ["agent_name", "key", "value"]
             }
         }
     },
@@ -153,7 +153,7 @@ tools = [
                         "description": "The key associated with the memory, supports hierarchical format (e.g. 'user.preferences.theme')"
                     }
                 },
-                "required": ["key"]
+                "required": ["agent_name", "key"]
             }
         }
     }
