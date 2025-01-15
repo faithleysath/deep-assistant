@@ -4,7 +4,7 @@ from typing import Dict, Any
 from app.core import EventManager
 from app.agent import Agent
 import logging
-from dataclasses import dataclass
+from app.models import Event
 
 @dataclass
 class AgentMessageEvent:
