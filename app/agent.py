@@ -54,7 +54,7 @@ class Agent:
         ]
         messages.extend(messages_history)
         # 发送消息并获取响应
-        response = await send_messages(messages)
+        response = await send_messages(messages, tools=[])
         # 循环处理 LLM 的工具调用
         while response.tool_calls:
             messages.append(response)
