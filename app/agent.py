@@ -3,6 +3,7 @@ import logging
 from openai import OpenAI
 from src.tools import tool_manager
 from src.tools.builtin.memory import Memory, MemoryManager
+from app.config import config
 
 # 配置日志
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
