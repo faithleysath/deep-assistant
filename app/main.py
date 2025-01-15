@@ -10,11 +10,12 @@ from app.db import get_messages
 async def handle_qq_message(event: PrivateMessageEvent):
     message = event.message
     if message.user_id == config.get("user_id"):
-        return
+        await EventManager.add_event(UserMessageEvent())
     
 @EventManager.register()
 async def handle_user_message(event: UserMessageEvent):
     agent = Agent("deepAssistant")
+
 
 loop = asyncio.get_event_loop()
 loop.create_task(listen_message())
