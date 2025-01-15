@@ -78,11 +78,12 @@ class MemoryManager:
             raise KeyError(f"Memory '{key}' not found for agent '{self.agent_name}'")
         return self.memories[key]
 
-    def save_memories(self, memories_dict: Optional[Dict[str, List[Union[str, dict, list, tuple]]]] = None):
+    def save_memories(self, memories_dict: Optional[Dict[str, List[Union[str, dict, list, tuple]]]] = None) -> Dict:
         if memories_dict:
             for key, value in memories_dict.items():
                 self.save_memory(key, value)
         self._save_to_file()
+        return {"status": "success", "message": f"Saved {len(memories_dict) if memories_dict else 0} memories"}
 
     def delete_memories(self, keys: List[str]) -> Dict:
         deleted_count = 0
@@ -101,6 +102,17 @@ class MemoryManager:
 
     def load_from_file(self):
         self.load_memories()
+        return {"status": "success", "message": "Memories loaded from file"}
+
+    def get_memory(self, key: str) -> Dict:
+        if key not in self.memories:
+            raise KeyError(f"Memory '{key}' not found for agent '{self.agent_name}'")
+        return {
+            "key": self.memories[key].key,
+            "value": list(self.memories[key].value),
+            "created_at": self.memories[key].created_at,
+            "modified_at": self.memories[key].modified_at
+        }
 
     def delete_memory(self, key: str) -> Dict:
         if key in self.memories:
