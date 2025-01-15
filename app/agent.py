@@ -7,7 +7,7 @@ from app.config import config
 import os
 
 # 配置日志
-logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(level=logging.warning, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # 初始化 OpenAI 客户端
 client = AsyncOpenAI(
@@ -48,7 +48,7 @@ class Agent:
     
     async def think_once(self, messages_history):
         """思考一个回合"""
-        logging.debug(f"开始思考，历史消息: {messages_history}")
+        logging.warning(f"开始思考，历史消息: {messages_history}")
         # 构建messages列表，包括自身设定，自身记忆，历史消息
         messages = [
             {"role": "system", "content": f"{self.uniform_prompt}\n{self.special_prompts}"},
@@ -59,12 +59,12 @@ class Agent:
         response = await send_messages(messages)
         # 循环处理 LLM 的工具调用
         while response.tool_calls:
-            logging.debug(f"检测到工具调用，数量: {len(response.tool_calls)}")
+            logging.warning(f"检测到工具调用，数量: {len(response.tool_calls)}")
             messages.append(response)
             for tool_call in response.tool_calls:
                 function_name = tool_call.function.name
                 function_args = json.loads(tool_call.function.arguments)
-                logging.debug(f"开始处理工具调用 - 函数名: {function_name}, 参数: {function_args}")
+                logging.warning(f"开始处理工具调用 - 函数名: {function_name}, 参数: {function_args}")
                 logging.warning(f"Calling function: {function_name} with args: {function_args}")
                 try:
                     if function_name in tool_manager.exports:
@@ -75,7 +75,7 @@ class Agent:
                     tool_result = {"status": "error", "message": str(e)}
                 
                 # 将工具调用结果添加到messages中
-                logging.debug(f"工具调用结果: {tool_result}")
+                logging.warning(f"工具调用结果: {tool_result}")
                 messages.append({
                     "role": "tool",
                     "content": json.dumps(tool_result),
@@ -86,5 +86,5 @@ class Agent:
             response = await send_messages(messages)
         
         # 返回最终的响应内容
-        logging.debug(f"思考完成，响应内容: {response.content}")
+        logging.warning(f"思考完成，响应内容: {response.content}")
         return response.content
