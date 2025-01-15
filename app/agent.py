@@ -40,6 +40,9 @@ class Agent:
         self.special_prompts = ""
         with open(os.path.join(os.path.dirname(__file__), "agents", self.agent_name + '.txt'), "r", encoding='utf-8') as f:
             self.special_prompts = f.read()
+    
+    async def think_once(self, messages_history):
+        """思考一个回合"""
 
 
 # 多轮对话
