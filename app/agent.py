@@ -49,6 +49,7 @@ class Agent:
             {"role": "system", "content": self.special_prompts},
             {"role": "system", "content": self.memory_manager.get_summary()},
         ]
+        messages.extend(messages_history)
 
 # 多轮对话
 async def chat():
