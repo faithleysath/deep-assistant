@@ -25,7 +25,7 @@ async def handle_qq_message(event: PrivateMessageEvent):
 @EventManager.register()
 async def handle_user_message(event: UserMessageEvent):
     agent = Agent("deepAssistant")
-    messages = get_messages(uids=[config.get("user_id"), config.get("assistant_id")], types=["private"])
+    messages = get_messages(uids=[config.get("user_id"), config.get("assistant_id")], types=["private"], limit=20)
     openai_messages = get_openai_messages(messages)
     response = await agent.think_once(openai_messages)
     await send_private_msg(config.get("user_id"), response)
