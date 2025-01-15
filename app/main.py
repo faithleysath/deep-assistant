@@ -1,7 +1,7 @@
 import asyncio
-from src.core import EventManager
-from src.models import MessageEvent
-from src.qqws import listen_message
+from app.core import EventManager
+from app.models import MessageEvent
+from sapp.qqws import listen_message
 
 @EventManager.register()
 async def handle_message(event: MessageEvent):
