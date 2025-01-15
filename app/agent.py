@@ -35,7 +35,7 @@ class Agent:
     _instances = {}
 
     @classmethod
-    def get_instance(cls, agent_name):
+    def get_agent(cls, agent_name):
         """获取agent实例，如果已存在则直接返回，否则创建新实例"""
         if agent_name not in cls._instances:
             cls._instances[agent_name] = cls(agent_name)
