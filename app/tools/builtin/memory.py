@@ -74,7 +74,8 @@ class MemoryManager:
         return {"status": "success", "message": status}
 
     def save_memories(self, memories_dict: Optional[Dict[str, List[Union[str, dict, list, tuple]]]] = None) -> Dict:
-        if memories_dict:
+        """Save multiple memories at once"""
+        if memories_dict is not None:
             for key, value in memories_dict.items():
                 self.save_memory(key, value)
         self._save_to_file()
