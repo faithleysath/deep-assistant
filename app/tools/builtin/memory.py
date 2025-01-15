@@ -15,16 +15,7 @@ plugin_metadata = {
         "max_memory_size": "10MB",
         "auto_save": True
     },
-    "function_calls": [
-        {
-            "name": "delete_memory",
-            "description": "Delete a memory for the current agent",
-            "parameters": {
-                "agent_name": "string",
-                "key": "string"
-            }
-        }
-    ],
+    "function_calls": [],
     "exports": []
 }
 
