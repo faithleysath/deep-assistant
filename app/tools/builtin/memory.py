@@ -53,20 +53,12 @@ class MemoryManager:
 
     def save_memory(self, key: str, value: List[Union[str, dict, list, tuple]], 
                    override: bool = False) -> Dict:
-        if not key or not isinstance(key, str):
-            raise ValueError("Key must be a non-empty string")
-        if value is None:
-            raise ValueError("Value cannot be None")
-            
         if not isinstance(value, list):
             value = [value]
         value = set(value)
         
-        if key in self.memories:
-            if override:
-                self.memories[key] = Memory(key, value)
-            else:
-                self.memories[key].value = value  # Replace instead of update
+        if key in self.memories and not override:
+            self.memories[key].value.update(value)
             self.memories[key].modified_at = datetime.now().isoformat()
             status = f"Updated memory '{key}' for agent '{self.agent_name}'"
         else:
@@ -75,43 +67,6 @@ class MemoryManager:
             
         self.save_memories()
         return {"status": "success", "message": status}
-
-    def save_memories(self, memories_dict: Optional[Dict[str, List[Union[str, dict, list, tuple]]]] = None) -> Dict:
-        """Save multiple memories at once"""
-        if memories_dict is not None:
-            for key, value in memories_dict.items():
-                self.save_memory(key, value)
-        self._save_to_file()
-        return {"status": "success", "message": f"Saved {len(memories_dict) if memories_dict else 0} memories"}
-
-    def save_to_file(self):
-        """Public method to save memories to file"""
-        self._save_to_file()
-        return {"status": "success", "message": "Memories saved to file"}
-
-    def delete_memories(self, keys: List[str]) -> Dict:
-        deleted_count = 0
-        for key in keys:
-            if key in self.memories:
-                del self.memories[key]
-                deleted_count += 1
-        if deleted_count > 0:
-            self._save_to_file()
-        return {"status": "success", "message": f"Deleted {deleted_count} memories"}
-
-    def _save_to_file(self):
-        memories_data = {key: memory.to_dict() for key, memory in self.memories.items()}
-        with open(self.file_path, "w", encoding='utf-8') as file:
-            json.dump(memories_data, file, indent=4, ensure_ascii=False)
-
-    def load_from_file(self):
-        self.load_memories()
-        return {"status": "success", "message": "Memories loaded from file"}
-
-    def get_memory(self, key: str) -> Memory:
-        if key not in self.memories:
-            raise KeyError(f"Memory '{key}' not found for agent '{self.agent_name}'")
-        return self.memories[key]
 
     def delete_memory(self, key: str) -> Dict:
         if key in self.memories:
