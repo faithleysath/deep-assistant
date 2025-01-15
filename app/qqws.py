@@ -34,25 +34,28 @@ async def listen_message():
             print("连接已关闭")
 
 
-async def send_private_msg(user_id: int, message: list[dict]) -> dict:
+def send_private_msg(user_id: int, message: str) -> dict:
     """
     发送私聊消息
     
     Args:
         user_id: 接收者QQ号
-        message: 消息内容列表，每个元素是一个消息段
+        message: 消息内容字符串
         
     Returns:
         API响应结果
     """
-    async with websockets.connect(config.get("WS_URL")) as websocket:
-        payload = {
-            "action": "send_private_msg",
-            "params": {
-                "user_id": user_id,
-                "message": message
+    url = config.get("HTTP_URL") + "/send_private_msg"
+    payload = {
+        "user_id": user_id,
+        "message": [
+            {
+                "type": "text",
+                "data": {
+                    "text": message
+                }
             }
-        }
-        await websocket.send(json.dumps(payload))
-        response = await websocket.recv()
-        return json.loads(response)
+        ]
+    }
+    response = requests.post(url, json=payload)
+    return response.json()
