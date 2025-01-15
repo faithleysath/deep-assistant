@@ -9,9 +9,18 @@ class ToolManager:
         self.exports = {}  # 所有工具实现
         self.loaded_modules = {}  # 已加载的模块
 
-    def load_tools(self):
-        """加载所有工具插件"""
+    def load_tools(self, reload=False):
+        """加载所有工具插件
+        Args:
+            reload (bool): 是否强制重新加载所有工具模块
+        """
         try:
+            # 清空已有工具
+            if reload:
+                self.tools.clear()
+                self.exports.clear()
+                self.loaded_modules.clear()
+                
             # 加载builtin和self_created目录下的工具
             for plugin_dir in ['builtin', 'self_created']:
                 plugin_path = os.path.join(os.path.dirname(__file__), plugin_dir)
@@ -24,8 +33,16 @@ class ToolManager:
                     if not ispkg and not name.startswith('__'):
                         try:
                             # 动态加载模块
-                            module = importlib.import_module(f'app.tools.{plugin_dir}.{name}')
-                            self.loaded_modules[name] = module
+                            # 如果模块已加载且不需要reload，则跳过
+                            if name in self.loaded_modules and not reload:
+                                module = self.loaded_modules[name]
+                            else:
+                                # 重新加载模块
+                                if name in self.loaded_modules:
+                                    module = importlib.reload(self.loaded_modules[name])
+                                else:
+                                    module = importlib.import_module(f'app.tools.{plugin_dir}.{name}')
+                                self.loaded_modules[name] = module
                             
                             # 收集工具接口
                             if hasattr(module, 'tools'):
