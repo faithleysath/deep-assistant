@@ -82,7 +82,8 @@ class Agent:
                     "tool_call_id": tool_call.id
                 })
             
-            # 获取新的响应
+            # 更新messages记忆并重新发送消息
+            messages[1]["content"] = self.memory_manager.get_summary()
             response = await send_messages(messages)
         
         # 返回最终的响应内容
