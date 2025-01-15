@@ -31,7 +31,9 @@ async def send_messages(messages, tools=None):
 class Agent:
     """基于llm的智能体代理"""
     def __init__(self, agent_name):
-        
+        self.agent_name = agent_name
+        self.memory_manager = MemoryManager(agent_name)
+
 
 # 多轮对话
 async def chat():
