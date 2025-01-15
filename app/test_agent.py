@@ -11,7 +11,7 @@ async def test_think_once():
     
     # 准备测试消息历史
     messages_history = [
-        {"role": "user", "content": "你好，请帮我查询北京的天气"}
+        {"role": "user", "content": "你好"}
     ]
     
     # 调用think_once方法
