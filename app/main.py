@@ -3,6 +3,7 @@ from app.core import EventManager
 from app.models import PrivateMessageEvent, UserMessageEvent
 from app.qqws import listen_message
 from app.config import config
+from app.agent import Agent
 
 @EventManager.register()
 async def handle_qq_message(event: PrivateMessageEvent):
