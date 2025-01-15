@@ -1,6 +1,5 @@
 import json
 import logging
-import asyncio
 from openai import AsyncOpenAI
 from app.tools import tool_manager
 from app.tools.builtin.memory import Memory, MemoryManager
