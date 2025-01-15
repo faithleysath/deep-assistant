@@ -1,3 +1,4 @@
+import json
 import sqlite3
 from app.models import Message
 from app.config import config
@@ -107,7 +108,7 @@ def get_messages(limit: int = 100, uids: list[str] = None, types: list[str] = No
         
         cursor.execute(query, params)
         results = cursor.fetchall()
-        messages = [Message.from_dict(data) for _, _, _, _, _, _, data in results]
+        messages = [Message.from_dict(json.loads(data)) for _, _, _, _, _, _, data in results]
         return messages
 
 # 初始化数据库
