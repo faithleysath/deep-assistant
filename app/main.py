@@ -13,6 +13,7 @@ async def handle_qq_message(event: PrivateMessageEvent):
     
 @EventManager.register()
 async def handle_user_message(event: UserMessageEvent):
+    agent = Agent("master")
 
 loop = asyncio.get_event_loop()
 loop.create_task(listen_message())
