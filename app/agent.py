@@ -35,7 +35,7 @@ class Agent:
         self.agent_name = agent_name
         self.memory_manager = MemoryManager(agent_name)
         self.uniform_prompt = ""
-        with open(os.path.join(os.path.dirname(__file__), "prompt.txt"), "r") as f:
+        with open(os.path.join(os.path.dirname(__file__), "agents", 'uniform.txt'), "r") as f:
             self.uniform_prompt = f.read()
 
 
