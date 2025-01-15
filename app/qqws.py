@@ -8,7 +8,7 @@ from app.config import config
 # WebSocket 客户端逻辑
 async def listen_message():
     # 连接到 WebSocket 服务器
-    async with websockets.connect("ws://192.168.137.199:3001/") as websocket:
+    async with websockets.connect(config.get("WS_URL")) as websocket:
         print("已连接到 WebSocket 服务器 ws://192.168.137.199:3001/")
 
         # 持续接收消息并输出
