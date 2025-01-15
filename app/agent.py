@@ -29,7 +29,6 @@ async def send_messages(messages, tools=None):
         tools=tools
     )
     return chat_completion.choices[0].message
-    return response.choices[0].message
 
 class Agent:
     """基于llm的智能体代理"""
