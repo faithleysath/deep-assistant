@@ -178,6 +178,8 @@ class MessageEvent(Event):
             return PrivateMessageEvent(message)
         elif message.type == MessageType.GROUP:
             return GroupMessageEvent(message)
+        else:
+            return MessageEvent(message)
 
 class PrivateMessageEvent(MessageEvent):
     def __init__(self, message: PrivateMessage, **raw_data):
